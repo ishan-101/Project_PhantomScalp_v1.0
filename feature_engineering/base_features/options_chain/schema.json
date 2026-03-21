@@ -1,0 +1,156 @@
+{
+  "family": "options_chain",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "opt__spot",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "forward_fill_then_zero",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Underlying spot price for the option chain snapshot."
+    },
+    {
+      "name": "opt__nearest_oi_call",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Open interest of the nearest at-the-money call option."
+    },
+    {
+      "name": "opt__nearest_oi_put",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Open interest of the nearest at-the-money put option."
+    },
+    {
+      "name": "opt__total_oi_calls",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Total call open interest aggregated across strikes."
+    },
+    {
+      "name": "opt__total_oi_puts",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Total put open interest aggregated across strikes."
+    },
+    {
+      "name": "opt__call_put_oi_ratio",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "compute_else_0.5",
+      "default_fill": 0.5,
+      "tier": 2,
+      "description": "Ratio of call open interest to total call plus put open interest."
+    },
+    {
+      "name": "opt__best_bid_iv",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_nearest_else_prev",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Implied volatility at best bid for the nearest maturity."
+    },
+    {
+      "name": "opt__best_ask_iv",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_nearest_else_prev",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Implied volatility at best ask for the nearest maturity."
+    },
+    {
+      "name": "opt__oi_change",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "compute_else_zero",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Change in total open interest relative to the previous snapshot."
+    },
+    {
+      "name": "opt__volume_calls",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Executed volume for call options."
+    },
+    {
+      "name": "opt__volume_puts",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Executed volume for put options."
+    },
+    {
+      "name": "opt__iv_crush_detector",
+      "family": "options_chain",
+      "dtype": "bool",
+      "expected_range": [false, true],
+      "null_policy": "false_if_missing",
+      "default_fill": false,
+      "tier": 2,
+      "description": "Flag indicating sudden compression in implied volatility levels."
+    },
+    {
+      "name": "opt__trade_size_by_moneyness_proxy",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Trade size distribution weighted by a moneyness proxy."
+    },
+    {
+      "name": "opt__implied_vol_slope",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "compute_else_zero",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Local slope of implied volatility across adjacent strikes."
+    },
+    {
+      "name": "opt__option_flow_imbalance",
+      "family": "options_chain",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Signed option notional flow with calls positive and puts negative."
+    }
+  ]
+}

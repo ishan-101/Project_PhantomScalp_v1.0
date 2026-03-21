@@ -1,0 +1,18 @@
+maturity_windows_days:
+  - label: ultra_short
+    max_days: 7
+  - label: short
+    max_days: 30
+  - label: medium
+    max_days: 90
+  - label: long
+    max_days: 180
+  - label: extended
+    max_days: null
+
+ordering:
+  - ultra_short
+  - short
+  - medium
+  - long
+  - extended
