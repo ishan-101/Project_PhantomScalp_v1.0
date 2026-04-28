@@ -154,7 +154,13 @@ def _has_prior_step_provenance(cfg: Dict[str, Any], step_name: str, partition_da
     return False
 
 
-def _validate_output_integrity(cfg: Dict[str, Any], step: StepSpec, partition_date: str) -> Tuple[bool, Dict[str, Any]]:
+def _validate_output_integrity(
+    cfg: Dict[str, Any],
+    step: StepSpec,
+    partition_date: str,
+    *,
+    runtime_provenance_validated: bool = False,
+) -> Tuple[bool, Dict[str, Any]]:
     output_path = _step_output_path(cfg, step, partition_date)
     diagnostics: Dict[str, Any] = {
         "output_path": str(output_path),
@@ -181,7 +187,9 @@ def _validate_output_integrity(cfg: Dict[str, Any], step: StepSpec, partition_da
     diagnostics["parquet_non_empty"] = row_count > 0
     diagnostics["corruption_check_passed"] = row_count > 0
     diagnostics["manifest_entry_exists"] = _manifest_has_entry_for_step(cfg, step, partition_date, output_path)
-    diagnostics["provenance_exists"] = _has_prior_step_provenance(cfg, step.step_name, partition_date)
+    diagnostics["provenance_exists"] = _has_prior_step_provenance(cfg, step.step_name, partition_date) or bool(
+        runtime_provenance_validated
+    )
 
     passed = all(
         [
@@ -279,13 +287,17 @@ def run_engine(partition_date: Optional[str] = None, fail_step: Optional[str] = 
                     f"expected={resolved_partition}, got={actual_partition}"
                 )
 
-            output_ok, output_diag_after = _validate_output_integrity(cfg, step, resolved_partition)
-            if not output_ok:
-                raise RuntimeError(f"Post-run validation failed for {step.step_name}: {output_diag_after}")
-
             provenance_record = step_result.get("provenance")
             if not isinstance(provenance_record, dict) or not prov.validate_provenance_schema(provenance_record):
                 raise RuntimeError(f"Invalid provenance record for {step.step_name}")
+            output_ok, output_diag_after = _validate_output_integrity(
+                cfg,
+                step,
+                resolved_partition,
+                runtime_provenance_validated=True,
+            )
+            if not output_ok:
+                raise RuntimeError(f"Post-run validation failed for {step.step_name}: {output_diag_after}")
 
             completed_steps.append(step.step_name)
             print(f"[MASTER] completed {step.step_name}")
