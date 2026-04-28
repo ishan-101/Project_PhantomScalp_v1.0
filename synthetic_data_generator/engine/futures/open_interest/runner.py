@@ -181,4 +181,3 @@ def run_engine(partition_date: str | None = None) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     print(json.dumps(run_engine(), indent=2, default=str))
-
