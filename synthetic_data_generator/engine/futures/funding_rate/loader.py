@@ -88,6 +88,14 @@ def _validate_tick_df(df: pd.DataFrame, dataset_name: str) -> pd.DataFrame:
 
     validated = df.copy(deep=True)
     validated["meta__timestamp"] = pd.to_datetime(validated["meta__timestamp"], utc=True)
+    try:
+        validated["meta__sequence_id"] = validated["meta__sequence_id"].astype("int64")
+    except Exception as exc:
+        raise FundingRateLoaderError(f"{dataset_name}: meta__sequence_id cannot be coerced to int64") from exc
+
+    if validated[required_cols].isna().any().any():
+        counts = {c: int(validated[c].isna().sum()) for c in required_cols if int(validated[c].isna().sum()) > 0}
+        raise FundingRateLoaderError(f"Invalid schema for {dataset_name}: required nulls detected {counts}")
 
     if not validated["meta__timestamp"].is_monotonic_increasing:
         raise FundingRateLoaderError(
@@ -111,6 +119,7 @@ def _validate_oi_df(df: pd.DataFrame) -> pd.DataFrame:
         "meta__sequence_id",
         "fut__open_interest",
         "fut__oi_change",
+        "fut__oi_zscore",
     ]
     missing = [c for c in required_cols if c not in df.columns]
     if missing:

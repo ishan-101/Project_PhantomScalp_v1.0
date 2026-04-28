@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-import json
-from pathlib import Path
-from typing import Dict, List
+from typing import List
 
 import pandas as pd
 
@@ -19,25 +17,31 @@ REQUIRED_FUNDING_COLUMNS: List[str] = [
     "fut__funding_rate",
     "fut__funding_rate_change",
     "fut__funding_rate_velocity",
+    "fut__funding_rate_acceleration",
     "fut__funding_rate_zscore",
+    "fut__funding_pressure_index",
+    "fut__funding_extreme_flag",
+    "fut__funding_oi_stress",
+    "fut__funding_rate_regime_flag",
+]
+
+FLOAT32_COLUMNS: List[str] = [
+    "fut__funding_rate",
+    "fut__funding_rate_change",
+    "fut__funding_rate_velocity",
+    "fut__funding_rate_acceleration",
+    "fut__funding_rate_zscore",
+    "fut__funding_pressure_index",
+    "fut__funding_oi_stress",
+]
+
+
+DEPRECATED_COLUMNS = {
     "fut__funding_oi_divergence",
     "fut__funding_price_divergence",
     "fut__predicted_funding_shift",
     "fut__funding_stress_score",
-    "fut__funding_regime_flag",
-]
-
-FEATURE_COLUMNS: List[str] = [c for c in REQUIRED_FUNDING_COLUMNS if c.startswith("fut__")]
-
-
-def _load_futures_base_schema() -> Dict:
-    schema_path = (
-        Path(__file__).resolve().parents[1]
-        / "schema"
-        / "Futures Base Schema V1 0 · json"
-    )
-    with schema_path.open("r", encoding="utf-8") as fh:
-        return json.load(fh)
+}
 
 
 def validate_funding_rate_df(df: pd.DataFrame) -> bool:
@@ -45,39 +49,48 @@ def validate_funding_rate_df(df: pd.DataFrame) -> bool:
     if missing:
         raise FundingRateValidationError(f"Missing required columns: {missing}")
 
+    extra = [c for c in df.columns if c not in REQUIRED_FUNDING_COLUMNS]
+    if extra:
+        raise FundingRateValidationError(f"Unexpected non-schema columns present: {extra}")
+
+    deprecated_present = sorted(DEPRECATED_COLUMNS.intersection(set(df.columns)))
+    if deprecated_present:
+        raise FundingRateValidationError(f"Deprecated funding columns present: {deprecated_present}")
+
     ts = df["meta__timestamp"]
-    if not pd.api.types.is_datetime64_any_dtype(ts):
-        raise FundingRateValidationError("meta__timestamp must be datetime dtype")
-    if getattr(ts.dtype, "tz", None) is None:
-        raise FundingRateValidationError("meta__timestamp must be UTC tz-aware")
-    if str(getattr(ts.dtype, "tz", "")) != "UTC":
-        raise FundingRateValidationError("meta__timestamp timezone must be UTC")
+    if str(ts.dtype) != "datetime64[ns, UTC]":
+        raise FundingRateValidationError(f"meta__timestamp must be datetime64[ns, UTC], got {ts.dtype}")
 
     seq = df["meta__sequence_id"]
     if str(seq.dtype) != "int64":
-        raise FundingRateValidationError("meta__sequence_id must be int64")
+        raise FundingRateValidationError(f"meta__sequence_id must be int64, got {seq.dtype}")
 
     if not ts.is_monotonic_increasing:
         raise FundingRateValidationError("meta__timestamp must be monotonic increasing")
     if not seq.is_monotonic_increasing:
         raise FundingRateValidationError("meta__sequence_id must be monotonic increasing")
 
+    tuple_idx = pd.MultiIndex.from_arrays([ts, seq])
+    if not tuple_idx.is_monotonic_increasing:
+        raise FundingRateValidationError("(meta__timestamp, meta__sequence_id) must be monotonic increasing")
+
     null_counts = df[REQUIRED_FUNDING_COLUMNS].isna().sum()
     non_zero_nulls = {k: int(v) for k, v in null_counts.items() if int(v) > 0}
     if non_zero_nulls:
         raise FundingRateValidationError(f"Zero-null policy violated: {non_zero_nulls}")
 
-    for col in FEATURE_COLUMNS:
+    for col in FLOAT32_COLUMNS:
         if str(df[col].dtype) != "float32":
             raise FundingRateValidationError(f"{col} must be float32, got {df[col].dtype}")
 
-    schema = _load_futures_base_schema()
-    rules = schema.get("validation_rules", {})
-    if not rules.get("strict_dtype_enforcement", False):
-        raise FundingRateValidationError("Futures base schema does not enforce strict dtypes")
-    if not rules.get("fail_on_null", False):
-        raise FundingRateValidationError("Futures base schema does not enforce null-fail")
-    if not rules.get("fail_on_non_monotonic_sequence", False):
-        raise FundingRateValidationError("Futures base schema does not enforce monotonic sequence")
+    if str(df["fut__funding_extreme_flag"].dtype) != "bool":
+        raise FundingRateValidationError(
+            f"fut__funding_extreme_flag must be bool, got {df['fut__funding_extreme_flag'].dtype}"
+        )
+
+    if str(df["fut__funding_rate_regime_flag"].dtype) != "int32":
+        raise FundingRateValidationError(
+            f"fut__funding_rate_regime_flag must be int32, got {df['fut__funding_rate_regime_flag'].dtype}"
+        )
 
     return True

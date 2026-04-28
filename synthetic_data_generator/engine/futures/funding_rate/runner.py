@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import json
+import os
+import sys
 import time
 from pathlib import Path
 from typing import Any, Dict
-import os
-import sys
 
 import pandas as pd
 
@@ -23,19 +23,18 @@ from synthetic_data_generator.engine.meta_provenance import schema_validator as 
 from synthetic_data_generator.engine.utils.io_writer import ParquetWriter
 from synthetic_data_generator.engine.utils.sequence_id import SequenceID
 
-from synthetic_data_generator.engine.futures.funding_rate.loader import load_source_parquets
 from synthetic_data_generator.engine.futures.funding_rate.cleaner import clean_source_frames
-from synthetic_data_generator.engine.futures.funding_rate.funding_rate_engine import add_funding_rate
+from synthetic_data_generator.engine.futures.funding_rate.funding_extreme_flag_engine import add_funding_extreme_flag
+from synthetic_data_generator.engine.futures.funding_rate.funding_oi_stress_engine import add_funding_oi_stress
+from synthetic_data_generator.engine.futures.funding_rate.funding_pressure_index_engine import add_funding_pressure_index
+from synthetic_data_generator.engine.futures.funding_rate.funding_rate_acceleration_engine import add_funding_rate_acceleration
 from synthetic_data_generator.engine.futures.funding_rate.funding_rate_change_engine import add_funding_rate_change
+from synthetic_data_generator.engine.futures.funding_rate.funding_rate_engine import add_funding_rate
+from synthetic_data_generator.engine.futures.funding_rate.funding_rate_regime_flag_engine import add_funding_rate_regime_flag
 from synthetic_data_generator.engine.futures.funding_rate.funding_rate_velocity_engine import add_funding_rate_velocity
 from synthetic_data_generator.engine.futures.funding_rate.funding_rate_zscore_engine import add_funding_rate_zscore
-from synthetic_data_generator.engine.futures.funding_rate.funding_oi_divergence_engine import add_funding_oi_divergence
-from synthetic_data_generator.engine.futures.funding_rate.funding_price_divergence_engine import add_funding_price_divergence
-from synthetic_data_generator.engine.futures.funding_rate.predicted_funding_shift_engine import add_predicted_funding_shift
-from synthetic_data_generator.engine.futures.funding_rate.funding_stress_score_engine import add_funding_stress_score
-from synthetic_data_generator.engine.futures.funding_rate.funding_regime_flag_engine import add_funding_regime_flag
+from synthetic_data_generator.engine.futures.funding_rate.loader import load_source_parquets
 from synthetic_data_generator.engine.futures.funding_rate.validator import validate_funding_rate_df
-
 
 ENGINE_NAME = "fut_funding_rate"
 
@@ -43,12 +42,22 @@ FEATURE_COLUMNS = [
     "fut__funding_rate",
     "fut__funding_rate_change",
     "fut__funding_rate_velocity",
+    "fut__funding_rate_acceleration",
     "fut__funding_rate_zscore",
-    "fut__funding_oi_divergence",
-    "fut__funding_price_divergence",
-    "fut__predicted_funding_shift",
-    "fut__funding_stress_score",
-    "fut__funding_regime_flag",
+    "fut__funding_pressure_index",
+    "fut__funding_extreme_flag",
+    "fut__funding_oi_stress",
+    "fut__funding_rate_regime_flag",
+]
+
+FLOAT32_FEATURE_COLUMNS = [
+    "fut__funding_rate",
+    "fut__funding_rate_change",
+    "fut__funding_rate_velocity",
+    "fut__funding_rate_acceleration",
+    "fut__funding_rate_zscore",
+    "fut__funding_pressure_index",
+    "fut__funding_oi_stress",
 ]
 
 
@@ -77,24 +86,24 @@ def run_engine(partition_date: str | None = None) -> Dict[str, Any]:
     df = add_funding_rate(cleaned["trades_df"], cleaned["orderflow_df"], cleaned["oi_df"])
     df = add_funding_rate_change(df)
     df = add_funding_rate_velocity(df)
+    df = add_funding_rate_acceleration(df)
     df = add_funding_rate_zscore(df)
-    df = add_funding_oi_divergence(df)
-    df = add_funding_price_divergence(df)
-    df = add_predicted_funding_shift(df)
-    df = add_funding_stress_score(df)
-    df = add_funding_regime_flag(df)
+    df = add_funding_pressure_index(df)
+    df = add_funding_extreme_flag(df)
+    df = add_funding_oi_stress(df)
+    df = add_funding_rate_regime_flag(df)
 
-    # Canonical meta types
     df["meta__timestamp"] = pd.to_datetime(df["meta__timestamp"], utc=True).astype("datetime64[ns, UTC]")
     seq = SequenceID(seed=cfg.get("global", {}).get("seed", 0))
     df["meta__sequence_id"] = pd.Series(seq.next_batch(len(df)), dtype="int64")
 
-    # Keep canonical output schema only
+    # Keep output to official funding schema only.
     df = df[["meta__timestamp", "meta__sequence_id", *FEATURE_COLUMNS]].copy()
 
-    # Enforce float32 on all features
-    for col in FEATURE_COLUMNS:
+    for col in FLOAT32_FEATURE_COLUMNS:
         df[col] = pd.to_numeric(df[col], errors="coerce").replace([float("inf"), float("-inf")], 0.0).fillna(0.0).astype("float32")
+    df["fut__funding_extreme_flag"] = df["fut__funding_extreme_flag"].astype("bool")
+    df["fut__funding_rate_regime_flag"] = pd.to_numeric(df["fut__funding_rate_regime_flag"], errors="coerce").fillna(0).astype("int32")
 
     validate_funding_rate_df(df)
 
@@ -105,12 +114,12 @@ def run_engine(partition_date: str | None = None) -> Dict[str, Any]:
             "fut__funding_rate": "float32",
             "fut__funding_rate_change": "float32",
             "fut__funding_rate_velocity": "float32",
+            "fut__funding_rate_acceleration": "float32",
             "fut__funding_rate_zscore": "float32",
-            "fut__funding_oi_divergence": "float32",
-            "fut__funding_price_divergence": "float32",
-            "fut__predicted_funding_shift": "float32",
-            "fut__funding_stress_score": "float32",
-            "fut__funding_regime_flag": "float32",
+            "fut__funding_pressure_index": "float32",
+            "fut__funding_extreme_flag": "bool",
+            "fut__funding_oi_stress": "float32",
+            "fut__funding_rate_regime_flag": "int32",
         },
         "max_null_ratio": 0.0,
     }
