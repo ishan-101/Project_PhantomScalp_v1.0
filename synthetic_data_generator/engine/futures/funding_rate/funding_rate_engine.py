@@ -99,6 +99,10 @@ def _build_timeline(trades_df: pd.DataFrame, orderflow_df: pd.DataFrame, oi_df: 
     oi_map = oi_map.sort_values(by=["meta__timestamp", "meta__sequence_id"], kind="mergesort").reset_index(drop=True)
 
     merged = pd.merge_asof(tl, oi_map, on="meta__timestamp", direction="backward", allow_exact_matches=True)
+    if "meta__sequence_id_x" in merged.columns:
+        merged = merged.rename(columns={"meta__sequence_id_x": "meta__sequence_id"})
+    if "meta__sequence_id_y" in merged.columns:
+        merged = merged.drop(columns=["meta__sequence_id_y"])
 
     for col in ["fut__open_interest", "fut__oi_change", "fut__oi_zscore"]:
         merged[col] = pd.to_numeric(merged[col], errors="coerce").ffill().bfill().fillna(0.0)
