@@ -1,0 +1,156 @@
+{
+  "family": "market_regime",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "regime__realized_vol",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Snapshot-safe short-horizon realized volatility derived from recent tick returns."
+    },
+    {
+      "name": "regime__iv_atm",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "At-the-money implied volatility estimated from best bid/ask option quotes."
+    },
+    {
+      "name": "regime__liquidity_score",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Composite liquidity score combining spread tightness, top-level depth, and order updates normalized to [0,1]."
+    },
+    {
+      "name": "regime__volatility_spike_flag",
+      "family": "market_regime",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": false,
+      "tier": 2,
+      "description": "Boolean indicator for abrupt realized volatility expansion relative to the prior snapshot."
+    },
+    {
+      "name": "regime__spread_stability",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": 0.5,
+      "tier": 2,
+      "description": "Normalized stability score of the bid-ask spread using current vs previous spread."
+    },
+    {
+      "name": "regime__orderflow_extremeness",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [-5, 5],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Z-scored signed orderflow intensity relative to recent baseline."
+    },
+    {
+      "name": "regime__market_state_flag",
+      "family": "market_regime",
+      "dtype": "category",
+      "expected_range": ["trend", "range", "mean_revert"],
+      "null_policy": "no_nulls",
+      "default_fill": "range",
+      "tier": 2,
+      "description": "Categorical snapshot market state derived from directional moves and flow balance without future data."
+    },
+    {
+      "name": "regime__spread_zscore",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [-10, 10],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Z-score of current bid-ask spread relative to a stationary baseline."
+    },
+    {
+      "name": "regime__liquidity_fractal_index",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [0, 2],
+      "null_policy": "no_nulls",
+      "default_fill": 1.0,
+      "tier": 2,
+      "description": "Fractal-style irregularity measure of micro-liquidity evolution between consecutive snapshots."
+    },
+    {
+      "name": "regime__depth_stress_ratio",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 1.0,
+      "tier": 2,
+      "description": "Ratio indicating stress in top-of-book depth relative to spread conditions."
+    },
+    {
+      "name": "regime__volatility_compression_flag",
+      "family": "market_regime",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": false,
+      "tier": 2,
+      "description": "Boolean flag for realized volatility contraction compared to the prior snapshot."
+    },
+    {
+      "name": "regime__momentum_ignition_flag",
+      "family": "market_regime",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": false,
+      "tier": 2,
+      "description": "Composite ignition signal from bursty orderflow, tightening spreads, and rising volatility using snapshot inputs."
+    },
+    {
+      "name": "regime__spread_regime_crossover",
+      "family": "market_regime",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": false,
+      "tier": 2,
+      "description": "Flag indicating transition into or out of a high-spread regime without forward lookahead."
+    },
+    {
+      "name": "regime__short_term_vol_forecast_error",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [-10, 10],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Difference between realized volatility and a short-term forecast using only contemporaneous inputs."
+    },
+    {
+      "name": "regime__micro_liquidity_index",
+      "family": "market_regime",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Composite micro-liquidity health index normalized to [0,1] from spread and depth quality."
+    }
+  ]
+}

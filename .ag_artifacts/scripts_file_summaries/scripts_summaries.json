@@ -1,0 +1,8226 @@
+[
+  {
+    "script_path": "./scripts/check_label_stats.py",
+    "filename": "check_label_stats.py",
+    "docstring": "scripts/check_label_stats.py\n\nInspect label files (labels-only CSV or parquet) and print simple statistics.",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 7
+      },
+      {
+        "module": "argparse",
+        "alias": null,
+        "line": 8
+      },
+      {
+        "module": "pathlib.Path",
+        "alias": null,
+        "line": 9
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 10
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 11
+      }
+    ],
+    "functions": [
+      {
+        "name": "load_labels",
+        "line": 13,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "summarize",
+        "line": 19,
+        "args": [
+          "df"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 31,
+        "args": [
+          "argv"
+        ]
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "ArgumentParser",
+        "line": 32
+      },
+      {
+        "name": "add_argument",
+        "line": 33
+      },
+      {
+        "name": "parse_args",
+        "line": 34
+      },
+      {
+        "name": "print",
+        "line": 44
+      },
+      {
+        "name": "load_labels",
+        "line": 45
+      },
+      {
+        "name": "print",
+        "line": 46
+      },
+      {
+        "name": "summarize",
+        "line": 47
+      },
+      {
+        "name": "items",
+        "line": 48
+      },
+      {
+        "name": "SystemExit",
+        "line": 60
+      },
+      {
+        "name": "read_parquet",
+        "line": 15
+      },
+      {
+        "name": "read_csv",
+        "line": 17
+      },
+      {
+        "name": "tolist",
+        "line": 22
+      },
+      {
+        "name": "astype",
+        "line": 25
+      },
+      {
+        "name": "to_dict",
+        "line": 26
+      },
+      {
+        "name": "mean",
+        "line": 27
+      },
+      {
+        "name": "Path",
+        "line": 37
+      },
+      {
+        "name": "sorted",
+        "line": 38
+      },
+      {
+        "name": "Path",
+        "line": 43
+      },
+      {
+        "name": "len",
+        "line": 46
+      },
+      {
+        "name": "tolist",
+        "line": 46
+      },
+      {
+        "name": "print",
+        "line": 49
+      },
+      {
+        "name": "print",
+        "line": 50
+      },
+      {
+        "name": "print",
+        "line": 51
+      },
+      {
+        "name": "print",
+        "line": 52
+      },
+      {
+        "name": "head",
+        "line": 54
+      },
+      {
+        "name": "len",
+        "line": 55
+      },
+      {
+        "name": "main",
+        "line": 60
+      },
+      {
+        "name": "float",
+        "line": 28
+      },
+      {
+        "name": "int",
+        "line": 28
+      },
+      {
+        "name": "glob",
+        "line": 38
+      },
+      {
+        "name": "SystemExit",
+        "line": 40
+      },
+      {
+        "name": "format",
+        "line": 51
+      },
+      {
+        "name": "print",
+        "line": 56
+      },
+      {
+        "name": "print",
+        "line": 57
+      },
+      {
+        "name": "endswith",
+        "line": 20
+      },
+      {
+        "name": "dropna",
+        "line": 25
+      },
+      {
+        "name": "value_counts",
+        "line": 26
+      },
+      {
+        "name": "len",
+        "line": 28
+      },
+      {
+        "name": "stat",
+        "line": 38
+      }
+    ],
+    "feature_references": [
+      "cycle_sig",
+      "regime_sig",
+      "reversal_sig"
+    ],
+    "label_references": [
+      "label_stats"
+    ],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": ".parquet",
+        "line": 14
+      },
+      {
+        "type": "file_path",
+        "value": "*labels_only*.csv",
+        "line": 38
+      },
+      {
+        "type": "io_call",
+        "value": "load_labels",
+        "line": 45
+      },
+      {
+        "type": "io_call",
+        "value": "read_parquet",
+        "line": 15
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 17
+      }
+    ],
+    "output_formats": [
+      "csv",
+      "parquet"
+    ],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": "argparse",
+    "cli_example": "python check_label_stats.py [args]",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/inspect_reversal_debug.py",
+    "filename": "inspect_reversal_debug.py",
+    "docstring": "scripts/inspect_reversal_debug.py\n\nSmall utility to inspect reversal debug CSVs and (optionally) merge with accepted reversal timestamps.\n\nUsage examples (from project root):\n\n# Show top 20 debug rows (sorted by ms_aggr desc):\npython -u scripts/inspect_reversal_debug.py\n\n# Show top 20 debug rows from a specific debug CSV:\npython -u scripts/inspect_reversal_debug.py --debug out/labels_v02/reversal_debug.csv\n\n# Merge accepted reversals from labels-only file (labels_only_v02_*.csv) and show merged top 20:\npython -u scripts/inspect_reversal_debug.py --labels out/labels_v02/labels_only_v02_20251128_151519.csv\n\n# Merge and print merged rows:\npython -u scripts/inspect_reversal_debug.py --debug out/labels_v02/reversal_debug.csv --labels out/labels_v02/labels_only_v02_20251128_151519.csv",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 21
+      },
+      {
+        "module": "argparse",
+        "alias": null,
+        "line": 23
+      },
+      {
+        "module": "glob",
+        "alias": null,
+        "line": 24
+      },
+      {
+        "module": "os",
+        "alias": null,
+        "line": 25
+      },
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 26
+      },
+      {
+        "module": "typing.Optional",
+        "alias": null,
+        "line": 27
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 29
+      }
+    ],
+    "functions": [
+      {
+        "name": "_resolve_debug_path",
+        "line": 32,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "_resolve_labels_path",
+        "line": 40,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "print_raw_head",
+        "line": 48,
+        "args": [
+          "debug_path",
+          "n"
+        ]
+      },
+      {
+        "name": "load_debug_df",
+        "line": 62,
+        "args": [
+          "debug_path"
+        ]
+      },
+      {
+        "name": "load_labels_only",
+        "line": 85,
+        "args": [
+          "labels_path"
+        ]
+      },
+      {
+        "name": "merge_debug_with_accepted",
+        "line": 111,
+        "args": [
+          "debug_df",
+          "labels_df",
+          "tolerance"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 151,
+        "args": []
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "join",
+        "line": 36
+      },
+      {
+        "name": "sorted",
+        "line": 44
+      },
+      {
+        "name": "print",
+        "line": 49
+      },
+      {
+        "name": "read_csv",
+        "line": 63
+      },
+      {
+        "name": "to_datetime",
+        "line": 81
+      },
+      {
+        "name": "read_csv",
+        "line": 86
+      },
+      {
+        "name": "isinstance",
+        "line": 88
+      },
+      {
+        "name": "to_datetime",
+        "line": 107
+      },
+      {
+        "name": "copy",
+        "line": 117
+      },
+      {
+        "name": "copy",
+        "line": 123
+      },
+      {
+        "name": "copy",
+        "line": 124
+      },
+      {
+        "name": "to_datetime",
+        "line": 125
+      },
+      {
+        "name": "to_datetime",
+        "line": 126
+      },
+      {
+        "name": "merge",
+        "line": 129
+      },
+      {
+        "name": "round",
+        "line": 134
+      },
+      {
+        "name": "round",
+        "line": 135
+      },
+      {
+        "name": "merge",
+        "line": 136
+      },
+      {
+        "name": "reset_index",
+        "line": 141
+      },
+      {
+        "name": "reset_index",
+        "line": 142
+      },
+      {
+        "name": "ArgumentParser",
+        "line": 152
+      },
+      {
+        "name": "add_argument",
+        "line": 153
+      },
+      {
+        "name": "add_argument",
+        "line": 154
+      },
+      {
+        "name": "add_argument",
+        "line": 155
+      },
+      {
+        "name": "parse_args",
+        "line": 156
+      },
+      {
+        "name": "_resolve_debug_path",
+        "line": 158
+      },
+      {
+        "name": "print",
+        "line": 163
+      },
+      {
+        "name": "print",
+        "line": 164
+      },
+      {
+        "name": "print",
+        "line": 165
+      },
+      {
+        "name": "print",
+        "line": 166
+      },
+      {
+        "name": "print",
+        "line": 169
+      },
+      {
+        "name": "print",
+        "line": 170
+      },
+      {
+        "name": "print",
+        "line": 171
+      },
+      {
+        "name": "print_raw_head",
+        "line": 172
+      },
+      {
+        "name": "print",
+        "line": 173
+      },
+      {
+        "name": "print",
+        "line": 182
+      },
+      {
+        "name": "print",
+        "line": 183
+      },
+      {
+        "name": "print",
+        "line": 184
+      },
+      {
+        "name": "print",
+        "line": 185
+      },
+      {
+        "name": "print",
+        "line": 186
+      },
+      {
+        "name": "_resolve_labels_path",
+        "line": 198
+      },
+      {
+        "name": "print",
+        "line": 220
+      },
+      {
+        "name": "SystemExit",
+        "line": 225
+      },
+      {
+        "name": "exists",
+        "line": 37
+      },
+      {
+        "name": "glob",
+        "line": 44
+      },
+      {
+        "name": "ValueError",
+        "line": 80
+      },
+      {
+        "name": "rename",
+        "line": 89
+      },
+      {
+        "name": "ValueError",
+        "line": 106
+      },
+      {
+        "name": "print",
+        "line": 119
+      },
+      {
+        "name": "DataFrame",
+        "line": 120
+      },
+      {
+        "name": "sort_values",
+        "line": 131
+      },
+      {
+        "name": "sort_values",
+        "line": 138
+      },
+      {
+        "name": "merge_asof",
+        "line": 144
+      },
+      {
+        "name": "sort_values",
+        "line": 146
+      },
+      {
+        "name": "print",
+        "line": 160
+      },
+      {
+        "name": "getcwd",
+        "line": 164
+      },
+      {
+        "name": "format",
+        "line": 169
+      },
+      {
+        "name": "load_debug_df",
+        "line": 177
+      },
+      {
+        "name": "list",
+        "line": 183
+      },
+      {
+        "name": "len",
+        "line": 184
+      },
+      {
+        "name": "head",
+        "line": 190
+      },
+      {
+        "name": "print",
+        "line": 191
+      },
+      {
+        "name": "print",
+        "line": 192
+      },
+      {
+        "name": "print",
+        "line": 194
+      },
+      {
+        "name": "print",
+        "line": 195
+      },
+      {
+        "name": "print",
+        "line": 200
+      },
+      {
+        "name": "print",
+        "line": 201
+      },
+      {
+        "name": "main",
+        "line": 225
+      },
+      {
+        "name": "exists",
+        "line": 34
+      },
+      {
+        "name": "exists",
+        "line": 42
+      },
+      {
+        "name": "join",
+        "line": 44
+      },
+      {
+        "name": "open",
+        "line": 52
+      },
+      {
+        "name": "range",
+        "line": 53
+      },
+      {
+        "name": "print",
+        "line": 59
+      },
+      {
+        "name": "sort_values",
+        "line": 141
+      },
+      {
+        "name": "sort_values",
+        "line": 142
+      },
+      {
+        "name": "DataFrame",
+        "line": 148
+      },
+      {
+        "name": "getsize",
+        "line": 169
+      },
+      {
+        "name": "min",
+        "line": 172
+      },
+      {
+        "name": "print",
+        "line": 179
+      },
+      {
+        "name": "to_string",
+        "line": 192
+      },
+      {
+        "name": "to_string",
+        "line": 195
+      },
+      {
+        "name": "load_labels_only",
+        "line": 203
+      },
+      {
+        "name": "merge_debug_with_accepted",
+        "line": 204
+      },
+      {
+        "name": "readline",
+        "line": 54
+      },
+      {
+        "name": "print",
+        "line": 57
+      },
+      {
+        "name": "to_datetime",
+        "line": 74
+      },
+      {
+        "name": "reset_index",
+        "line": 89
+      },
+      {
+        "name": "to_datetime",
+        "line": 100
+      },
+      {
+        "name": "Timedelta",
+        "line": 144
+      },
+      {
+        "name": "isna",
+        "line": 145
+      },
+      {
+        "name": "sort_values",
+        "line": 190
+      },
+      {
+        "name": "print",
+        "line": 206
+      },
+      {
+        "name": "print",
+        "line": 208
+      },
+      {
+        "name": "print",
+        "line": 209
+      },
+      {
+        "name": "print",
+        "line": 216
+      },
+      {
+        "name": "print",
+        "line": 218
+      },
+      {
+        "name": "rstrip",
+        "line": 57
+      },
+      {
+        "name": "get",
+        "line": 117
+      },
+      {
+        "name": "min",
+        "line": 191
+      },
+      {
+        "name": "reset_index",
+        "line": 192
+      },
+      {
+        "name": "head",
+        "line": 195
+      },
+      {
+        "name": "to_string",
+        "line": 216
+      },
+      {
+        "name": "len",
+        "line": 191
+      },
+      {
+        "name": "append",
+        "line": 215
+      },
+      {
+        "name": "head",
+        "line": 216
+      }
+    ],
+    "feature_references": [
+      "ms_aggr",
+      "reversal_debug",
+      "reversal_sig"
+    ],
+    "label_references": [
+      "y_v02_",
+      "y_v02_20251128_151519"
+    ],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "\nscripts/inspect_reversal_debug.py\n\nSmall utility to inspect reversal debug CSVs and (optionally) merge with accepted reversal timestamps.\n\nUsage examples (from project root):\n\n# Show top 20 debug rows (sorted by ms_aggr desc):\npython -u scripts/inspect_reversal_debug.py\n\n# Show top 20 debug rows from a specific debug CSV:\npython -u scripts/inspect_reversal_debug.py --debug out/labels_v02/reversal_debug.csv\n\n# Merge accepted reversals from labels-only file (labels_only_v02_*.csv) and show merged top 20:\npython -u scripts/inspect_reversal_debug.py --labels out/labels_v02/labels_only_v02_20251128_151519.csv\n\n# Merge and print merged rows:\npython -u scripts/inspect_reversal_debug.py --debug out/labels_v02/reversal_debug.csv --labels out/labels_v02/labels_only_v02_20251128_151519.csv\n",
+        "line": 2
+      },
+      {
+        "type": "file_path",
+        "value": "reversal_debug.csv",
+        "line": 36
+      },
+      {
+        "type": "file_path",
+        "value": "Inspect reversal_debug.csv and optionally merge with accepted reversals.",
+        "line": 152
+      },
+      {
+        "type": "file_path",
+        "value": "Path to reversal_debug.csv (default: out/labels_v02/reversal_debug.csv)",
+        "line": 153
+      },
+      {
+        "type": "file_path",
+        "value": "Path to labels-only CSV (default: latest out/labels_v02/labels_only_v02_*.csv)",
+        "line": 154
+      },
+      {
+        "type": "file_path",
+        "value": "[inspect] could not find any reversal_debug.csv in out/labels_v02/. Exit.",
+        "line": 160
+      },
+      {
+        "type": "file_path",
+        "value": "labels_only_v02_*.csv",
+        "line": 44
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 63
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 86
+      },
+      {
+        "type": "io_call",
+        "value": "load_debug_df",
+        "line": 177
+      },
+      {
+        "type": "io_call",
+        "value": "open",
+        "line": 52
+      },
+      {
+        "type": "io_call",
+        "value": "load_labels_only",
+        "line": 203
+      }
+    ],
+    "output_formats": [
+      "csv"
+    ],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": "argparse",
+    "cli_example": "python inspect_reversal_debug.py [args]",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/label_quality_report.py",
+    "filename": "label_quality_report.py",
+    "docstring": "scripts/label_quality_report.py\n\nGenerate a label-quality report for train/val/test CSVs produced by\nscripts/prepare_labels_dataset.py.\n\nOutputs:\n - console summary\n - markdown report -> outputs/label_quality_report.md\n - simple PNG plots -> outputs/figs/*.png\n\nUsage (examples):\n  python scripts/label_quality_report.py --csvs data/train.csv data/val.csv data/test.csv\n  python scripts/label_quality_report.py --data-dir data/ --out-dir outputs/\n\nDependencies:\n  pandas, numpy, matplotlib\n\nThis script is defensive: it will not modify your CSVs.",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 23
+      },
+      {
+        "module": "argparse",
+        "alias": null,
+        "line": 24
+      },
+      {
+        "module": "os",
+        "alias": null,
+        "line": 25
+      },
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 26
+      },
+      {
+        "module": "textwrap",
+        "alias": null,
+        "line": 27
+      },
+      {
+        "module": "warnings",
+        "alias": null,
+        "line": 28
+      },
+      {
+        "module": "typing.List",
+        "alias": null,
+        "line": 29
+      },
+      {
+        "module": "typing.Dict",
+        "alias": null,
+        "line": 29
+      },
+      {
+        "module": "typing.Tuple",
+        "alias": null,
+        "line": 29
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 31
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 32
+      },
+      {
+        "module": "matplotlib.pyplot",
+        "alias": "plt",
+        "line": 33
+      }
+    ],
+    "functions": [
+      {
+        "name": "safe_mkdir",
+        "line": 42,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "load_csv",
+        "line": 46,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "_is_datetime_like",
+        "line": 53,
+        "args": [
+          "col"
+        ]
+      },
+      {
+        "name": "find_datetime_col",
+        "line": 60,
+        "args": [
+          "df"
+        ]
+      },
+      {
+        "name": "summarize_labels",
+        "line": 81,
+        "args": [
+          "df",
+          "label_cols"
+        ]
+      },
+      {
+        "name": "detect_leakage_by_time_alignment",
+        "line": 105,
+        "args": [
+          "df",
+          "feature_cols",
+          "label_cols",
+          "ts_col"
+        ]
+      },
+      {
+        "name": "plot_label_distribution",
+        "line": 143,
+        "args": [
+          "df",
+          "label_col",
+          "out_path"
+        ]
+      },
+      {
+        "name": "generate_markdown_report",
+        "line": 162,
+        "args": [
+          "report_items",
+          "out_md_path"
+        ]
+      },
+      {
+        "name": "produce_report",
+        "line": 233,
+        "args": [
+          "csv_paths",
+          "out_dir",
+          "label_columns",
+          "feature_candidate_prefixes"
+        ]
+      },
+      {
+        "name": "parse_args",
+        "line": 304,
+        "args": [
+          "argv"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 313,
+        "args": [
+          "argv"
+        ]
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "join",
+        "line": 37
+      },
+      {
+        "name": "makedirs",
+        "line": 43
+      },
+      {
+        "name": "read_csv",
+        "line": 49
+      },
+      {
+        "name": "len",
+        "line": 83
+      },
+      {
+        "name": "len",
+        "line": 113
+      },
+      {
+        "name": "select_dtypes",
+        "line": 131
+      },
+      {
+        "name": "dropna",
+        "line": 144
+      },
+      {
+        "name": "figure",
+        "line": 145
+      },
+      {
+        "name": "is_numeric_dtype",
+        "line": 146
+      },
+      {
+        "name": "tight_layout",
+        "line": 157
+      },
+      {
+        "name": "savefig",
+        "line": 158
+      },
+      {
+        "name": "close",
+        "line": 159
+      },
+      {
+        "name": "safe_mkdir",
+        "line": 226
+      },
+      {
+        "name": "print",
+        "line": 229
+      },
+      {
+        "name": "safe_mkdir",
+        "line": 239
+      },
+      {
+        "name": "safe_mkdir",
+        "line": 240
+      },
+      {
+        "name": "join",
+        "line": 300
+      },
+      {
+        "name": "generate_markdown_report",
+        "line": 301
+      },
+      {
+        "name": "ArgumentParser",
+        "line": 305
+      },
+      {
+        "name": "add_argument",
+        "line": 306
+      },
+      {
+        "name": "add_argument",
+        "line": 307
+      },
+      {
+        "name": "add_argument",
+        "line": 308
+      },
+      {
+        "name": "add_argument",
+        "line": 309
+      },
+      {
+        "name": "parse_args",
+        "line": 310
+      },
+      {
+        "name": "parse_args",
+        "line": 314
+      },
+      {
+        "name": "produce_report",
+        "line": 322
+      },
+      {
+        "name": "main",
+        "line": 326
+      },
+      {
+        "name": "exists",
+        "line": 47
+      },
+      {
+        "name": "FileNotFoundError",
+        "line": 48
+      },
+      {
+        "name": "_is_datetime_like",
+        "line": 76
+      },
+      {
+        "name": "sum",
+        "line": 89
+      },
+      {
+        "name": "tolist",
+        "line": 90
+      },
+      {
+        "name": "to_dict",
+        "line": 91
+      },
+      {
+        "name": "sort_values",
+        "line": 135
+      },
+      {
+        "name": "to_dict",
+        "line": 137
+      },
+      {
+        "name": "hist",
+        "line": 147
+      },
+      {
+        "name": "xlabel",
+        "line": 148
+      },
+      {
+        "name": "ylabel",
+        "line": 149
+      },
+      {
+        "name": "title",
+        "line": 150
+      },
+      {
+        "name": "value_counts",
+        "line": 152
+      },
+      {
+        "name": "plot",
+        "line": 153
+      },
+      {
+        "name": "xlabel",
+        "line": 154
+      },
+      {
+        "name": "ylabel",
+        "line": 155
+      },
+      {
+        "name": "title",
+        "line": 156
+      },
+      {
+        "name": "append",
+        "line": 170
+      },
+      {
+        "name": "append",
+        "line": 171
+      },
+      {
+        "name": "append",
+        "line": 177
+      },
+      {
+        "name": "get",
+        "line": 178
+      },
+      {
+        "name": "append",
+        "line": 182
+      },
+      {
+        "name": "append",
+        "line": 184
+      },
+      {
+        "name": "append",
+        "line": 185
+      },
+      {
+        "name": "get",
+        "line": 186
+      },
+      {
+        "name": "append",
+        "line": 201
+      },
+      {
+        "name": "append",
+        "line": 203
+      },
+      {
+        "name": "append",
+        "line": 204
+      },
+      {
+        "name": "get",
+        "line": 205
+      },
+      {
+        "name": "append",
+        "line": 215
+      },
+      {
+        "name": "get",
+        "line": 217
+      },
+      {
+        "name": "append",
+        "line": 224
+      },
+      {
+        "name": "append",
+        "line": 225
+      },
+      {
+        "name": "open",
+        "line": 227
+      },
+      {
+        "name": "write",
+        "line": 228
+      },
+      {
+        "name": "basename",
+        "line": 245
+      },
+      {
+        "name": "print",
+        "line": 246
+      },
+      {
+        "name": "find_datetime_col",
+        "line": 255
+      },
+      {
+        "name": "summarize_labels",
+        "line": 266
+      },
+      {
+        "name": "tolist",
+        "line": 270
+      },
+      {
+        "name": "detect_leakage_by_time_alignment",
+        "line": 271
+      },
+      {
+        "name": "append",
+        "line": 285
+      },
+      {
+        "name": "print",
+        "line": 288
+      },
+      {
+        "name": "print",
+        "line": 291
+      },
+      {
+        "name": "items",
+        "line": 292
+      },
+      {
+        "name": "print",
+        "line": 320
+      },
+      {
+        "name": "exit",
+        "line": 321
+      },
+      {
+        "name": "issubdtype",
+        "line": 55
+      },
+      {
+        "name": "is_datetime64_any_dtype",
+        "line": 55
+      },
+      {
+        "name": "_is_datetime_like",
+        "line": 65
+      },
+      {
+        "name": "str",
+        "line": 100
+      },
+      {
+        "name": "to_datetime",
+        "line": 117
+      },
+      {
+        "name": "min",
+        "line": 118
+      },
+      {
+        "name": "max",
+        "line": 119
+      },
+      {
+        "name": "int",
+        "line": 120
+      },
+      {
+        "name": "dropna",
+        "line": 124
+      },
+      {
+        "name": "median",
+        "line": 125
+      },
+      {
+        "name": "max",
+        "line": 126
+      },
+      {
+        "name": "append",
+        "line": 174
+      },
+      {
+        "name": "append",
+        "line": 175
+      },
+      {
+        "name": "append",
+        "line": 179
+      },
+      {
+        "name": "append",
+        "line": 180
+      },
+      {
+        "name": "append",
+        "line": 181
+      },
+      {
+        "name": "append",
+        "line": 188
+      },
+      {
+        "name": "items",
+        "line": 190
+      },
+      {
+        "name": "append",
+        "line": 207
+      },
+      {
+        "name": "items",
+        "line": 208
+      },
+      {
+        "name": "get",
+        "line": 210
+      },
+      {
+        "name": "append",
+        "line": 219
+      },
+      {
+        "name": "append",
+        "line": 220
+      },
+      {
+        "name": "append",
+        "line": 223
+      },
+      {
+        "name": "dirname",
+        "line": 226
+      },
+      {
+        "name": "join",
+        "line": 228
+      },
+      {
+        "name": "load_csv",
+        "line": 248
+      },
+      {
+        "name": "len",
+        "line": 263
+      },
+      {
+        "name": "print",
+        "line": 290
+      },
+      {
+        "name": "get",
+        "line": 293
+      },
+      {
+        "name": "join",
+        "line": 317
+      },
+      {
+        "name": "to_datetime",
+        "line": 69
+      },
+      {
+        "name": "notna",
+        "line": 89
+      },
+      {
+        "name": "unique",
+        "line": 90
+      },
+      {
+        "name": "value_counts",
+        "line": 91
+      },
+      {
+        "name": "sum",
+        "line": 92
+      },
+      {
+        "name": "sum",
+        "line": 120
+      },
+      {
+        "name": "str",
+        "line": 128
+      },
+      {
+        "name": "abs",
+        "line": 135
+      },
+      {
+        "name": "head",
+        "line": 137
+      },
+      {
+        "name": "append",
+        "line": 194
+      },
+      {
+        "name": "append",
+        "line": 195
+      },
+      {
+        "name": "append",
+        "line": 196
+      },
+      {
+        "name": "append",
+        "line": 197
+      },
+      {
+        "name": "append",
+        "line": 200
+      },
+      {
+        "name": "append",
+        "line": 209
+      },
+      {
+        "name": "append",
+        "line": 211
+      },
+      {
+        "name": "append",
+        "line": 212
+      },
+      {
+        "name": "append",
+        "line": 213
+      },
+      {
+        "name": "append",
+        "line": 214
+      },
+      {
+        "name": "append",
+        "line": 222
+      },
+      {
+        "name": "print",
+        "line": 250
+      },
+      {
+        "name": "append",
+        "line": 251
+      },
+      {
+        "name": "to_datetime",
+        "line": 258
+      },
+      {
+        "name": "join",
+        "line": 277
+      },
+      {
+        "name": "print",
+        "line": 295
+      },
+      {
+        "name": "print",
+        "line": 297
+      },
+      {
+        "name": "sum",
+        "line": 70
+      },
+      {
+        "name": "diff",
+        "line": 124
+      },
+      {
+        "name": "get",
+        "line": 191
+      },
+      {
+        "name": "append",
+        "line": 192
+      },
+      {
+        "name": "get",
+        "line": 208
+      },
+      {
+        "name": "select_dtypes",
+        "line": 270
+      },
+      {
+        "name": "plot_label_distribution",
+        "line": 279
+      },
+      {
+        "name": "append",
+        "line": 280
+      },
+      {
+        "name": "exists",
+        "line": 318
+      },
+      {
+        "name": "dropna",
+        "line": 90
+      },
+      {
+        "name": "isna",
+        "line": 92
+      },
+      {
+        "name": "duplicated",
+        "line": 120
+      },
+      {
+        "name": "corrwith",
+        "line": 135
+      },
+      {
+        "name": "get",
+        "line": 180
+      },
+      {
+        "name": "get",
+        "line": 180
+      },
+      {
+        "name": "get",
+        "line": 181
+      },
+      {
+        "name": "get",
+        "line": 181
+      },
+      {
+        "name": "print",
+        "line": 282
+      },
+      {
+        "name": "get",
+        "line": 290
+      },
+      {
+        "name": "get",
+        "line": 290
+      },
+      {
+        "name": "notna",
+        "line": 70
+      },
+      {
+        "name": "sort_values",
+        "line": 124
+      },
+      {
+        "name": "list",
+        "line": 199
+      },
+      {
+        "name": "get",
+        "line": 212
+      },
+      {
+        "name": "get",
+        "line": 213
+      },
+      {
+        "name": "get",
+        "line": 214
+      },
+      {
+        "name": "basename",
+        "line": 222
+      },
+      {
+        "name": "basename",
+        "line": 222
+      },
+      {
+        "name": "str",
+        "line": 251
+      },
+      {
+        "name": "keys",
+        "line": 199
+      }
+    ],
+    "feature_references": [],
+    "label_references": [
+      "label_quality_report",
+      "label_summary"
+    ],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "\nscripts/label_quality_report.py\n\nGenerate a label-quality report for train/val/test CSVs produced by\nscripts/prepare_labels_dataset.py.\n\nOutputs:\n - console summary\n - markdown report -> outputs/label_quality_report.md\n - simple PNG plots -> outputs/figs/*.png\n\nUsage (examples):\n  python scripts/label_quality_report.py --csvs data/train.csv data/val.csv data/test.csv\n  python scripts/label_quality_report.py --data-dir data/ --out-dir outputs/\n\nDependencies:\n  pandas, numpy, matplotlib\n\nThis script is defensive: it will not modify your CSVs.\n",
+        "line": 2
+      },
+      {
+        "type": "file_path",
+        "value": "label_quality_report.md",
+        "line": 38
+      },
+      {
+        "type": "file_path",
+        "value": "train.csv",
+        "line": 317
+      },
+      {
+        "type": "file_path",
+        "value": "val.csv",
+        "line": 317
+      },
+      {
+        "type": "file_path",
+        "value": "test.csv",
+        "line": 317
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 49
+      },
+      {
+        "type": "io_call",
+        "value": "open",
+        "line": 227
+      },
+      {
+        "type": "io_call",
+        "value": "load_csv",
+        "line": 248
+      }
+    ],
+    "output_formats": [
+      "csv",
+      "md"
+    ],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": "argparse",
+    "cli_example": "python label_quality_report.py [args]",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/prepare_labels_dataset.py",
+    "filename": "prepare_labels_dataset.py",
+    "docstring": "scripts/prepare_labels_dataset.py\n\nPrepare labeled dataset for Project_PhantomScalp v0.2:\n - loads an optional spot CSV of OHLCV (expects datetime column or index)\n - otherwise generates a full synthetic OHLCV timeseries (open/high/low/close/volume)\n - computes features via app.features.time_cycle, microstructure, options_features (defensive)\n - runs labelers (regime, reversal, cycle) from app.ml.labels (defensive)\n - writes train/val/test splits (parquet + csv) and labels-only CSV and meta JSON\n\nKey points:\n - defensive: never raises on missing feature columns; labelers receive sensible fallbacks\n - timezone-safe: produce tz-aware UTC index by default\n - avoids deprecated pandas patterns (uses .ffill()/.bfill(), pct_change(fill_method=None))\n - creates timestamped outputs in the target directory",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 18
+      },
+      {
+        "module": "argparse",
+        "alias": null,
+        "line": 20
+      },
+      {
+        "module": "json",
+        "alias": null,
+        "line": 21
+      },
+      {
+        "module": "traceback",
+        "alias": null,
+        "line": 22
+      },
+      {
+        "module": "dataclasses.dataclass",
+        "alias": null,
+        "line": 23
+      },
+      {
+        "module": "datetime.datetime",
+        "alias": null,
+        "line": 24
+      },
+      {
+        "module": "pathlib.Path",
+        "alias": null,
+        "line": 25
+      },
+      {
+        "module": "typing.Dict",
+        "alias": null,
+        "line": 26
+      },
+      {
+        "module": "typing.Optional",
+        "alias": null,
+        "line": 26
+      },
+      {
+        "module": "typing.Tuple",
+        "alias": null,
+        "line": 26
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 28
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 29
+      },
+      {
+        "module": "app.features.time_cycle",
+        "alias": "tc_mod",
+        "line": 33
+      },
+      {
+        "module": "app.features.microstructure",
+        "alias": "ms_mod",
+        "line": 38
+      },
+      {
+        "module": "app.features.options_features",
+        "alias": "opt_mod",
+        "line": 43
+      },
+      {
+        "module": "app.ml.labels.regime.label_regime",
+        "alias": "_lr",
+        "line": 311
+      },
+      {
+        "module": "app.ml.labels.reversal.label_reversal",
+        "alias": "_lrev",
+        "line": 320
+      },
+      {
+        "module": "app.ml.labels.cycle.label_cycle",
+        "alias": "_lcy",
+        "line": 329
+      }
+    ],
+    "functions": [
+      {
+        "name": "_ensure_indexed",
+        "line": 71,
+        "args": [
+          "df"
+        ]
+      },
+      {
+        "name": "_make_dirs",
+        "line": 92,
+        "args": [
+          "p"
+        ]
+      },
+      {
+        "name": "generate_synthetic_ohlcv",
+        "line": 96,
+        "args": [
+          "n",
+          "start",
+          "freq",
+          "tz",
+          "seed"
+        ]
+      },
+      {
+        "name": "safe_compute_features",
+        "line": 150,
+        "args": [
+          "df_spot",
+          "cfg"
+        ]
+      },
+      {
+        "name": "_safe_labeler_call",
+        "line": 210,
+        "args": [
+          "func",
+          "merged",
+          "params",
+          "name"
+        ]
+      },
+      {
+        "name": "prepare_dataset",
+        "line": 241,
+        "args": [
+          "cfg"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 446,
+        "args": [
+          "argv"
+        ]
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "Path",
+        "line": 51
+      },
+      {
+        "name": "Path",
+        "line": 56
+      },
+      {
+        "name": "copy",
+        "line": 75
+      },
+      {
+        "name": "sort_index",
+        "line": 88
+      },
+      {
+        "name": "mkdir",
+        "line": 93
+      },
+      {
+        "name": "default_rng",
+        "line": 104
+      },
+      {
+        "name": "date_range",
+        "line": 121
+      },
+      {
+        "name": "normal",
+        "line": 126
+      },
+      {
+        "name": "DataFrame",
+        "line": 136
+      },
+      {
+        "name": "DataFrame",
+        "line": 158
+      },
+      {
+        "name": "DataFrame",
+        "line": 159
+      },
+      {
+        "name": "DataFrame",
+        "line": 160
+      },
+      {
+        "name": "fillna",
+        "line": 235
+      },
+      {
+        "name": "seed",
+        "line": 242
+      },
+      {
+        "name": "_make_dirs",
+        "line": 243
+      },
+      {
+        "name": "_ensure_indexed",
+        "line": 275
+      },
+      {
+        "name": "safe_compute_features",
+        "line": 281
+      },
+      {
+        "name": "sort_index",
+        "line": 284
+      },
+      {
+        "name": "bfill",
+        "line": 285
+      },
+      {
+        "name": "get",
+        "line": 337
+      },
+      {
+        "name": "get",
+        "line": 338
+      },
+      {
+        "name": "get",
+        "line": 339
+      },
+      {
+        "name": "astype",
+        "line": 378
+      },
+      {
+        "name": "astype",
+        "line": 380
+      },
+      {
+        "name": "is_float_dtype",
+        "line": 382
+      },
+      {
+        "name": "copy",
+        "line": 388
+      },
+      {
+        "name": "len",
+        "line": 394
+      },
+      {
+        "name": "int",
+        "line": 395
+      },
+      {
+        "name": "strftime",
+        "line": 405
+      },
+      {
+        "name": "ArgumentParser",
+        "line": 447
+      },
+      {
+        "name": "add_argument",
+        "line": 448
+      },
+      {
+        "name": "add_argument",
+        "line": 449
+      },
+      {
+        "name": "add_argument",
+        "line": 450
+      },
+      {
+        "name": "add_argument",
+        "line": 451
+      },
+      {
+        "name": "add_argument",
+        "line": 452
+      },
+      {
+        "name": "parse_args",
+        "line": 453
+      },
+      {
+        "name": "PrepareConfig",
+        "line": 455
+      },
+      {
+        "name": "prepare_dataset",
+        "line": 463
+      },
+      {
+        "name": "SystemExit",
+        "line": 471
+      },
+      {
+        "name": "DataFrame",
+        "line": 74
+      },
+      {
+        "name": "to_datetime",
+        "line": 77
+      },
+      {
+        "name": "drop",
+        "line": 78
+      },
+      {
+        "name": "isinstance",
+        "line": 80
+      },
+      {
+        "name": "exp",
+        "line": 127
+      },
+      {
+        "name": "maximum",
+        "line": 132
+      },
+      {
+        "name": "minimum",
+        "line": 133
+      },
+      {
+        "name": "astype",
+        "line": 134
+      },
+      {
+        "name": "hasattr",
+        "line": 163
+      },
+      {
+        "name": "hasattr",
+        "line": 178
+      },
+      {
+        "name": "hasattr",
+        "line": 193
+      },
+      {
+        "name": "Series",
+        "line": 228
+      },
+      {
+        "name": "isinstance",
+        "line": 230
+      },
+      {
+        "name": "exists",
+        "line": 246
+      },
+      {
+        "name": "generate_synthetic_ohlcv",
+        "line": 263
+      },
+      {
+        "name": "print",
+        "line": 278
+      },
+      {
+        "name": "exists",
+        "line": 289
+      },
+      {
+        "name": "Series",
+        "line": 351
+      },
+      {
+        "name": "Series",
+        "line": 363
+      },
+      {
+        "name": "Series",
+        "line": 375
+      },
+      {
+        "name": "astype",
+        "line": 383
+      },
+      {
+        "name": "astype",
+        "line": 385
+      },
+      {
+        "name": "int",
+        "line": 396
+      },
+      {
+        "name": "min",
+        "line": 398
+      },
+      {
+        "name": "_make_dirs",
+        "line": 408
+      },
+      {
+        "name": "to_csv",
+        "line": 417
+      },
+      {
+        "name": "to_csv",
+        "line": 418
+      },
+      {
+        "name": "to_csv",
+        "line": 419
+      },
+      {
+        "name": "to_csv",
+        "line": 422
+      },
+      {
+        "name": "print",
+        "line": 465
+      },
+      {
+        "name": "print",
+        "line": 466
+      },
+      {
+        "name": "main",
+        "line": 471
+      },
+      {
+        "name": "len",
+        "line": 73
+      },
+      {
+        "name": "now",
+        "line": 85
+      },
+      {
+        "name": "date_range",
+        "line": 86
+      },
+      {
+        "name": "cumsum",
+        "line": 127
+      },
+      {
+        "name": "normal",
+        "line": 130
+      },
+      {
+        "name": "normal",
+        "line": 131
+      },
+      {
+        "name": "abs",
+        "line": 132
+      },
+      {
+        "name": "abs",
+        "line": 133
+      },
+      {
+        "name": "compute_time_cycle_features",
+        "line": 165
+      },
+      {
+        "name": "isinstance",
+        "line": 166
+      },
+      {
+        "name": "print",
+        "line": 175
+      },
+      {
+        "name": "compute_microstructure_features",
+        "line": 180
+      },
+      {
+        "name": "isinstance",
+        "line": 181
+      },
+      {
+        "name": "print",
+        "line": 190
+      },
+      {
+        "name": "compute_options_features",
+        "line": 195
+      },
+      {
+        "name": "isinstance",
+        "line": 196
+      },
+      {
+        "name": "print",
+        "line": 205
+      },
+      {
+        "name": "func",
+        "line": 221
+      },
+      {
+        "name": "func",
+        "line": 221
+      },
+      {
+        "name": "print",
+        "line": 223
+      },
+      {
+        "name": "print_exc",
+        "line": 224
+      },
+      {
+        "name": "tz_localize",
+        "line": 232
+      },
+      {
+        "name": "reindex",
+        "line": 235
+      },
+      {
+        "name": "read_csv",
+        "line": 248
+      },
+      {
+        "name": "print",
+        "line": 265
+      },
+      {
+        "name": "len",
+        "line": 278
+      },
+      {
+        "name": "concat",
+        "line": 284
+      },
+      {
+        "name": "ffill",
+        "line": 285
+      },
+      {
+        "name": "print",
+        "line": 300
+      },
+      {
+        "name": "label_regime",
+        "line": 343
+      },
+      {
+        "name": "print",
+        "line": 350
+      },
+      {
+        "name": "label_reversal",
+        "line": 355
+      },
+      {
+        "name": "print",
+        "line": 362
+      },
+      {
+        "name": "label_cycle",
+        "line": 367
+      },
+      {
+        "name": "print",
+        "line": 374
+      },
+      {
+        "name": "fillna",
+        "line": 378
+      },
+      {
+        "name": "fillna",
+        "line": 380
+      },
+      {
+        "name": "utcnow",
+        "line": 405
+      },
+      {
+        "name": "to_parquet",
+        "line": 411
+      },
+      {
+        "name": "to_parquet",
+        "line": 412
+      },
+      {
+        "name": "to_parquet",
+        "line": 413
+      },
+      {
+        "name": "int",
+        "line": 426
+      },
+      {
+        "name": "int",
+        "line": 427
+      },
+      {
+        "name": "int",
+        "line": 428
+      },
+      {
+        "name": "int",
+        "line": 429
+      },
+      {
+        "name": "str",
+        "line": 430
+      },
+      {
+        "name": "open",
+        "line": 433
+      },
+      {
+        "name": "dump",
+        "line": 434
+      },
+      {
+        "name": "print",
+        "line": 437
+      },
+      {
+        "name": "print",
+        "line": 438
+      },
+      {
+        "name": "print",
+        "line": 440
+      },
+      {
+        "name": "Path",
+        "line": 456
+      },
+      {
+        "name": "int",
+        "line": 458
+      },
+      {
+        "name": "int",
+        "line": 459
+      },
+      {
+        "name": "bool",
+        "line": 460
+      },
+      {
+        "name": "dumps",
+        "line": 466
+      },
+      {
+        "name": "tz_localize",
+        "line": 82
+      },
+      {
+        "name": "now",
+        "line": 110
+      },
+      {
+        "name": "Timedelta",
+        "line": 110
+      },
+      {
+        "name": "utcnow",
+        "line": 113
+      },
+      {
+        "name": "normal",
+        "line": 132
+      },
+      {
+        "name": "normal",
+        "line": 133
+      },
+      {
+        "name": "abs",
+        "line": 134
+      },
+      {
+        "name": "reset_index",
+        "line": 165
+      },
+      {
+        "name": "_ensure_indexed",
+        "line": 167
+      },
+      {
+        "name": "bfill",
+        "line": 168
+      },
+      {
+        "name": "reset_index",
+        "line": 180
+      },
+      {
+        "name": "_ensure_indexed",
+        "line": 182
+      },
+      {
+        "name": "bfill",
+        "line": 183
+      },
+      {
+        "name": "reset_index",
+        "line": 195
+      },
+      {
+        "name": "_ensure_indexed",
+        "line": 197
+      },
+      {
+        "name": "bfill",
+        "line": 198
+      },
+      {
+        "name": "Path",
+        "line": 246
+      },
+      {
+        "name": "_ensure_indexed",
+        "line": 250
+      },
+      {
+        "name": "isinstance",
+        "line": 251
+      },
+      {
+        "name": "print",
+        "line": 257
+      },
+      {
+        "name": "print",
+        "line": 259
+      },
+      {
+        "name": "print_exc",
+        "line": 260
+      },
+      {
+        "name": "generate_synthetic_ohlcv",
+        "line": 261
+      },
+      {
+        "name": "bfill",
+        "line": 271
+      },
+      {
+        "name": "bfill",
+        "line": 273
+      },
+      {
+        "name": "Path",
+        "line": 289
+      },
+      {
+        "name": "open",
+        "line": 291
+      },
+      {
+        "name": "load",
+        "line": 292
+      },
+      {
+        "name": "print",
+        "line": 294
+      },
+      {
+        "name": "print",
+        "line": 296
+      },
+      {
+        "name": "print_exc",
+        "line": 297
+      },
+      {
+        "name": "print",
+        "line": 345
+      },
+      {
+        "name": "print_exc",
+        "line": 346
+      },
+      {
+        "name": "Series",
+        "line": 347
+      },
+      {
+        "name": "print",
+        "line": 357
+      },
+      {
+        "name": "print_exc",
+        "line": 358
+      },
+      {
+        "name": "Series",
+        "line": 359
+      },
+      {
+        "name": "print",
+        "line": 369
+      },
+      {
+        "name": "print_exc",
+        "line": 370
+      },
+      {
+        "name": "Series",
+        "line": 371
+      },
+      {
+        "name": "fillna",
+        "line": 383
+      },
+      {
+        "name": "fillna",
+        "line": 385
+      },
+      {
+        "name": "isoformat",
+        "line": 425
+      },
+      {
+        "name": "len",
+        "line": 426
+      },
+      {
+        "name": "len",
+        "line": 427
+      },
+      {
+        "name": "len",
+        "line": 428
+      },
+      {
+        "name": "len",
+        "line": 429
+      },
+      {
+        "name": "Path",
+        "line": 457
+      },
+      {
+        "name": "len",
+        "line": 86
+      },
+      {
+        "name": "tz_localize",
+        "line": 115
+      },
+      {
+        "name": "tz_convert",
+        "line": 117
+      },
+      {
+        "name": "Timedelta",
+        "line": 118
+      },
+      {
+        "name": "normal",
+        "line": 134
+      },
+      {
+        "name": "print",
+        "line": 171
+      },
+      {
+        "name": "print_exc",
+        "line": 172
+      },
+      {
+        "name": "print",
+        "line": 186
+      },
+      {
+        "name": "print_exc",
+        "line": 187
+      },
+      {
+        "name": "print",
+        "line": 201
+      },
+      {
+        "name": "print_exc",
+        "line": 202
+      },
+      {
+        "name": "DatetimeIndex",
+        "line": 232
+      },
+      {
+        "name": "_ensure_indexed",
+        "line": 252
+      },
+      {
+        "name": "to_datetime",
+        "line": 254
+      },
+      {
+        "name": "_ensure_indexed",
+        "line": 255
+      },
+      {
+        "name": "print",
+        "line": 316
+      },
+      {
+        "name": "print",
+        "line": 325
+      },
+      {
+        "name": "print",
+        "line": 334
+      },
+      {
+        "name": "reindex",
+        "line": 378
+      },
+      {
+        "name": "reindex",
+        "line": 380
+      },
+      {
+        "name": "print",
+        "line": 416
+      },
+      {
+        "name": "rename_axis",
+        "line": 165
+      },
+      {
+        "name": "ffill",
+        "line": 168
+      },
+      {
+        "name": "rename_axis",
+        "line": 180
+      },
+      {
+        "name": "ffill",
+        "line": 183
+      },
+      {
+        "name": "rename_axis",
+        "line": 195
+      },
+      {
+        "name": "ffill",
+        "line": 198
+      },
+      {
+        "name": "ffill",
+        "line": 271
+      },
+      {
+        "name": "ffill",
+        "line": 273
+      },
+      {
+        "name": "reindex",
+        "line": 383
+      },
+      {
+        "name": "reindex",
+        "line": 385
+      },
+      {
+        "name": "utcnow",
+        "line": 425
+      },
+      {
+        "name": "len",
+        "line": 438
+      },
+      {
+        "name": "len",
+        "line": 438
+      },
+      {
+        "name": "len",
+        "line": 438
+      },
+      {
+        "name": "len",
+        "line": 257
+      },
+      {
+        "name": "reset_index",
+        "line": 165
+      },
+      {
+        "name": "reindex",
+        "line": 168
+      },
+      {
+        "name": "reset_index",
+        "line": 180
+      },
+      {
+        "name": "reindex",
+        "line": 183
+      },
+      {
+        "name": "reset_index",
+        "line": 195
+      },
+      {
+        "name": "reindex",
+        "line": 198
+      }
+    ],
+    "feature_references": [
+      "cycle_features",
+      "cycle_sig",
+      "regime_sig",
+      "reversal_sig",
+      "tc_adx",
+      "tc_atr",
+      "tc_trend_strength",
+      "tc_vol_comp_ratio"
+    ],
+    "label_references": [],
+    "feature_module_calls": [
+      "app.features.options_features",
+      "app.features.microstructure",
+      "compute_options_features",
+      "compute_microstructure_features",
+      "app.features.time_cycle",
+      "compute_time_cycle_features"
+    ],
+    "label_module_calls": [
+      "app.ml.labels.reversal.label_reversal",
+      "app.ml.labels.regime.label_regime",
+      "app.ml.labels.cycle.label_cycle"
+    ],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "config/labeler_defaults.json",
+        "line": 51
+      },
+      {
+        "type": "file_path",
+        "value": "_train.csv",
+        "line": 417
+      },
+      {
+        "type": "file_path",
+        "value": "_val.csv",
+        "line": 418
+      },
+      {
+        "type": "file_path",
+        "value": "_test.csv",
+        "line": 419
+      },
+      {
+        "type": "file_path",
+        "value": "_labels_only.csv",
+        "line": 422
+      },
+      {
+        "type": "file_path",
+        "value": "_train.parquet",
+        "line": 411
+      },
+      {
+        "type": "file_path",
+        "value": "_val.parquet",
+        "line": 412
+      },
+      {
+        "type": "file_path",
+        "value": "_test.parquet",
+        "line": 413
+      },
+      {
+        "type": "file_path",
+        "value": "_meta.json",
+        "line": 433
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 417
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 418
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 419
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 422
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 248
+      },
+      {
+        "type": "io_call",
+        "value": "to_parquet",
+        "line": 411
+      },
+      {
+        "type": "io_call",
+        "value": "to_parquet",
+        "line": 412
+      },
+      {
+        "type": "io_call",
+        "value": "to_parquet",
+        "line": 413
+      },
+      {
+        "type": "io_call",
+        "value": "open",
+        "line": 433
+      },
+      {
+        "type": "io_call",
+        "value": "dump",
+        "line": 434
+      },
+      {
+        "type": "io_call",
+        "value": "dumps",
+        "line": 466
+      },
+      {
+        "type": "io_call",
+        "value": "open",
+        "line": 291
+      },
+      {
+        "type": "io_call",
+        "value": "load",
+        "line": 292
+      }
+    ],
+    "output_formats": [
+      "csv",
+      "json",
+      "parquet"
+    ],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": "argparse",
+    "cli_example": "python prepare_labels_dataset.py [args]",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/run_backtest.py",
+    "filename": "run_backtest.py",
+    "docstring": "",
+    "imports": [],
+    "functions": [],
+    "main_functions": [],
+    "function_calls": [],
+    "feature_references": [],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python run_backtest.py",
+    "tests": [
+      "test_backtest_v02.py"
+    ]
+  },
+  {
+    "script_path": "./scripts/run_live.py",
+    "filename": "run_live.py",
+    "docstring": "",
+    "imports": [],
+    "functions": [],
+    "main_functions": [],
+    "function_calls": [],
+    "feature_references": [],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python run_live.py",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/run_serve.py",
+    "filename": "run_serve.py",
+    "docstring": "",
+    "imports": [],
+    "functions": [],
+    "main_functions": [],
+    "function_calls": [],
+    "feature_references": [],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python run_serve.py",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/run_train.py",
+    "filename": "run_train.py",
+    "docstring": "",
+    "imports": [],
+    "functions": [],
+    "main_functions": [],
+    "function_calls": [],
+    "feature_references": [],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python run_train.py",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/scan_fix_pandas_deprecations.py",
+    "filename": "scan_fix_pandas_deprecations.py",
+    "docstring": "Scan & optionally fix pandas deprecation patterns:\n - fillna(method='ffill'/'bfill')  -> .ffill()/ .bfill()\n - pct_change(... ) without fill_method -> add fill_method=None\n\nUsage:\n  # dry-run (report only)\n  python scripts/scan_fix_pandas_deprecations.py --report\n\n  # actually apply fixes (will create .bak backups)\n  python scripts/scan_fix_pandas_deprecations.py --apply\n\nNotes:\n - Script is conservative: only applies simple textual transforms and creates backups.\n - Review diffs (bak -> original) if you want to revert.",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 18
+      },
+      {
+        "module": "argparse",
+        "alias": null,
+        "line": 20
+      },
+      {
+        "module": "re",
+        "alias": null,
+        "line": 21
+      },
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 22
+      },
+      {
+        "module": "pathlib.Path",
+        "alias": null,
+        "line": 23
+      },
+      {
+        "module": "typing.List",
+        "alias": null,
+        "line": 24
+      },
+      {
+        "module": "typing.Tuple",
+        "alias": null,
+        "line": 24
+      }
+    ],
+    "functions": [
+      {
+        "name": "scan_file",
+        "line": 36,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "apply_fixes_to_text",
+        "line": 55,
+        "args": [
+          "txt"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 97,
+        "args": [
+          "argv"
+        ]
+      },
+      {
+        "name": "repl_fillna",
+        "line": 65,
+        "args": [
+          "m"
+        ]
+      },
+      {
+        "name": "repl_pct",
+        "line": 77,
+        "args": [
+          "m"
+        ]
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "resolve",
+        "line": 26
+      },
+      {
+        "name": "list",
+        "line": 27
+      },
+      {
+        "name": "compile",
+        "line": 30
+      },
+      {
+        "name": "compile",
+        "line": 31
+      },
+      {
+        "name": "compile",
+        "line": 34
+      },
+      {
+        "name": "rglob",
+        "line": 27
+      },
+      {
+        "name": "read_text",
+        "line": 39
+      },
+      {
+        "name": "splitlines",
+        "line": 40
+      },
+      {
+        "name": "enumerate",
+        "line": 41
+      },
+      {
+        "name": "sub",
+        "line": 71
+      },
+      {
+        "name": "sub",
+        "line": 94
+      },
+      {
+        "name": "ArgumentParser",
+        "line": 98
+      },
+      {
+        "name": "add_argument",
+        "line": 99
+      },
+      {
+        "name": "add_argument",
+        "line": 100
+      },
+      {
+        "name": "parse_args",
+        "line": 101
+      },
+      {
+        "name": "SystemExit",
+        "line": 148
+      },
+      {
+        "name": "Path",
+        "line": 26
+      },
+      {
+        "name": "group",
+        "line": 67
+      },
+      {
+        "name": "strip",
+        "line": 79
+      },
+      {
+        "name": "scan_file",
+        "line": 112
+      },
+      {
+        "name": "print",
+        "line": 120
+      },
+      {
+        "name": "print",
+        "line": 121
+      },
+      {
+        "name": "print",
+        "line": 122
+      },
+      {
+        "name": "print",
+        "line": 123
+      },
+      {
+        "name": "sorted",
+        "line": 124
+      },
+      {
+        "name": "sorted",
+        "line": 133
+      },
+      {
+        "name": "print",
+        "line": 142
+      },
+      {
+        "name": "print",
+        "line": 145
+      },
+      {
+        "name": "main",
+        "line": 148
+      },
+      {
+        "name": "search",
+        "line": 43
+      },
+      {
+        "name": "search",
+        "line": 47
+      },
+      {
+        "name": "group",
+        "line": 87
+      },
+      {
+        "name": "len",
+        "line": 115
+      },
+      {
+        "name": "items",
+        "line": 124
+      },
+      {
+        "name": "print",
+        "line": 125
+      },
+      {
+        "name": "print",
+        "line": 128
+      },
+      {
+        "name": "print",
+        "line": 131
+      },
+      {
+        "name": "keys",
+        "line": 133
+      },
+      {
+        "name": "read_text",
+        "line": 134
+      },
+      {
+        "name": "apply_fixes_to_text",
+        "line": 135
+      },
+      {
+        "name": "append",
+        "line": 45
+      },
+      {
+        "name": "group",
+        "line": 49
+      },
+      {
+        "name": "group",
+        "line": 79
+      },
+      {
+        "name": "print",
+        "line": 127
+      },
+      {
+        "name": "with_suffix",
+        "line": 137
+      },
+      {
+        "name": "write_text",
+        "line": 138
+      },
+      {
+        "name": "write_text",
+        "line": 139
+      },
+      {
+        "name": "print",
+        "line": 140
+      },
+      {
+        "name": "append",
+        "line": 52
+      },
+      {
+        "name": "len",
+        "line": 120
+      },
+      {
+        "name": "len",
+        "line": 142
+      },
+      {
+        "name": "strip",
+        "line": 45
+      },
+      {
+        "name": "len",
+        "line": 125
+      },
+      {
+        "name": "strip",
+        "line": 52
+      }
+    ],
+    "feature_references": [],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": "argparse",
+    "cli_example": "python scan_fix_pandas_deprecations.py [args]",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/show_accepted_reversals.py",
+    "filename": "show_accepted_reversals.py",
+    "docstring": "Show accepted reversals from the labels CSV and print corresponding debug rows.\n\nUsage:\n  PYTHONPATH=. python scripts/show_accepted_reversals.py",
+    "imports": [
+      {
+        "module": "os",
+        "alias": null,
+        "line": 8
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 9
+      }
+    ],
+    "functions": [
+      {
+        "name": "load_labels",
+        "line": 17,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "load_debug",
+        "line": 31,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 59,
+        "args": []
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "set_option",
+        "line": 14
+      },
+      {
+        "name": "set_option",
+        "line": 15
+      },
+      {
+        "name": "read_csv",
+        "line": 20
+      },
+      {
+        "name": "read_csv",
+        "line": 34
+      },
+      {
+        "name": "load_labels",
+        "line": 60
+      },
+      {
+        "name": "copy",
+        "line": 65
+      },
+      {
+        "name": "print",
+        "line": 66
+      },
+      {
+        "name": "print",
+        "line": 67
+      },
+      {
+        "name": "load_debug",
+        "line": 69
+      },
+      {
+        "name": "reset_index",
+        "line": 85
+      },
+      {
+        "name": "to_datetime",
+        "line": 92
+      },
+      {
+        "name": "copy",
+        "line": 94
+      },
+      {
+        "name": "merge",
+        "line": 101
+      },
+      {
+        "name": "print",
+        "line": 115
+      },
+      {
+        "name": "print",
+        "line": 118
+      },
+      {
+        "name": "main",
+        "line": 121
+      },
+      {
+        "name": "exists",
+        "line": 18
+      },
+      {
+        "name": "FileNotFoundError",
+        "line": 19
+      },
+      {
+        "name": "isinstance",
+        "line": 22
+      },
+      {
+        "name": "exists",
+        "line": 32
+      },
+      {
+        "name": "to_datetime",
+        "line": 52
+      },
+      {
+        "name": "rename",
+        "line": 53
+      },
+      {
+        "name": "print",
+        "line": 62
+      },
+      {
+        "name": "to_string",
+        "line": 67
+      },
+      {
+        "name": "print",
+        "line": 71
+      },
+      {
+        "name": "print",
+        "line": 75
+      },
+      {
+        "name": "print",
+        "line": 77
+      },
+      {
+        "name": "print",
+        "line": 78
+      },
+      {
+        "name": "tz_convert",
+        "line": 83
+      },
+      {
+        "name": "rename",
+        "line": 87
+      },
+      {
+        "name": "to_datetime",
+        "line": 91
+      },
+      {
+        "name": "to_datetime",
+        "line": 97
+      },
+      {
+        "name": "astype",
+        "line": 104
+      },
+      {
+        "name": "astype",
+        "line": 105
+      },
+      {
+        "name": "merge",
+        "line": 106
+      },
+      {
+        "name": "to_string",
+        "line": 118
+      },
+      {
+        "name": "to_datetime",
+        "line": 24
+      },
+      {
+        "name": "tolist",
+        "line": 62
+      },
+      {
+        "name": "tolist",
+        "line": 75
+      },
+      {
+        "name": "to_string",
+        "line": 78
+      },
+      {
+        "name": "to_datetime",
+        "line": 99
+      },
+      {
+        "name": "drop_duplicates",
+        "line": 106
+      },
+      {
+        "name": "print",
+        "line": 108
+      },
+      {
+        "name": "print",
+        "line": 109
+      },
+      {
+        "name": "print",
+        "line": 110
+      },
+      {
+        "name": "print",
+        "line": 111
+      },
+      {
+        "name": "print",
+        "line": 112
+      },
+      {
+        "name": "to_datetime",
+        "line": 45
+      },
+      {
+        "name": "any",
+        "line": 46
+      },
+      {
+        "name": "len",
+        "line": 66
+      },
+      {
+        "name": "head",
+        "line": 67
+      },
+      {
+        "name": "to_string",
+        "line": 110
+      },
+      {
+        "name": "to_string",
+        "line": 112
+      },
+      {
+        "name": "head",
+        "line": 78
+      },
+      {
+        "name": "notna",
+        "line": 46
+      },
+      {
+        "name": "head",
+        "line": 110
+      },
+      {
+        "name": "head",
+        "line": 112
+      }
+    ],
+    "feature_references": [
+      "ms_aggr",
+      "reversal_debug",
+      "reversal_sig"
+    ],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "out/labels_v02/labels_sample_v02.csv",
+        "line": 11
+      },
+      {
+        "type": "file_path",
+        "value": "out/labels_v02/reversal_debug.csv",
+        "line": 12
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 20
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 34
+      },
+      {
+        "type": "io_call",
+        "value": "load_labels",
+        "line": 60
+      },
+      {
+        "type": "io_call",
+        "value": "load_debug",
+        "line": 69
+      }
+    ],
+    "output_formats": [
+      "csv"
+    ],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python show_accepted_reversals.py",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/test_all_features.py",
+    "filename": "test_all_features.py",
+    "docstring": "",
+    "imports": [
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 1
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 2
+      },
+      {
+        "module": "app.features.time_cycle.compute_time_cycle_features",
+        "alias": null,
+        "line": 3
+      },
+      {
+        "module": "app.features.microstructure.compute_microstructure_features",
+        "alias": null,
+        "line": 4
+      },
+      {
+        "module": "app.features.options_features.compute_options_features",
+        "alias": null,
+        "line": 5
+      }
+    ],
+    "functions": [
+      {
+        "name": "check_columns",
+        "line": 10,
+        "args": [
+          "df",
+          "required",
+          "module_name"
+        ]
+      }
+    ],
+    "main_functions": [],
+    "function_calls": [
+      {
+        "name": "date_range",
+        "line": 22
+      },
+      {
+        "name": "DataFrame",
+        "line": 23
+      },
+      {
+        "name": "DataFrame",
+        "line": 35
+      },
+      {
+        "name": "DataFrame",
+        "line": 42
+      },
+      {
+        "name": "DataFrame",
+        "line": 61
+      },
+      {
+        "name": "compute_time_cycle_features",
+        "line": 74
+      },
+      {
+        "name": "compute_microstructure_features",
+        "line": 75
+      },
+      {
+        "name": "compute_options_features",
+        "line": 76
+      },
+      {
+        "name": "print",
+        "line": 78
+      },
+      {
+        "name": "print",
+        "line": 79
+      },
+      {
+        "name": "print",
+        "line": 80
+      },
+      {
+        "name": "print",
+        "line": 81
+      },
+      {
+        "name": "check_columns",
+        "line": 119
+      },
+      {
+        "name": "check_columns",
+        "line": 120
+      },
+      {
+        "name": "check_columns",
+        "line": 121
+      },
+      {
+        "name": "print",
+        "line": 123
+      },
+      {
+        "name": "len",
+        "line": 79
+      },
+      {
+        "name": "len",
+        "line": 80
+      },
+      {
+        "name": "len",
+        "line": 81
+      },
+      {
+        "name": "print",
+        "line": 13
+      },
+      {
+        "name": "print",
+        "line": 17
+      },
+      {
+        "name": "randint",
+        "line": 29
+      },
+      {
+        "name": "repeat",
+        "line": 36
+      },
+      {
+        "name": "randint",
+        "line": 38
+      },
+      {
+        "name": "choice",
+        "line": 39
+      },
+      {
+        "name": "randint",
+        "line": 46
+      },
+      {
+        "name": "randint",
+        "line": 47
+      },
+      {
+        "name": "randint",
+        "line": 48
+      },
+      {
+        "name": "randint",
+        "line": 49
+      },
+      {
+        "name": "randint",
+        "line": 50
+      },
+      {
+        "name": "randint",
+        "line": 51
+      },
+      {
+        "name": "randint",
+        "line": 52
+      },
+      {
+        "name": "randint",
+        "line": 53
+      },
+      {
+        "name": "randint",
+        "line": 54
+      },
+      {
+        "name": "randint",
+        "line": 55
+      },
+      {
+        "name": "randint",
+        "line": 68
+      },
+      {
+        "name": "print",
+        "line": 15
+      },
+      {
+        "name": "cumsum",
+        "line": 25
+      },
+      {
+        "name": "cumsum",
+        "line": 28
+      },
+      {
+        "name": "len",
+        "line": 29
+      },
+      {
+        "name": "randn",
+        "line": 37
+      },
+      {
+        "name": "randn",
+        "line": 44
+      },
+      {
+        "name": "randn",
+        "line": 45
+      },
+      {
+        "name": "len",
+        "line": 46
+      },
+      {
+        "name": "len",
+        "line": 47
+      },
+      {
+        "name": "len",
+        "line": 48
+      },
+      {
+        "name": "len",
+        "line": 49
+      },
+      {
+        "name": "len",
+        "line": 50
+      },
+      {
+        "name": "len",
+        "line": 51
+      },
+      {
+        "name": "len",
+        "line": 52
+      },
+      {
+        "name": "len",
+        "line": 53
+      },
+      {
+        "name": "len",
+        "line": 54
+      },
+      {
+        "name": "len",
+        "line": 55
+      },
+      {
+        "name": "randn",
+        "line": 66
+      },
+      {
+        "name": "len",
+        "line": 68
+      },
+      {
+        "name": "set_index",
+        "line": 76
+      },
+      {
+        "name": "cumsum",
+        "line": 26
+      },
+      {
+        "name": "cumsum",
+        "line": 27
+      },
+      {
+        "name": "len",
+        "line": 38
+      },
+      {
+        "name": "len",
+        "line": 39
+      },
+      {
+        "name": "len",
+        "line": 44
+      },
+      {
+        "name": "len",
+        "line": 45
+      },
+      {
+        "name": "len",
+        "line": 66
+      },
+      {
+        "name": "randn",
+        "line": 67
+      },
+      {
+        "name": "len",
+        "line": 13
+      },
+      {
+        "name": "len",
+        "line": 17
+      },
+      {
+        "name": "randn",
+        "line": 25
+      },
+      {
+        "name": "randn",
+        "line": 28
+      },
+      {
+        "name": "len",
+        "line": 37
+      },
+      {
+        "name": "len",
+        "line": 67
+      },
+      {
+        "name": "len",
+        "line": 25
+      },
+      {
+        "name": "randn",
+        "line": 26
+      },
+      {
+        "name": "randn",
+        "line": 27
+      },
+      {
+        "name": "len",
+        "line": 28
+      },
+      {
+        "name": "len",
+        "line": 26
+      },
+      {
+        "name": "len",
+        "line": 27
+      }
+    ],
+    "feature_references": [
+      "ms_absorption_flag",
+      "ms_book_pressure_delta",
+      "ms_heat_slope",
+      "ms_imb_level_1",
+      "ms_imb_level_5",
+      "ms_liq_decay",
+      "ms_microtrend_vector",
+      "ms_mid",
+      "ms_orderflow_vel",
+      "ms_pull_stack_ratio",
+      "ms_spoof_rate",
+      "ms_spread",
+      "ms_spread_z",
+      "ms_sweep_flag",
+      "ms_top_book_pressure",
+      "ms_vol_imb_sum5",
+      "opt_delta",
+      "opt_flow_delta",
+      "opt_gamma",
+      "opt_gex",
+      "opt_gex_norm",
+      "opt_gex_total",
+      "opt_iv_crush_prob",
+      "opt_iv_expand_prob",
+      "opt_iv_pct_30",
+      "opt_iv_rank_30",
+      "opt_oi_change",
+      "opt_oi_per_sec",
+      "opt_skew_index",
+      "opt_theta",
+      "opt_vega",
+      "opt_volume_delta",
+      "tc_adx",
+      "tc_atr",
+      "tc_bb_upper",
+      "tc_chop",
+      "tc_don_high",
+      "tc_ema_200",
+      "tc_ema_21",
+      "tc_ema_50",
+      "tc_ema_9",
+      "tc_hour",
+      "tc_kc_upper",
+      "tc_macd",
+      "tc_micro_session_flag",
+      "tc_minute",
+      "tc_mom",
+      "tc_roc",
+      "tc_rsi_14",
+      "tc_session",
+      "tc_session_vol_score",
+      "tc_sma_20",
+      "tc_squeeze_on",
+      "tc_sto_k",
+      "tc_trend_strength",
+      "tc_vol_comp_ratio",
+      "tc_vwap",
+      "tc_willr"
+    ],
+    "label_references": [],
+    "feature_module_calls": [
+      "app.features.options_features.compute_options_features",
+      "app.features.microstructure.compute_microstructure_features",
+      "app.features.time_cycle.compute_time_cycle_features",
+      "compute_options_features",
+      "compute_microstructure_features",
+      "compute_time_cycle_features"
+    ],
+    "label_module_calls": [],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python test_all_features.py",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/test_labelers.py",
+    "filename": "test_labelers.py",
+    "docstring": "Smoke test for labelers.\nRun from project root:\n    python scripts/test_labelers.py\n\nExpected: Prints unique labels and counts for regime/cycle and at least one reversal flagged.\nIf assertions pass, prints \"SMOKE OK\".",
+    "imports": [
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 11
+      },
+      {
+        "module": "os",
+        "alias": null,
+        "line": 12
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 13
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 14
+      },
+      {
+        "module": "app.ml.labels.regime.label_regime",
+        "alias": null,
+        "line": 21
+      },
+      {
+        "module": "app.ml.labels.reversal.label_reversal",
+        "alias": null,
+        "line": 22
+      },
+      {
+        "module": "app.ml.labels.cycle.label_cycle",
+        "alias": null,
+        "line": 23
+      }
+    ],
+    "functions": [
+      {
+        "name": "make_synthetic_ohlcv",
+        "line": 26,
+        "args": []
+      },
+      {
+        "name": "make_synthetic_features",
+        "line": 62,
+        "args": [
+          "price_df"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 77,
+        "args": []
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "dirname",
+        "line": 17
+      },
+      {
+        "name": "dirname",
+        "line": 17
+      },
+      {
+        "name": "insert",
+        "line": 19
+      },
+      {
+        "name": "floor",
+        "line": 31
+      },
+      {
+        "name": "date_range",
+        "line": 34
+      },
+      {
+        "name": "linspace",
+        "line": 37
+      },
+      {
+        "name": "linspace",
+        "line": 38
+      },
+      {
+        "name": "linspace",
+        "line": 39
+      },
+      {
+        "name": "concatenate",
+        "line": 40
+      },
+      {
+        "name": "concatenate",
+        "line": 42
+      },
+      {
+        "name": "astype",
+        "line": 45
+      },
+      {
+        "name": "DataFrame",
+        "line": 47
+      },
+      {
+        "name": "DataFrame",
+        "line": 63
+      },
+      {
+        "name": "enumerate",
+        "line": 69
+      },
+      {
+        "name": "make_synthetic_ohlcv",
+        "line": 78
+      },
+      {
+        "name": "make_synthetic_features",
+        "line": 79
+      },
+      {
+        "name": "print",
+        "line": 81
+      },
+      {
+        "name": "label_regime",
+        "line": 82
+      },
+      {
+        "name": "print",
+        "line": 83
+      },
+      {
+        "name": "print",
+        "line": 85
+      },
+      {
+        "name": "label_cycle",
+        "line": 86
+      },
+      {
+        "name": "print",
+        "line": 87
+      },
+      {
+        "name": "print",
+        "line": 89
+      },
+      {
+        "name": "label_reversal",
+        "line": 90
+      },
+      {
+        "name": "print",
+        "line": 91
+      },
+      {
+        "name": "print",
+        "line": 92
+      },
+      {
+        "name": "issubset",
+        "line": 96
+      },
+      {
+        "name": "print",
+        "line": 99
+      },
+      {
+        "name": "main",
+        "line": 103
+      },
+      {
+        "name": "abspath",
+        "line": 17
+      },
+      {
+        "name": "Timedelta",
+        "line": 32
+      },
+      {
+        "name": "maximum",
+        "line": 43
+      },
+      {
+        "name": "minimum",
+        "line": 44
+      },
+      {
+        "name": "to_dict",
+        "line": 83
+      },
+      {
+        "name": "to_dict",
+        "line": 87
+      },
+      {
+        "name": "int",
+        "line": 91
+      },
+      {
+        "name": "list",
+        "line": 92
+      },
+      {
+        "name": "sum",
+        "line": 97
+      },
+      {
+        "name": "utcnow",
+        "line": 31
+      },
+      {
+        "name": "linspace",
+        "line": 45
+      },
+      {
+        "name": "sum",
+        "line": 91
+      },
+      {
+        "name": "set",
+        "line": 96
+      },
+      {
+        "name": "value_counts",
+        "line": 83
+      },
+      {
+        "name": "value_counts",
+        "line": 87
+      },
+      {
+        "name": "unique",
+        "line": 96
+      }
+    ],
+    "feature_references": [
+      "ms_aggression_idx_v2",
+      "ms_l3_momentum_burst"
+    ],
+    "label_references": [
+      "label_cycle",
+      "label_regime",
+      "label_reversal"
+    ],
+    "feature_module_calls": [],
+    "label_module_calls": [
+      "app.ml.labels.reversal.label_reversal",
+      "app.ml.labels.regime.label_regime",
+      "app.ml.labels.cycle.label_cycle"
+    ],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python test_labelers.py",
+    "tests": [
+      "test_labels_integration.py",
+      "test_labelers.py"
+    ]
+  },
+  {
+    "script_path": "./scripts/test_labels.py",
+    "filename": "test_labels.py",
+    "docstring": "scripts/test_labels.py\n\nDefensive smoke test for labelers with robust feature-module handling.\n\nChanges vs previous:\n - replaced deprecated fillna(method='ffill') / fillna(method='bfill') with .ffill().bfill()\n - replaced datetime.utcnow() with timezone-aware datetime.now(timezone.utc)",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 11
+      },
+      {
+        "module": "os",
+        "alias": null,
+        "line": 13
+      },
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 14
+      },
+      {
+        "module": "json",
+        "alias": null,
+        "line": 15
+      },
+      {
+        "module": "traceback",
+        "alias": null,
+        "line": 16
+      },
+      {
+        "module": "datetime.datetime",
+        "alias": null,
+        "line": 17
+      },
+      {
+        "module": "datetime.timezone",
+        "alias": null,
+        "line": 17
+      },
+      {
+        "module": "typing.Any",
+        "alias": null,
+        "line": 18
+      },
+      {
+        "module": "typing.Dict",
+        "alias": null,
+        "line": 18
+      },
+      {
+        "module": "typing.Optional",
+        "alias": null,
+        "line": 18
+      },
+      {
+        "module": "typing.Tuple",
+        "alias": null,
+        "line": 18
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 20
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 21
+      },
+      {
+        "module": "pathlib",
+        "alias": null,
+        "line": 26
+      },
+      {
+        "module": "app.ml.labels.regime.label_regime",
+        "alias": null,
+        "line": 37
+      },
+      {
+        "module": "app.ml.labels.reversal.label_reversal",
+        "alias": null,
+        "line": 38
+      },
+      {
+        "module": "app.ml.labels.cycle.label_cycle",
+        "alias": null,
+        "line": 39
+      }
+    ],
+    "functions": [
+      {
+        "name": "import_labelers_or_fallback",
+        "line": 35,
+        "args": []
+      },
+      {
+        "name": "load_labeler_defaults",
+        "line": 98,
+        "args": []
+      },
+      {
+        "name": "try_import_feature_mod",
+        "line": 115,
+        "args": [
+          "name"
+        ]
+      },
+      {
+        "name": "make_synthetic_ohlcv",
+        "line": 133,
+        "args": [
+          "n",
+          "freq",
+          "tz",
+          "seed"
+        ]
+      },
+      {
+        "name": "fallback_time_cycle_features",
+        "line": 151,
+        "args": [
+          "ohlcv"
+        ]
+      },
+      {
+        "name": "fallback_microstructure_features",
+        "line": 175,
+        "args": [
+          "ohlcv"
+        ]
+      },
+      {
+        "name": "fallback_options_features",
+        "line": 192,
+        "args": [
+          "ohlcv"
+        ]
+      },
+      {
+        "name": "compute_features",
+        "line": 207,
+        "args": [
+          "ohlcv"
+        ]
+      },
+      {
+        "name": "safe_series_to_named",
+        "line": 294,
+        "args": [
+          "s",
+          "name",
+          "index_ref",
+          "dtype"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 315,
+        "args": []
+      },
+      {
+        "name": "_normalize_frame",
+        "line": 215,
+        "args": [
+          "frame"
+        ]
+      },
+      {
+        "name": "label_regime",
+        "line": 46,
+        "args": [
+          "df",
+          "params"
+        ]
+      },
+      {
+        "name": "label_reversal",
+        "line": 59,
+        "args": [
+          "df",
+          "params"
+        ]
+      },
+      {
+        "name": "label_cycle",
+        "line": 68,
+        "args": [
+          "df",
+          "params"
+        ]
+      }
+    ],
+    "main_functions": [
+      "compute_features",
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "import_labelers_or_fallback",
+        "line": 90
+      },
+      {
+        "name": "join",
+        "line": 95
+      },
+      {
+        "name": "try_import_feature_mod",
+        "line": 125
+      },
+      {
+        "name": "try_import_feature_mod",
+        "line": 126
+      },
+      {
+        "name": "try_import_feature_mod",
+        "line": 127
+      },
+      {
+        "name": "str",
+        "line": 29
+      },
+      {
+        "name": "insert",
+        "line": 30
+      },
+      {
+        "name": "default_rng",
+        "line": 134
+      },
+      {
+        "name": "date_range",
+        "line": 136
+      },
+      {
+        "name": "normal",
+        "line": 137
+      },
+      {
+        "name": "concatenate",
+        "line": 139
+      },
+      {
+        "name": "DataFrame",
+        "line": 144
+      },
+      {
+        "name": "copy",
+        "line": 152
+      },
+      {
+        "name": "mean",
+        "line": 153
+      },
+      {
+        "name": "mean",
+        "line": 154
+      },
+      {
+        "name": "mean",
+        "line": 155
+      },
+      {
+        "name": "DataFrame",
+        "line": 158
+      },
+      {
+        "name": "fillna",
+        "line": 163
+      },
+      {
+        "name": "mean",
+        "line": 169
+      },
+      {
+        "name": "mean",
+        "line": 170
+      },
+      {
+        "name": "len",
+        "line": 177
+      },
+      {
+        "name": "default_rng",
+        "line": 178
+      },
+      {
+        "name": "DataFrame",
+        "line": 179
+      },
+      {
+        "name": "normal",
+        "line": 186
+      },
+      {
+        "name": "len",
+        "line": 194
+      },
+      {
+        "name": "default_rng",
+        "line": 195
+      },
+      {
+        "name": "DataFrame",
+        "line": 196
+      },
+      {
+        "name": "normal",
+        "line": 197
+      },
+      {
+        "name": "normal",
+        "line": 198
+      },
+      {
+        "name": "normal",
+        "line": 199
+      },
+      {
+        "name": "normal",
+        "line": 200
+      },
+      {
+        "name": "to_datetime",
+        "line": 212
+      },
+      {
+        "name": "reindex",
+        "line": 281
+      },
+      {
+        "name": "reindex",
+        "line": 282
+      },
+      {
+        "name": "reindex",
+        "line": 283
+      },
+      {
+        "name": "copy",
+        "line": 300
+      },
+      {
+        "name": "print",
+        "line": 317
+      },
+      {
+        "name": "print",
+        "line": 318
+      },
+      {
+        "name": "print",
+        "line": 319
+      },
+      {
+        "name": "print",
+        "line": 320
+      },
+      {
+        "name": "print",
+        "line": 334
+      },
+      {
+        "name": "make_synthetic_ohlcv",
+        "line": 335
+      },
+      {
+        "name": "print",
+        "line": 338
+      },
+      {
+        "name": "compute_features",
+        "line": 339
+      },
+      {
+        "name": "copy",
+        "line": 342
+      },
+      {
+        "name": "to_datetime",
+        "line": 343
+      },
+      {
+        "name": "reindex",
+        "line": 346
+      },
+      {
+        "name": "reindex",
+        "line": 347
+      },
+      {
+        "name": "reindex",
+        "line": 348
+      },
+      {
+        "name": "concat",
+        "line": 350
+      },
+      {
+        "name": "bfill",
+        "line": 361
+      },
+      {
+        "name": "safe_series_to_named",
+        "line": 393
+      },
+      {
+        "name": "safe_series_to_named",
+        "line": 394
+      },
+      {
+        "name": "safe_series_to_named",
+        "line": 396
+      },
+      {
+        "name": "print",
+        "line": 399
+      },
+      {
+        "name": "join",
+        "line": 419
+      },
+      {
+        "name": "makedirs",
+        "line": 420
+      },
+      {
+        "name": "strftime",
+        "line": 422
+      },
+      {
+        "name": "join",
+        "line": 423
+      },
+      {
+        "name": "SystemExit",
+        "line": 451
+      },
+      {
+        "name": "resolve",
+        "line": 28
+      },
+      {
+        "name": "str",
+        "line": 30
+      },
+      {
+        "name": "print",
+        "line": 40
+      },
+      {
+        "name": "exists",
+        "line": 99
+      },
+      {
+        "name": "print",
+        "line": 100
+      },
+      {
+        "name": "print",
+        "line": 105
+      },
+      {
+        "name": "__import__",
+        "line": 117
+      },
+      {
+        "name": "print",
+        "line": 118
+      },
+      {
+        "name": "floor",
+        "line": 135
+      },
+      {
+        "name": "Timedelta",
+        "line": 135
+      },
+      {
+        "name": "cumsum",
+        "line": 138
+      },
+      {
+        "name": "maximum",
+        "line": 140
+      },
+      {
+        "name": "abs",
+        "line": 140
+      },
+      {
+        "name": "minimum",
+        "line": 141
+      },
+      {
+        "name": "abs",
+        "line": 141
+      },
+      {
+        "name": "abs",
+        "line": 143
+      },
+      {
+        "name": "fillna",
+        "line": 162
+      },
+      {
+        "name": "mean",
+        "line": 166
+      },
+      {
+        "name": "replace",
+        "line": 167
+      },
+      {
+        "name": "set_index",
+        "line": 176
+      },
+      {
+        "name": "abs",
+        "line": 188
+      },
+      {
+        "name": "set_index",
+        "line": 193
+      },
+      {
+        "name": "isinstance",
+        "line": 219
+      },
+      {
+        "name": "hasattr",
+        "line": 237
+      },
+      {
+        "name": "fallback_time_cycle_features",
+        "line": 246
+      },
+      {
+        "name": "hasattr",
+        "line": 249
+      },
+      {
+        "name": "fallback_microstructure_features",
+        "line": 258
+      },
+      {
+        "name": "hasattr",
+        "line": 261
+      },
+      {
+        "name": "fallback_options_features",
+        "line": 270
+      },
+      {
+        "name": "fallback_time_cycle_features",
+        "line": 274
+      },
+      {
+        "name": "fallback_microstructure_features",
+        "line": 276
+      },
+      {
+        "name": "fallback_options_features",
+        "line": 278
+      },
+      {
+        "name": "astype",
+        "line": 307
+      },
+      {
+        "name": "load_labeler_defaults",
+        "line": 316
+      },
+      {
+        "name": "get",
+        "line": 318
+      },
+      {
+        "name": "get",
+        "line": 319
+      },
+      {
+        "name": "get",
+        "line": 320
+      },
+      {
+        "name": "get",
+        "line": 323
+      },
+      {
+        "name": "get",
+        "line": 324
+      },
+      {
+        "name": "get",
+        "line": 325
+      },
+      {
+        "name": "int",
+        "line": 329
+      },
+      {
+        "name": "to_numeric",
+        "line": 354
+      },
+      {
+        "name": "get",
+        "line": 370
+      },
+      {
+        "name": "get",
+        "line": 371
+      },
+      {
+        "name": "get",
+        "line": 372
+      },
+      {
+        "name": "print",
+        "line": 381
+      },
+      {
+        "name": "label_regime",
+        "line": 382
+      },
+      {
+        "name": "print",
+        "line": 383
+      },
+      {
+        "name": "label_reversal",
+        "line": 384
+      },
+      {
+        "name": "print",
+        "line": 385
+      },
+      {
+        "name": "label_cycle",
+        "line": 386
+      },
+      {
+        "name": "dict",
+        "line": 401
+      },
+      {
+        "name": "print",
+        "line": 402
+      },
+      {
+        "name": "print",
+        "line": 406
+      },
+      {
+        "name": "concat",
+        "line": 425
+      },
+      {
+        "name": "to_csv",
+        "line": 426
+      },
+      {
+        "name": "print",
+        "line": 427
+      },
+      {
+        "name": "join",
+        "line": 440
+      },
+      {
+        "name": "to_csv",
+        "line": 441
+      },
+      {
+        "name": "print",
+        "line": 442
+      },
+      {
+        "name": "main",
+        "line": 451
+      },
+      {
+        "name": "print",
+        "line": 43
+      },
+      {
+        "name": "print_exc",
+        "line": 44
+      },
+      {
+        "name": "open",
+        "line": 103
+      },
+      {
+        "name": "load",
+        "line": 104
+      },
+      {
+        "name": "print",
+        "line": 108
+      },
+      {
+        "name": "print",
+        "line": 121
+      },
+      {
+        "name": "normal",
+        "line": 140
+      },
+      {
+        "name": "normal",
+        "line": 141
+      },
+      {
+        "name": "integers",
+        "line": 143
+      },
+      {
+        "name": "astype",
+        "line": 152
+      },
+      {
+        "name": "ewm",
+        "line": 153
+      },
+      {
+        "name": "ewm",
+        "line": 154
+      },
+      {
+        "name": "rolling",
+        "line": 155
+      },
+      {
+        "name": "ewm",
+        "line": 169
+      },
+      {
+        "name": "ewm",
+        "line": 170
+      },
+      {
+        "name": "reindex",
+        "line": 220
+      },
+      {
+        "name": "reindex",
+        "line": 232
+      },
+      {
+        "name": "compute_time_cycle_features",
+        "line": 239
+      },
+      {
+        "name": "_normalize_frame",
+        "line": 240
+      },
+      {
+        "name": "compute_microstructure_features",
+        "line": 251
+      },
+      {
+        "name": "_normalize_frame",
+        "line": 252
+      },
+      {
+        "name": "compute_options_features",
+        "line": 263
+      },
+      {
+        "name": "_normalize_frame",
+        "line": 264
+      },
+      {
+        "name": "isinstance",
+        "line": 296
+      },
+      {
+        "name": "to_datetime",
+        "line": 297
+      },
+      {
+        "name": "reindex",
+        "line": 300
+      },
+      {
+        "name": "astype",
+        "line": 303
+      },
+      {
+        "name": "set_index",
+        "line": 342
+      },
+      {
+        "name": "astype",
+        "line": 354
+      },
+      {
+        "name": "ffill",
+        "line": 361
+      },
+      {
+        "name": "print",
+        "line": 388
+      },
+      {
+        "name": "print_exc",
+        "line": 389
+      },
+      {
+        "name": "get",
+        "line": 395
+      },
+      {
+        "name": "sort_index",
+        "line": 401
+      },
+      {
+        "name": "print",
+        "line": 404
+      },
+      {
+        "name": "print",
+        "line": 408
+      },
+      {
+        "name": "get",
+        "line": 410
+      },
+      {
+        "name": "dict",
+        "line": 411
+      },
+      {
+        "name": "print",
+        "line": 412
+      },
+      {
+        "name": "print",
+        "line": 414
+      },
+      {
+        "name": "print",
+        "line": 416
+      },
+      {
+        "name": "now",
+        "line": 422
+      },
+      {
+        "name": "print",
+        "line": 429
+      },
+      {
+        "name": "print_exc",
+        "line": 430
+      },
+      {
+        "name": "print",
+        "line": 444
+      },
+      {
+        "name": "print_exc",
+        "line": 445
+      },
+      {
+        "name": "Path",
+        "line": 28
+      },
+      {
+        "name": "to_numeric",
+        "line": 48
+      },
+      {
+        "name": "mean",
+        "line": 49
+      },
+      {
+        "name": "mean",
+        "line": 50
+      },
+      {
+        "name": "fillna",
+        "line": 51
+      },
+      {
+        "name": "get",
+        "line": 52
+      },
+      {
+        "name": "Series",
+        "line": 53
+      },
+      {
+        "name": "to_numeric",
+        "line": 61
+      },
+      {
+        "name": "abs",
+        "line": 62
+      },
+      {
+        "name": "get",
+        "line": 63
+      },
+      {
+        "name": "astype",
+        "line": 64
+      },
+      {
+        "name": "get",
+        "line": 70
+      },
+      {
+        "name": "to_numeric",
+        "line": 71
+      },
+      {
+        "name": "utcnow",
+        "line": 135
+      },
+      {
+        "name": "replace",
+        "line": 162
+      },
+      {
+        "name": "rolling",
+        "line": 166
+      },
+      {
+        "name": "mean",
+        "line": 167
+      },
+      {
+        "name": "copy",
+        "line": 224
+      },
+      {
+        "name": "to_datetime",
+        "line": 225
+      },
+      {
+        "name": "set_index",
+        "line": 226
+      },
+      {
+        "name": "reindex",
+        "line": 227
+      },
+      {
+        "name": "DataFrame",
+        "line": 234
+      },
+      {
+        "name": "print",
+        "line": 242
+      },
+      {
+        "name": "print_exc",
+        "line": 243
+      },
+      {
+        "name": "fallback_time_cycle_features",
+        "line": 244
+      },
+      {
+        "name": "print",
+        "line": 254
+      },
+      {
+        "name": "print_exc",
+        "line": 255
+      },
+      {
+        "name": "fallback_microstructure_features",
+        "line": 256
+      },
+      {
+        "name": "print",
+        "line": 266
+      },
+      {
+        "name": "print_exc",
+        "line": 267
+      },
+      {
+        "name": "fallback_options_features",
+        "line": 268
+      },
+      {
+        "name": "astype",
+        "line": 305
+      },
+      {
+        "name": "get",
+        "line": 323
+      },
+      {
+        "name": "get",
+        "line": 324
+      },
+      {
+        "name": "get",
+        "line": 325
+      },
+      {
+        "name": "isinstance",
+        "line": 356
+      },
+      {
+        "name": "to_numeric",
+        "line": 357
+      },
+      {
+        "name": "sort_index",
+        "line": 411
+      },
+      {
+        "name": "join",
+        "line": 432
+      },
+      {
+        "name": "to_csv",
+        "line": 433
+      },
+      {
+        "name": "print",
+        "line": 434
+      },
+      {
+        "name": "concat",
+        "line": 441
+      },
+      {
+        "name": "arctan2",
+        "line": 74
+      },
+      {
+        "name": "Series",
+        "line": 75
+      },
+      {
+        "name": "get",
+        "line": 78
+      },
+      {
+        "name": "mean",
+        "line": 79
+      },
+      {
+        "name": "fillna",
+        "line": 80
+      },
+      {
+        "name": "Series",
+        "line": 81
+      },
+      {
+        "name": "mean",
+        "line": 156
+      },
+      {
+        "name": "fillna",
+        "line": 303
+      },
+      {
+        "name": "value_counts",
+        "line": 401
+      },
+      {
+        "name": "int",
+        "line": 406
+      },
+      {
+        "name": "print",
+        "line": 436
+      },
+      {
+        "name": "print_exc",
+        "line": 437
+      },
+      {
+        "name": "ewm",
+        "line": 49
+      },
+      {
+        "name": "ewm",
+        "line": 50
+      },
+      {
+        "name": "fillna",
+        "line": 62
+      },
+      {
+        "name": "mean",
+        "line": 73
+      },
+      {
+        "name": "sin",
+        "line": 74
+      },
+      {
+        "name": "cos",
+        "line": 74
+      },
+      {
+        "name": "set_index",
+        "line": 152
+      },
+      {
+        "name": "mean",
+        "line": 157
+      },
+      {
+        "name": "std",
+        "line": 162
+      },
+      {
+        "name": "rolling",
+        "line": 167
+      },
+      {
+        "name": "round",
+        "line": 305
+      },
+      {
+        "name": "sum",
+        "line": 406
+      },
+      {
+        "name": "value_counts",
+        "line": 411
+      },
+      {
+        "name": "describe",
+        "line": 414
+      },
+      {
+        "name": "fillna",
+        "line": 74
+      },
+      {
+        "name": "fillna",
+        "line": 74
+      },
+      {
+        "name": "rolling",
+        "line": 79
+      },
+      {
+        "name": "diff",
+        "line": 80
+      },
+      {
+        "name": "abs",
+        "line": 83
+      },
+      {
+        "name": "rolling",
+        "line": 156
+      },
+      {
+        "name": "bfill",
+        "line": 303
+      },
+      {
+        "name": "pct_change",
+        "line": 62
+      },
+      {
+        "name": "rolling",
+        "line": 73
+      },
+      {
+        "name": "get",
+        "line": 79
+      },
+      {
+        "name": "rolling",
+        "line": 157
+      },
+      {
+        "name": "rolling",
+        "line": 162
+      },
+      {
+        "name": "fillna",
+        "line": 305
+      },
+      {
+        "name": "get",
+        "line": 73
+      },
+      {
+        "name": "clip",
+        "line": 156
+      },
+      {
+        "name": "ffill",
+        "line": 303
+      },
+      {
+        "name": "abs",
+        "line": 157
+      },
+      {
+        "name": "diff",
+        "line": 156
+      },
+      {
+        "name": "clip",
+        "line": 157
+      },
+      {
+        "name": "diff",
+        "line": 157
+      }
+    ],
+    "feature_references": [
+      "cycle_features",
+      "cycle_sig",
+      "ms_absorption_flag",
+      "ms_aggression_idx",
+      "ms_microtrend_vector",
+      "ms_mid",
+      "ms_mod",
+      "ms_spoof_rate",
+      "ms_spread",
+      "ms_sweep_flag",
+      "opt_delta",
+      "opt_flow_delta",
+      "opt_mod",
+      "opt_prem_pct",
+      "opt_volume_delta",
+      "regime_sig",
+      "reversal_sig",
+      "tc_adx",
+      "tc_atr",
+      "tc_atr_norm",
+      "tc_ema_200",
+      "tc_ema_21",
+      "tc_ema_50",
+      "tc_ema_9",
+      "tc_mod",
+      "tc_rsi_14",
+      "tc_trend_strength",
+      "tc_vol_comp_ratio"
+    ],
+    "label_references": [
+      "label_cycle",
+      "label_regime",
+      "label_reversal",
+      "y_v02_"
+    ],
+    "feature_module_calls": [
+      "compute_features",
+      "compute_microstructure_features",
+      "compute_options_features",
+      "compute_time_cycle_features"
+    ],
+    "label_module_calls": [
+      "app.ml.labels.reversal.label_reversal",
+      "app.ml.labels.regime.label_regime",
+      "app.ml.labels.cycle.label_cycle"
+    ],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "labeler_defaults.json",
+        "line": 95
+      },
+      {
+        "type": "file_path",
+        "value": "[test] loaded labeler defaults from config/labeler_defaults.json",
+        "line": 105
+      },
+      {
+        "type": "file_path",
+        "value": ".csv",
+        "line": 423
+      },
+      {
+        "type": "file_path",
+        "value": "[test] warning: no labeler_defaults.json found at ",
+        "line": 100
+      },
+      {
+        "type": "file_path",
+        "value": ".csv",
+        "line": 440
+      },
+      {
+        "type": "file_path",
+        "value": ".csv",
+        "line": 432
+      },
+      {
+        "type": "io_call",
+        "value": "load_labeler_defaults",
+        "line": 316
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 426
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 441
+      },
+      {
+        "type": "io_call",
+        "value": "open",
+        "line": 103
+      },
+      {
+        "type": "io_call",
+        "value": "load",
+        "line": 104
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 433
+      }
+    ],
+    "output_formats": [
+      "csv",
+      "json"
+    ],
+    "side_effects": [],
+    "runtime_class": "quick (<30s)",
+    "cli_framework": null,
+    "cli_example": "python test_labels.py",
+    "tests": [
+      "test_labels_integration.py",
+      "test_labels.py"
+    ]
+  },
+  {
+    "script_path": "./scripts/test_preprocess.py",
+    "filename": "test_preprocess.py",
+    "docstring": "Unit tests for app/ml/preprocess.py placed in the scripts/ folder to match your repo layout.\n\n- Tests fit_and_save_pipeline -> load_pipeline -> transform_df_with_pipeline\n- Uses synthetic data so tests don't depend on your real dataset.\n- Writes artifacts to tmp_path (pytest fixture) to avoid repo pollution.",
+    "imports": [
+      {
+        "module": "os",
+        "alias": null,
+        "line": 10
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 11
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 12
+      },
+      {
+        "module": "pytest",
+        "alias": null,
+        "line": 13
+      },
+      {
+        "module": "app.ml.preprocess",
+        "alias": null,
+        "line": 17
+      }
+    ],
+    "functions": [
+      {
+        "name": "make_synthetic_train",
+        "line": 20,
+        "args": [
+          "n",
+          "seed"
+        ]
+      },
+      {
+        "name": "test_fit_and_transform_pipeline",
+        "line": 33,
+        "args": [
+          "tmp_path"
+        ]
+      },
+      {
+        "name": "test_transform_raises_on_missing_columns",
+        "line": 66,
+        "args": [
+          "tmp_path"
+        ]
+      }
+    ],
+    "main_functions": [],
+    "function_calls": [
+      {
+        "name": "RandomState",
+        "line": 21
+      },
+      {
+        "name": "DataFrame",
+        "line": 22
+      },
+      {
+        "name": "make_synthetic_train",
+        "line": 38
+      },
+      {
+        "name": "str",
+        "line": 39
+      },
+      {
+        "name": "fit_and_save_pipeline",
+        "line": 41
+      },
+      {
+        "name": "exists",
+        "line": 49
+      },
+      {
+        "name": "load_pipeline",
+        "line": 51
+      },
+      {
+        "name": "make_synthetic_train",
+        "line": 55
+      },
+      {
+        "name": "transform_df_with_pipeline",
+        "line": 56
+      },
+      {
+        "name": "all",
+        "line": 63
+      },
+      {
+        "name": "make_synthetic_train",
+        "line": 70
+      },
+      {
+        "name": "str",
+        "line": 71
+      },
+      {
+        "name": "fit_and_save_pipeline",
+        "line": 72
+      },
+      {
+        "name": "load_pipeline",
+        "line": 73
+      },
+      {
+        "name": "drop",
+        "line": 76
+      },
+      {
+        "name": "list",
+        "line": 59
+      },
+      {
+        "name": "list",
+        "line": 59
+      },
+      {
+        "name": "raises",
+        "line": 77
+      },
+      {
+        "name": "transform_df_with_pipeline",
+        "line": 78
+      },
+      {
+        "name": "normal",
+        "line": 23
+      },
+      {
+        "name": "uniform",
+        "line": 24
+      },
+      {
+        "name": "normal",
+        "line": 25
+      },
+      {
+        "name": "exponential",
+        "line": 26
+      },
+      {
+        "name": "all",
+        "line": 63
+      },
+      {
+        "name": "make_synthetic_train",
+        "line": 76
+      },
+      {
+        "name": "notna",
+        "line": 63
+      },
+      {
+        "name": "replace",
+        "line": 63
+      }
+    ],
+    "feature_references": [
+      "opt_iv"
+    ],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [
+      {
+        "type": "io_call",
+        "value": "load_pipeline",
+        "line": 51
+      },
+      {
+        "type": "io_call",
+        "value": "load_pipeline",
+        "line": 73
+      }
+    ],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": null,
+    "cli_example": "python test_preprocess.py",
+    "tests": [
+      "test_preprocess.py"
+    ]
+  },
+  {
+    "script_path": "./scripts/train_smoke.py",
+    "filename": "train_smoke.py",
+    "docstring": "scripts/train_smoke.py\n\nTiny \"one-epoch\" trainer to validate dataset shapes, dtypes and training pipeline.\nTrains a single-epoch linear classifier (SGD) on regime_sig using basic features.\n\nUsage:\n  PYTHONPATH=. python scripts/train_smoke.py --data out/datasets_v02/labels_dataset_v02_<ts>_train.parquet\n\nIf `--data` omitted, defaults to latest CSV in out/datasets_v02 matching *_train.csv",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 13
+      },
+      {
+        "module": "argparse",
+        "alias": null,
+        "line": 14
+      },
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 15
+      },
+      {
+        "module": "pathlib.Path",
+        "alias": null,
+        "line": 16
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 17
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 18
+      },
+      {
+        "module": "sklearn.linear_model.SGDClassifier",
+        "alias": null,
+        "line": 20
+      },
+      {
+        "module": "sklearn.preprocessing.StandardScaler",
+        "alias": null,
+        "line": 21
+      },
+      {
+        "module": "sklearn.metrics.accuracy_score",
+        "alias": null,
+        "line": 22
+      },
+      {
+        "module": "sklearn.metrics.confusion_matrix",
+        "alias": null,
+        "line": 22
+      },
+      {
+        "module": "sklearn.metrics.classification_report",
+        "alias": null,
+        "line": 22
+      }
+    ],
+    "functions": [
+      {
+        "name": "find_latest_train",
+        "line": 24,
+        "args": [
+          "out_dir"
+        ]
+      },
+      {
+        "name": "load_df",
+        "line": 31,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "select_features",
+        "line": 37,
+        "args": [
+          "df"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 47,
+        "args": [
+          "argv"
+        ]
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "sorted",
+        "line": 28
+      },
+      {
+        "name": "drop",
+        "line": 40
+      },
+      {
+        "name": "select_dtypes",
+        "line": 42
+      },
+      {
+        "name": "ArgumentParser",
+        "line": 48
+      },
+      {
+        "name": "add_argument",
+        "line": 49
+      },
+      {
+        "name": "add_argument",
+        "line": 50
+      },
+      {
+        "name": "add_argument",
+        "line": 51
+      },
+      {
+        "name": "add_argument",
+        "line": 52
+      },
+      {
+        "name": "parse_args",
+        "line": 53
+      },
+      {
+        "name": "Path",
+        "line": 55
+      },
+      {
+        "name": "print",
+        "line": 61
+      },
+      {
+        "name": "load_df",
+        "line": 62
+      },
+      {
+        "name": "select_features",
+        "line": 66
+      },
+      {
+        "name": "len",
+        "line": 74
+      },
+      {
+        "name": "int",
+        "line": 75
+      },
+      {
+        "name": "StandardScaler",
+        "line": 79
+      },
+      {
+        "name": "fit_transform",
+        "line": 80
+      },
+      {
+        "name": "transform",
+        "line": 81
+      },
+      {
+        "name": "SGDClassifier",
+        "line": 85
+      },
+      {
+        "name": "unique",
+        "line": 94
+      },
+      {
+        "name": "partial_fit",
+        "line": 95
+      },
+      {
+        "name": "predict",
+        "line": 98
+      },
+      {
+        "name": "predict",
+        "line": 99
+      },
+      {
+        "name": "print",
+        "line": 101
+      },
+      {
+        "name": "print",
+        "line": 102
+      },
+      {
+        "name": "print",
+        "line": 103
+      },
+      {
+        "name": "print",
+        "line": 104
+      },
+      {
+        "name": "hasattr",
+        "line": 107
+      },
+      {
+        "name": "print",
+        "line": 109
+      },
+      {
+        "name": "SystemExit",
+        "line": 112
+      },
+      {
+        "name": "list",
+        "line": 25
+      },
+      {
+        "name": "list",
+        "line": 25
+      },
+      {
+        "name": "FileNotFoundError",
+        "line": 27
+      },
+      {
+        "name": "read_parquet",
+        "line": 33
+      },
+      {
+        "name": "read_csv",
+        "line": 35
+      },
+      {
+        "name": "Path",
+        "line": 57
+      },
+      {
+        "name": "find_latest_train",
+        "line": 59
+      },
+      {
+        "name": "RuntimeError",
+        "line": 64
+      },
+      {
+        "name": "fillna",
+        "line": 67
+      },
+      {
+        "name": "RuntimeError",
+        "line": 71
+      },
+      {
+        "name": "fillna",
+        "line": 76
+      },
+      {
+        "name": "fillna",
+        "line": 76
+      },
+      {
+        "name": "accuracy_score",
+        "line": 101
+      },
+      {
+        "name": "accuracy_score",
+        "line": 102
+      },
+      {
+        "name": "confusion_matrix",
+        "line": 103
+      },
+      {
+        "name": "classification_report",
+        "line": 104
+      },
+      {
+        "name": "print",
+        "line": 108
+      },
+      {
+        "name": "main",
+        "line": 112
+      },
+      {
+        "name": "glob",
+        "line": 25
+      },
+      {
+        "name": "glob",
+        "line": 25
+      },
+      {
+        "name": "mean",
+        "line": 44
+      },
+      {
+        "name": "astype",
+        "line": 67
+      },
+      {
+        "name": "stat",
+        "line": 28
+      },
+      {
+        "name": "tolist",
+        "line": 64
+      },
+      {
+        "name": "isna",
+        "line": 44
+      }
+    ],
+    "feature_references": [
+      "cycle_sig",
+      "regime_sig",
+      "reversal_sig"
+    ],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "\nscripts/train_smoke.py\n\nTiny \"one-epoch\" trainer to validate dataset shapes, dtypes and training pipeline.\nTrains a single-epoch linear classifier (SGD) on regime_sig using basic features.\n\nUsage:\n  PYTHONPATH=. python scripts/train_smoke.py --data out/datasets_v02/labels_dataset_v02_<ts>_train.parquet\n\nIf `--data` omitted, defaults to latest CSV in out/datasets_v02 matching *_train.csv\n",
+        "line": 2
+      },
+      {
+        "type": "file_path",
+        "value": ".parquet",
+        "line": 32
+      },
+      {
+        "type": "file_path",
+        "value": "*_train.parquet",
+        "line": 25
+      },
+      {
+        "type": "file_path",
+        "value": "*_train.csv",
+        "line": 25
+      },
+      {
+        "type": "io_call",
+        "value": "load_df",
+        "line": 62
+      },
+      {
+        "type": "io_call",
+        "value": "read_parquet",
+        "line": 33
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 35
+      }
+    ],
+    "output_formats": [
+      "csv",
+      "parquet"
+    ],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": "argparse",
+    "cli_example": "python train_smoke.py [args]",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/tune_cycle_reversal.py",
+    "filename": "tune_cycle_reversal.py",
+    "docstring": "scripts/tune_cycle_reversal.py\n\nGrid search tuner for cycle (discrete) and reversal labeler params.\n\nOutputs:\n  - out/tuning/cycle_tuning_results.csv\n  - out/tuning/reversal_tuning_results.csv\n\nRun:\n  PYTHONPATH=. python scripts/tune_cycle_reversal.py",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 14
+      },
+      {
+        "module": "itertools",
+        "alias": null,
+        "line": 16
+      },
+      {
+        "module": "json",
+        "alias": null,
+        "line": 17
+      },
+      {
+        "module": "math",
+        "alias": null,
+        "line": 18
+      },
+      {
+        "module": "os",
+        "alias": null,
+        "line": 19
+      },
+      {
+        "module": "typing.Any",
+        "alias": null,
+        "line": 20
+      },
+      {
+        "module": "typing.Dict",
+        "alias": null,
+        "line": 20
+      },
+      {
+        "module": "typing.List",
+        "alias": null,
+        "line": 20
+      },
+      {
+        "module": "typing.Tuple",
+        "alias": null,
+        "line": 20
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 22
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 23
+      },
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 26
+      },
+      {
+        "module": "datetime.datetime",
+        "alias": null,
+        "line": 29
+      },
+      {
+        "module": "datetime.timezone",
+        "alias": null,
+        "line": 29
+      },
+      {
+        "module": "datetime.timedelta",
+        "alias": null,
+        "line": 29
+      },
+      {
+        "module": "app.ml.labels.cycle.label_cycle",
+        "alias": null,
+        "line": 33
+      },
+      {
+        "module": "app.ml.labels.reversal.label_reversal",
+        "alias": null,
+        "line": 34
+      }
+    ],
+    "functions": [
+      {
+        "name": "make_synthetic_close",
+        "line": 39,
+        "args": [
+          "n",
+          "seed"
+        ]
+      },
+      {
+        "name": "cycle_score",
+        "line": 48,
+        "args": [
+          "labels"
+        ]
+      },
+      {
+        "name": "reversal_score",
+        "line": 67,
+        "args": [
+          "rev_series",
+          "target"
+        ]
+      },
+      {
+        "name": "ensure_out_dir",
+        "line": 82,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "tune_cycle",
+        "line": 86,
+        "args": [
+          "df",
+          "seed"
+        ]
+      },
+      {
+        "name": "tune_reversal",
+        "line": 114,
+        "args": [
+          "df",
+          "seed",
+          "target"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 145,
+        "args": []
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "insert",
+        "line": 28
+      },
+      {
+        "name": "default_rng",
+        "line": 40
+      },
+      {
+        "name": "date_range",
+        "line": 41
+      },
+      {
+        "name": "linspace",
+        "line": 42
+      },
+      {
+        "name": "DataFrame",
+        "line": 44
+      },
+      {
+        "name": "unique",
+        "line": 58
+      },
+      {
+        "name": "float",
+        "line": 64
+      },
+      {
+        "name": "int",
+        "line": 73
+      },
+      {
+        "name": "max",
+        "line": 74
+      },
+      {
+        "name": "exp",
+        "line": 75
+      },
+      {
+        "name": "float",
+        "line": 79
+      },
+      {
+        "name": "makedirs",
+        "line": 83
+      },
+      {
+        "name": "product",
+        "line": 93
+      },
+      {
+        "name": "DataFrame",
+        "line": 109
+      },
+      {
+        "name": "reset_index",
+        "line": 110
+      },
+      {
+        "name": "product",
+        "line": 122
+      },
+      {
+        "name": "DataFrame",
+        "line": 140
+      },
+      {
+        "name": "reset_index",
+        "line": 141
+      },
+      {
+        "name": "make_synthetic_close",
+        "line": 148
+      },
+      {
+        "name": "ensure_out_dir",
+        "line": 149
+      },
+      {
+        "name": "print",
+        "line": 151
+      },
+      {
+        "name": "tune_cycle",
+        "line": 152
+      },
+      {
+        "name": "join",
+        "line": 153
+      },
+      {
+        "name": "to_csv",
+        "line": 154
+      },
+      {
+        "name": "print",
+        "line": 155
+      },
+      {
+        "name": "print",
+        "line": 156
+      },
+      {
+        "name": "print",
+        "line": 158
+      },
+      {
+        "name": "tune_reversal",
+        "line": 159
+      },
+      {
+        "name": "join",
+        "line": 160
+      },
+      {
+        "name": "to_csv",
+        "line": 161
+      },
+      {
+        "name": "print",
+        "line": 162
+      },
+      {
+        "name": "print",
+        "line": 163
+      },
+      {
+        "name": "SystemExit",
+        "line": 169
+      },
+      {
+        "name": "SystemExit",
+        "line": 36
+      },
+      {
+        "name": "normal",
+        "line": 43
+      },
+      {
+        "name": "astype",
+        "line": 55
+      },
+      {
+        "name": "len",
+        "line": 56
+      },
+      {
+        "name": "sum",
+        "line": 60
+      },
+      {
+        "name": "sum",
+        "line": 61
+      },
+      {
+        "name": "nansum",
+        "line": 73
+      },
+      {
+        "name": "join",
+        "line": 149
+      },
+      {
+        "name": "to_string",
+        "line": 156
+      },
+      {
+        "name": "to_string",
+        "line": 163
+      },
+      {
+        "name": "main",
+        "line": 169
+      },
+      {
+        "name": "len",
+        "line": 59
+      },
+      {
+        "name": "log",
+        "line": 62
+      },
+      {
+        "name": "log",
+        "line": 62
+      },
+      {
+        "name": "max",
+        "line": 63
+      },
+      {
+        "name": "max",
+        "line": 63
+      },
+      {
+        "name": "int",
+        "line": 96
+      },
+      {
+        "name": "int",
+        "line": 97
+      },
+      {
+        "name": "float",
+        "line": 98
+      },
+      {
+        "name": "int",
+        "line": 99
+      },
+      {
+        "name": "label_cycle",
+        "line": 103
+      },
+      {
+        "name": "cycle_score",
+        "line": 104
+      },
+      {
+        "name": "dict",
+        "line": 105
+      },
+      {
+        "name": "append",
+        "line": 106
+      },
+      {
+        "name": "sort_values",
+        "line": 110
+      },
+      {
+        "name": "float",
+        "line": 125
+      },
+      {
+        "name": "float",
+        "line": 126
+      },
+      {
+        "name": "int",
+        "line": 127
+      },
+      {
+        "name": "int",
+        "line": 130
+      },
+      {
+        "name": "label_reversal",
+        "line": 134
+      },
+      {
+        "name": "reversal_score",
+        "line": 135
+      },
+      {
+        "name": "int",
+        "line": 136
+      },
+      {
+        "name": "append",
+        "line": 137
+      },
+      {
+        "name": "sort_values",
+        "line": 141
+      },
+      {
+        "name": "now",
+        "line": 41
+      },
+      {
+        "name": "timedelta",
+        "line": 41
+      },
+      {
+        "name": "sin",
+        "line": 43
+      },
+      {
+        "name": "dropna",
+        "line": 55
+      },
+      {
+        "name": "log",
+        "line": 61
+      },
+      {
+        "name": "astype",
+        "line": 73
+      },
+      {
+        "name": "to_dict",
+        "line": 105
+      },
+      {
+        "name": "append",
+        "line": 108
+      },
+      {
+        "name": "sum",
+        "line": 136
+      },
+      {
+        "name": "append",
+        "line": 139
+      },
+      {
+        "name": "head",
+        "line": 156
+      },
+      {
+        "name": "head",
+        "line": 163
+      },
+      {
+        "name": "sin",
+        "line": 43
+      },
+      {
+        "name": "clip",
+        "line": 61
+      },
+      {
+        "name": "fillna",
+        "line": 73
+      },
+      {
+        "name": "value_counts",
+        "line": 105
+      },
+      {
+        "name": "str",
+        "line": 108
+      },
+      {
+        "name": "str",
+        "line": 139
+      }
+    ],
+    "feature_references": [
+      "cycle_reversal",
+      "cycle_tuning_results",
+      "reversal_tuning_results"
+    ],
+    "label_references": [
+      "y_score"
+    ],
+    "feature_module_calls": [],
+    "label_module_calls": [
+      "app.ml.labels.reversal.label_reversal",
+      "app.ml.labels.cycle.label_cycle"
+    ],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "\nscripts/tune_cycle_reversal.py\n\nGrid search tuner for cycle (discrete) and reversal labeler params.\n\nOutputs:\n  - out/tuning/cycle_tuning_results.csv\n  - out/tuning/reversal_tuning_results.csv\n\nRun:\n  PYTHONPATH=. python scripts/tune_cycle_reversal.py\n",
+        "line": 2
+      },
+      {
+        "type": "file_path",
+        "value": "cycle_tuning_results.csv",
+        "line": 153
+      },
+      {
+        "type": "file_path",
+        "value": "reversal_tuning_results.csv",
+        "line": 160
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 154
+      },
+      {
+        "type": "io_call",
+        "value": "to_csv",
+        "line": 161
+      }
+    ],
+    "output_formats": [
+      "csv"
+    ],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": null,
+    "cli_example": "python tune_cycle_reversal.py",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/tune_reversal.py",
+    "filename": "tune_reversal.py",
+    "docstring": "",
+    "imports": [
+      {
+        "module": "scripts.test_labels.make_synthetic_ohlcv",
+        "alias": null,
+        "line": 2
+      },
+      {
+        "module": "scripts.test_labels.fallback_time_cycle_features",
+        "alias": null,
+        "line": 2
+      },
+      {
+        "module": "scripts.test_labels.fallback_microstructure_features",
+        "alias": null,
+        "line": 2
+      },
+      {
+        "module": "scripts.test_labels.fallback_options_features",
+        "alias": null,
+        "line": 2
+      },
+      {
+        "module": "app.ml.labels.reversal.label_reversal",
+        "alias": null,
+        "line": 3
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 4
+      }
+    ],
+    "functions": [],
+    "main_functions": [],
+    "function_calls": [
+      {
+        "name": "make_synthetic_ohlcv",
+        "line": 6
+      },
+      {
+        "name": "fallback_time_cycle_features",
+        "line": 7
+      },
+      {
+        "name": "fallback_microstructure_features",
+        "line": 7
+      },
+      {
+        "name": "fallback_options_features",
+        "line": 7
+      },
+      {
+        "name": "concat",
+        "line": 8
+      },
+      {
+        "name": "label_reversal",
+        "line": 16
+      },
+      {
+        "name": "print",
+        "line": 17
+      },
+      {
+        "name": "int",
+        "line": 17
+      },
+      {
+        "name": "sum",
+        "line": 17
+      }
+    ],
+    "feature_references": [],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [
+      "app.ml.labels.reversal.label_reversal"
+    ],
+    "file_io": [],
+    "output_formats": [],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": null,
+    "cli_example": "python tune_reversal.py",
+    "tests": []
+  },
+  {
+    "script_path": "./scripts/validate_labels_dataset.py",
+    "filename": "validate_labels_dataset.py",
+    "docstring": "scripts/validate_labels_dataset.py\n\nValidator for label datasets (train/val/test) with AUTO-DETECTION.\n\nFeatures:\n- If explicit CSV paths are provided with --csvs, those are used.\n- Otherwise the script searches the provided --data-dir (and common subfolders)\n  for files matching patterns like '*_train.csv', '*train.csv', etc.\n- If multiple candidate triplets exist, the script picks the triplet with the\n  newest timestamp (by timestamp in filename if present, else by mtime).\n- Output report ALWAYS saved to root-level 'out/' folder (default: out/validate_report.md)\n\nUsage examples:\n  # 1) Let the script auto-discover datasets under out/datasets_v02\n  python scripts/validate_labels_dataset.py --data-dir out/datasets_v02\n\n  # 2) Auto-discover under the repo and use default out/\n  python scripts/validate_labels_dataset.py\n\n  # 3) Provide explicit filenames (relative to data-dir)\n  python scripts/validate_labels_dataset.py --data-dir out/datasets_v02       --csvs labels_dataset_v02_20251128_175517_train.csv              labels_dataset_v02_20251128_175517_val.csv              labels_dataset_v02_20251128_175517_test.csv\n\n  # 4) Provide absolute paths\n  python scripts/validate_labels_dataset.py --csvs /abs/path/train.csv /abs/path/val.csv /abs/path/test.csv\n\nOutputs:\n  - Markdown report saved to root 'out/' directory (default filename validate_report.md)\n  - Exit code 0 if no major issues, 2 if suspicious issues found\n\nAuthor: Generated for Project_PhantomScalp v0.2 \u2192 v0.3",
+    "imports": [
+      {
+        "module": "__future__.annotations",
+        "alias": null,
+        "line": 38
+      },
+      {
+        "module": "argparse",
+        "alias": null,
+        "line": 39
+      },
+      {
+        "module": "os",
+        "alias": null,
+        "line": 40
+      },
+      {
+        "module": "sys",
+        "alias": null,
+        "line": 41
+      },
+      {
+        "module": "re",
+        "alias": null,
+        "line": 42
+      },
+      {
+        "module": "glob",
+        "alias": null,
+        "line": 43
+      },
+      {
+        "module": "datetime",
+        "alias": null,
+        "line": 44
+      },
+      {
+        "module": "typing.List",
+        "alias": null,
+        "line": 45
+      },
+      {
+        "module": "typing.Tuple",
+        "alias": null,
+        "line": 45
+      },
+      {
+        "module": "typing.Dict",
+        "alias": null,
+        "line": 45
+      },
+      {
+        "module": "typing.Any",
+        "alias": null,
+        "line": 45
+      },
+      {
+        "module": "typing.Optional",
+        "alias": null,
+        "line": 45
+      },
+      {
+        "module": "numpy",
+        "alias": "np",
+        "line": 47
+      },
+      {
+        "module": "pandas",
+        "alias": "pd",
+        "line": 48
+      }
+    ],
+    "functions": [
+      {
+        "name": "extract_ts_from_filename",
+        "line": 59,
+        "args": [
+          "fname"
+        ]
+      },
+      {
+        "name": "guess_role_from_name",
+        "line": 99,
+        "args": [
+          "name"
+        ]
+      },
+      {
+        "name": "find_candidate_csvs",
+        "line": 109,
+        "args": [
+          "search_dir"
+        ]
+      },
+      {
+        "name": "group_candidates_by_batch",
+        "line": 126,
+        "args": [
+          "files"
+        ]
+      },
+      {
+        "name": "pick_best_batch",
+        "line": 259,
+        "args": [
+          "batches"
+        ]
+      },
+      {
+        "name": "load_df",
+        "line": 307,
+        "args": [
+          "path"
+        ]
+      },
+      {
+        "name": "find_ts_col",
+        "line": 313,
+        "args": [
+          "df"
+        ]
+      },
+      {
+        "name": "basic_stats",
+        "line": 327,
+        "args": [
+          "df",
+          "label_cols"
+        ]
+      },
+      {
+        "name": "detect_shifted_label",
+        "line": 365,
+        "args": [
+          "df",
+          "label",
+          "feature_candidates",
+          "max_shift"
+        ]
+      },
+      {
+        "name": "produce_report",
+        "line": 396,
+        "args": [
+          "csv_paths",
+          "out_path",
+          "label_cols"
+        ]
+      },
+      {
+        "name": "parse_args",
+        "line": 462,
+        "args": [
+          "argv"
+        ]
+      },
+      {
+        "name": "main",
+        "line": 472,
+        "args": [
+          "argv"
+        ]
+      }
+    ],
+    "main_functions": [
+      "main"
+    ],
+    "function_calls": [
+      {
+        "name": "makedirs",
+        "line": 52
+      },
+      {
+        "name": "compile",
+        "line": 57
+      },
+      {
+        "name": "search",
+        "line": 65
+      },
+      {
+        "name": "group",
+        "line": 68
+      },
+      {
+        "name": "replace",
+        "line": 70
+      },
+      {
+        "name": "lower",
+        "line": 101
+      },
+      {
+        "name": "items",
+        "line": 102
+      },
+      {
+        "name": "extend",
+        "line": 121
+      },
+      {
+        "name": "sorted",
+        "line": 123
+      },
+      {
+        "name": "set",
+        "line": 139
+      },
+      {
+        "name": "items",
+        "line": 199
+      },
+      {
+        "name": "sort",
+        "line": 299
+      },
+      {
+        "name": "read_csv",
+        "line": 310
+      },
+      {
+        "name": "len",
+        "line": 328
+      },
+      {
+        "name": "find_ts_col",
+        "line": 329
+      },
+      {
+        "name": "select_dtypes",
+        "line": 355
+      },
+      {
+        "name": "print",
+        "line": 451
+      },
+      {
+        "name": "print",
+        "line": 455
+      },
+      {
+        "name": "ArgumentParser",
+        "line": 463
+      },
+      {
+        "name": "add_argument",
+        "line": 464
+      },
+      {
+        "name": "add_argument",
+        "line": 465
+      },
+      {
+        "name": "add_argument",
+        "line": 466
+      },
+      {
+        "name": "add_argument",
+        "line": 467
+      },
+      {
+        "name": "parse_args",
+        "line": 469
+      },
+      {
+        "name": "parse_args",
+        "line": 473
+      },
+      {
+        "name": "join",
+        "line": 533
+      },
+      {
+        "name": "produce_report",
+        "line": 534
+      },
+      {
+        "name": "exit",
+        "line": 535
+      },
+      {
+        "name": "main",
+        "line": 539
+      },
+      {
+        "name": "join",
+        "line": 117
+      },
+      {
+        "name": "glob",
+        "line": 118
+      },
+      {
+        "name": "extend",
+        "line": 119
+      },
+      {
+        "name": "glob",
+        "line": 121
+      },
+      {
+        "name": "set",
+        "line": 123
+      },
+      {
+        "name": "basename",
+        "line": 135
+      },
+      {
+        "name": "guess_role_from_name",
+        "line": 143
+      },
+      {
+        "name": "sorted",
+        "line": 150
+      },
+      {
+        "name": "lower",
+        "line": 157
+      },
+      {
+        "name": "find",
+        "line": 158
+      },
+      {
+        "name": "basename",
+        "line": 193
+      },
+      {
+        "name": "extract_ts_from_filename",
+        "line": 194
+      },
+      {
+        "name": "list",
+        "line": 216
+      },
+      {
+        "name": "get",
+        "line": 290
+      },
+      {
+        "name": "exists",
+        "line": 308
+      },
+      {
+        "name": "FileNotFoundError",
+        "line": 309
+      },
+      {
+        "name": "is_datetime64_any_dtype",
+        "line": 322
+      },
+      {
+        "name": "to_datetime",
+        "line": 332
+      },
+      {
+        "name": "update",
+        "line": 333
+      },
+      {
+        "name": "is_numeric_dtype",
+        "line": 370
+      },
+      {
+        "name": "range",
+        "line": 378
+      },
+      {
+        "name": "basename",
+        "line": 400
+      },
+      {
+        "name": "append",
+        "line": 401
+      },
+      {
+        "name": "append",
+        "line": 402
+      },
+      {
+        "name": "load_df",
+        "line": 407
+      },
+      {
+        "name": "basic_stats",
+        "line": 408
+      },
+      {
+        "name": "append",
+        "line": 409
+      },
+      {
+        "name": "get",
+        "line": 410
+      },
+      {
+        "name": "append",
+        "line": 419
+      },
+      {
+        "name": "items",
+        "line": 420
+      },
+      {
+        "name": "append",
+        "line": 432
+      },
+      {
+        "name": "items",
+        "line": 433
+      },
+      {
+        "name": "tolist",
+        "line": 440
+      },
+      {
+        "name": "append",
+        "line": 441
+      },
+      {
+        "name": "append",
+        "line": 447
+      },
+      {
+        "name": "open",
+        "line": 448
+      },
+      {
+        "name": "write",
+        "line": 449
+      },
+      {
+        "name": "write",
+        "line": 450
+      },
+      {
+        "name": "print",
+        "line": 453
+      },
+      {
+        "name": "print",
+        "line": 479
+      },
+      {
+        "name": "abspath",
+        "line": 484
+      },
+      {
+        "name": "print",
+        "line": 485
+      },
+      {
+        "name": "find_candidate_csvs",
+        "line": 486
+      },
+      {
+        "name": "print",
+        "line": 498
+      },
+      {
+        "name": "group_candidates_by_batch",
+        "line": 499
+      },
+      {
+        "name": "print",
+        "line": 518
+      },
+      {
+        "name": "pick_best_batch",
+        "line": 519
+      },
+      {
+        "name": "print",
+        "line": 523
+      },
+      {
+        "name": "print",
+        "line": 524
+      },
+      {
+        "name": "print",
+        "line": 525
+      },
+      {
+        "name": "print",
+        "line": 526
+      },
+      {
+        "name": "abspath",
+        "line": 530
+      },
+      {
+        "name": "abspath",
+        "line": 533
+      },
+      {
+        "name": "replace",
+        "line": 70
+      },
+      {
+        "name": "len",
+        "line": 73
+      },
+      {
+        "name": "strptime",
+        "line": 74
+      },
+      {
+        "name": "len",
+        "line": 76
+      },
+      {
+        "name": "strptime",
+        "line": 77
+      },
+      {
+        "name": "len",
+        "line": 79
+      },
+      {
+        "name": "strptime",
+        "line": 80
+      },
+      {
+        "name": "join",
+        "line": 121
+      },
+      {
+        "name": "tuple",
+        "line": 181
+      },
+      {
+        "name": "isoformat",
+        "line": 196
+      },
+      {
+        "name": "append",
+        "line": 197
+      },
+      {
+        "name": "tuple",
+        "line": 207
+      },
+      {
+        "name": "keys",
+        "line": 216
+      },
+      {
+        "name": "get",
+        "line": 278
+      },
+      {
+        "name": "extract_ts_from_filename",
+        "line": 281
+      },
+      {
+        "name": "max",
+        "line": 286
+      },
+      {
+        "name": "append",
+        "line": 287
+      },
+      {
+        "name": "exists",
+        "line": 291
+      },
+      {
+        "name": "fromtimestamp",
+        "line": 292
+      },
+      {
+        "name": "append",
+        "line": 293
+      },
+      {
+        "name": "append",
+        "line": 296
+      },
+      {
+        "name": "to_datetime",
+        "line": 317
+      },
+      {
+        "name": "head",
+        "line": 359
+      },
+      {
+        "name": "to_dict",
+        "line": 360
+      },
+      {
+        "name": "is_numeric_dtype",
+        "line": 376
+      },
+      {
+        "name": "shift",
+        "line": 381
+      },
+      {
+        "name": "dropna",
+        "line": 382
+      },
+      {
+        "name": "exists",
+        "line": 403
+      },
+      {
+        "name": "append",
+        "line": 404
+      },
+      {
+        "name": "append",
+        "line": 411
+      },
+      {
+        "name": "append",
+        "line": 412
+      },
+      {
+        "name": "append",
+        "line": 413
+      },
+      {
+        "name": "append",
+        "line": 414
+      },
+      {
+        "name": "append",
+        "line": 415
+      },
+      {
+        "name": "append",
+        "line": 425
+      },
+      {
+        "name": "append",
+        "line": 434
+      },
+      {
+        "name": "detect_shifted_label",
+        "line": 443
+      },
+      {
+        "name": "join",
+        "line": 450
+      },
+      {
+        "name": "print",
+        "line": 481
+      },
+      {
+        "name": "print",
+        "line": 488
+      },
+      {
+        "name": "extend",
+        "line": 494
+      },
+      {
+        "name": "print",
+        "line": 496
+      },
+      {
+        "name": "exit",
+        "line": 497
+      },
+      {
+        "name": "print",
+        "line": 502
+      },
+      {
+        "name": "print",
+        "line": 515
+      },
+      {
+        "name": "exit",
+        "line": 516
+      },
+      {
+        "name": "print",
+        "line": 521
+      },
+      {
+        "name": "exit",
+        "line": 522
+      },
+      {
+        "name": "get",
+        "line": 524
+      },
+      {
+        "name": "get",
+        "line": 525
+      },
+      {
+        "name": "get",
+        "line": 526
+      },
+      {
+        "name": "lower",
+        "line": 151
+      },
+      {
+        "name": "sorted",
+        "line": 181
+      },
+      {
+        "name": "rstrip",
+        "line": 185
+      },
+      {
+        "name": "append",
+        "line": 186
+      },
+      {
+        "name": "add",
+        "line": 187
+      },
+      {
+        "name": "sorted",
+        "line": 207
+      },
+      {
+        "name": "append",
+        "line": 209
+      },
+      {
+        "name": "add",
+        "line": 210
+      },
+      {
+        "name": "lower",
+        "line": 219
+      },
+      {
+        "name": "lower",
+        "line": 223
+      },
+      {
+        "name": "get",
+        "line": 231
+      },
+      {
+        "name": "getmtime",
+        "line": 247
+      },
+      {
+        "name": "tuple",
+        "line": 251
+      },
+      {
+        "name": "get",
+        "line": 270
+      },
+      {
+        "name": "get",
+        "line": 270
+      },
+      {
+        "name": "get",
+        "line": 270
+      },
+      {
+        "name": "basename",
+        "line": 281
+      },
+      {
+        "name": "append",
+        "line": 283
+      },
+      {
+        "name": "getmtime",
+        "line": 292
+      },
+      {
+        "name": "sum",
+        "line": 318
+      },
+      {
+        "name": "min",
+        "line": 334
+      },
+      {
+        "name": "max",
+        "line": 335
+      },
+      {
+        "name": "int",
+        "line": 336
+      },
+      {
+        "name": "float",
+        "line": 338
+      },
+      {
+        "name": "str",
+        "line": 347
+      },
+      {
+        "name": "int",
+        "line": 348
+      },
+      {
+        "name": "float",
+        "line": 349
+      },
+      {
+        "name": "len",
+        "line": 383
+      },
+      {
+        "name": "max",
+        "line": 383
+      },
+      {
+        "name": "abs",
+        "line": 389
+      },
+      {
+        "name": "append",
+        "line": 390
+      },
+      {
+        "name": "append",
+        "line": 417
+      },
+      {
+        "name": "get",
+        "line": 421
+      },
+      {
+        "name": "append",
+        "line": 422
+      },
+      {
+        "name": "append",
+        "line": 430
+      },
+      {
+        "name": "len",
+        "line": 435
+      },
+      {
+        "name": "next",
+        "line": 436
+      },
+      {
+        "name": "append",
+        "line": 445
+      },
+      {
+        "name": "isabs",
+        "line": 478
+      },
+      {
+        "name": "abspath",
+        "line": 478
+      },
+      {
+        "name": "abspath",
+        "line": 478
+      },
+      {
+        "name": "glob",
+        "line": 490
+      },
+      {
+        "name": "glob",
+        "line": 490
+      },
+      {
+        "name": "extend",
+        "line": 493
+      },
+      {
+        "name": "values",
+        "line": 181
+      },
+      {
+        "name": "get",
+        "line": 183
+      },
+      {
+        "name": "get",
+        "line": 183
+      },
+      {
+        "name": "get",
+        "line": 183
+      },
+      {
+        "name": "setdefault",
+        "line": 197
+      },
+      {
+        "name": "guess_role_from_name",
+        "line": 200
+      },
+      {
+        "name": "guess_role_from_name",
+        "line": 201
+      },
+      {
+        "name": "guess_role_from_name",
+        "line": 202
+      },
+      {
+        "name": "replace",
+        "line": 226
+      },
+      {
+        "name": "next",
+        "line": 227
+      },
+      {
+        "name": "tuple",
+        "line": 233
+      },
+      {
+        "name": "lower",
+        "line": 240
+      },
+      {
+        "name": "min",
+        "line": 248
+      },
+      {
+        "name": "min",
+        "line": 249
+      },
+      {
+        "name": "basename",
+        "line": 250
+      },
+      {
+        "name": "sorted",
+        "line": 251
+      },
+      {
+        "name": "append",
+        "line": 253
+      },
+      {
+        "name": "add",
+        "line": 254
+      },
+      {
+        "name": "fromtimestamp",
+        "line": 296
+      },
+      {
+        "name": "sum",
+        "line": 336
+      },
+      {
+        "name": "mean",
+        "line": 338
+      },
+      {
+        "name": "sum",
+        "line": 348
+      },
+      {
+        "name": "mean",
+        "line": 349
+      },
+      {
+        "name": "tolist",
+        "line": 350
+      },
+      {
+        "name": "sort_values",
+        "line": 359
+      },
+      {
+        "name": "concat",
+        "line": 382
+      },
+      {
+        "name": "abs",
+        "line": 391
+      },
+      {
+        "name": "append",
+        "line": 392
+      },
+      {
+        "name": "iter",
+        "line": 436
+      },
+      {
+        "name": "append",
+        "line": 438
+      },
+      {
+        "name": "select_dtypes",
+        "line": 440
+      },
+      {
+        "name": "join",
+        "line": 478
+      },
+      {
+        "name": "join",
+        "line": 490
+      },
+      {
+        "name": "join",
+        "line": 490
+      },
+      {
+        "name": "find_candidate_csvs",
+        "line": 493
+      },
+      {
+        "name": "len",
+        "line": 498
+      },
+      {
+        "name": "getmtime",
+        "line": 510
+      },
+      {
+        "name": "append",
+        "line": 513
+      },
+      {
+        "name": "len",
+        "line": 518
+      },
+      {
+        "name": "get",
+        "line": 527
+      },
+      {
+        "name": "get",
+        "line": 527
+      },
+      {
+        "name": "get",
+        "line": 527
+      },
+      {
+        "name": "startswith",
+        "line": 170
+      },
+      {
+        "name": "any",
+        "line": 170
+      },
+      {
+        "name": "basename",
+        "line": 200
+      },
+      {
+        "name": "basename",
+        "line": 201
+      },
+      {
+        "name": "basename",
+        "line": 202
+      },
+      {
+        "name": "split",
+        "line": 232
+      },
+      {
+        "name": "sorted",
+        "line": 233
+      },
+      {
+        "name": "append",
+        "line": 235
+      },
+      {
+        "name": "add",
+        "line": 236
+      },
+      {
+        "name": "lower",
+        "line": 241
+      },
+      {
+        "name": "lower",
+        "line": 241
+      },
+      {
+        "name": "lower",
+        "line": 242
+      },
+      {
+        "name": "lower",
+        "line": 242
+      },
+      {
+        "name": "notna",
+        "line": 318
+      },
+      {
+        "name": "len",
+        "line": 383
+      },
+      {
+        "name": "corr",
+        "line": 386
+      },
+      {
+        "name": "items",
+        "line": 436
+      },
+      {
+        "name": "lower",
+        "line": 503
+      },
+      {
+        "name": "lower",
+        "line": 505
+      },
+      {
+        "name": "min",
+        "line": 511
+      },
+      {
+        "name": "min",
+        "line": 512
+      },
+      {
+        "name": "duplicated",
+        "line": 336
+      },
+      {
+        "name": "isna",
+        "line": 338
+      },
+      {
+        "name": "notna",
+        "line": 348
+      },
+      {
+        "name": "isna",
+        "line": 349
+      },
+      {
+        "name": "unique",
+        "line": 350
+      },
+      {
+        "name": "abs",
+        "line": 359
+      },
+      {
+        "name": "lower",
+        "line": 504
+      },
+      {
+        "name": "lower",
+        "line": 504
+      },
+      {
+        "name": "basename",
+        "line": 513
+      },
+      {
+        "name": "len",
+        "line": 167
+      },
+      {
+        "name": "get",
+        "line": 207
+      },
+      {
+        "name": "get",
+        "line": 207
+      },
+      {
+        "name": "get",
+        "line": 207
+      },
+      {
+        "name": "abs",
+        "line": 248
+      },
+      {
+        "name": "abs",
+        "line": 249
+      },
+      {
+        "name": "basename",
+        "line": 503
+      },
+      {
+        "name": "basename",
+        "line": 505
+      },
+      {
+        "name": "lower",
+        "line": 170
+      },
+      {
+        "name": "lower",
+        "line": 227
+      },
+      {
+        "name": "get",
+        "line": 251
+      },
+      {
+        "name": "get",
+        "line": 251
+      },
+      {
+        "name": "get",
+        "line": 251
+      },
+      {
+        "name": "dropna",
+        "line": 350
+      },
+      {
+        "name": "corrwith",
+        "line": 359
+      },
+      {
+        "name": "basename",
+        "line": 504
+      },
+      {
+        "name": "basename",
+        "line": 504
+      },
+      {
+        "name": "abs",
+        "line": 511
+      },
+      {
+        "name": "abs",
+        "line": 512
+      },
+      {
+        "name": "get",
+        "line": 233
+      },
+      {
+        "name": "get",
+        "line": 233
+      },
+      {
+        "name": "get",
+        "line": 233
+      },
+      {
+        "name": "getmtime",
+        "line": 248
+      },
+      {
+        "name": "getmtime",
+        "line": 249
+      },
+      {
+        "name": "getmtime",
+        "line": 511
+      },
+      {
+        "name": "getmtime",
+        "line": 512
+      }
+    ],
+    "feature_references": [],
+    "label_references": [],
+    "feature_module_calls": [],
+    "label_module_calls": [],
+    "file_io": [
+      {
+        "type": "file_path",
+        "value": "\nscripts/validate_labels_dataset.py\n\nValidator for label datasets (train/val/test) with AUTO-DETECTION.\n\nFeatures:\n- If explicit CSV paths are provided with --csvs, those are used.\n- Otherwise the script searches the provided --data-dir (and common subfolders)\n  for files matching patterns like '*_train.csv', '*train.csv', etc.\n- If multiple candidate triplets exist, the script picks the triplet with the\n  newest timestamp (by timestamp in filename if present, else by mtime).\n- Output report ALWAYS saved to root-level 'out/' folder (default: out/validate_report.md)\n\nUsage examples:\n  # 1) Let the script auto-discover datasets under out/datasets_v02\n  python scripts/validate_labels_dataset.py --data-dir out/datasets_v02\n\n  # 2) Auto-discover under the repo and use default out/\n  python scripts/validate_labels_dataset.py\n\n  # 3) Provide explicit filenames (relative to data-dir)\n  python scripts/validate_labels_dataset.py --data-dir out/datasets_v02       --csvs labels_dataset_v02_20251128_175517_train.csv              labels_dataset_v02_20251128_175517_val.csv              labels_dataset_v02_20251128_175517_test.csv\n\n  # 4) Provide absolute paths\n  python scripts/validate_labels_dataset.py --csvs /abs/path/train.csv /abs/path/val.csv /abs/path/test.csv\n\nOutputs:\n  - Markdown report saved to root 'out/' directory (default filename validate_report.md)\n  - Exit code 0 if no major issues, 2 if suspicious issues found\n\nAuthor: Generated for Project_PhantomScalp v0.2 \u2192 v0.3\n",
+        "line": 2
+      },
+      {
+        "type": "file_path",
+        "value": "*_train.csv",
+        "line": 87
+      },
+      {
+        "type": "file_path",
+        "value": "*train.csv",
+        "line": 87
+      },
+      {
+        "type": "file_path",
+        "value": "*_train*.csv",
+        "line": 87
+      },
+      {
+        "type": "file_path",
+        "value": "*-train.csv",
+        "line": 87
+      },
+      {
+        "type": "file_path",
+        "value": "*_val.csv",
+        "line": 88
+      },
+      {
+        "type": "file_path",
+        "value": "*val.csv",
+        "line": 88
+      },
+      {
+        "type": "file_path",
+        "value": "*_val*.csv",
+        "line": 88
+      },
+      {
+        "type": "file_path",
+        "value": "*-val.csv",
+        "line": 88
+      },
+      {
+        "type": "file_path",
+        "value": "*_test.csv",
+        "line": 89
+      },
+      {
+        "type": "file_path",
+        "value": "*test.csv",
+        "line": 89
+      },
+      {
+        "type": "file_path",
+        "value": "*_test*.csv",
+        "line": 89
+      },
+      {
+        "type": "file_path",
+        "value": "*-test.csv",
+        "line": 89
+      },
+      {
+        "type": "file_path",
+        "value": "validate_report.md",
+        "line": 467
+      },
+      {
+        "type": "file_path",
+        "value": "*.csv",
+        "line": 121
+      },
+      {
+        "type": "io_call",
+        "value": "read_csv",
+        "line": 310
+      },
+      {
+        "type": "io_call",
+        "value": "load_df",
+        "line": 407
+      },
+      {
+        "type": "io_call",
+        "value": "open",
+        "line": 448
+      }
+    ],
+    "output_formats": [
+      "csv",
+      "md"
+    ],
+    "side_effects": [],
+    "runtime_class": "heavy (>5m)",
+    "cli_framework": "argparse",
+    "cli_example": "python validate_labels_dataset.py [args]",
+    "tests": []
+  }
+]

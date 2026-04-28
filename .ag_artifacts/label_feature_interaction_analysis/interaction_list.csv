@@ -1,0 +1,76 @@
+producer_module,file_path,interaction_type,line_number,matched_symbol,code_context
+time_cycle,app/orchestrator/backtest_v02.py,import,72,compute_time_cycle_features,"from app.features.time_cycle import compute_time_cycle_features, atr as tc_atr_helper"
+microstructure,app/orchestrator/backtest_v02.py,import,73,compute_microstructure_features,from app.features.microstructure import compute_microstructure_features
+options_features,app/orchestrator/backtest_v02.py,import,74,compute_options_features,from app.features.options_features import compute_options_features
+regime,app/orchestrator/backtest_v02.py,import,82,label_regime,from app.ml.labels.regime import label_regime
+reversal,app/orchestrator/backtest_v02.py,import,83,label_reversal,from app.ml.labels.reversal import label_reversal
+cycle,app/orchestrator/backtest_v02.py,import,84,label_cycle,from app.ml.labels.cycle import label_cycle
+time_cycle,app/orchestrator/backtest_v02.py,call,226,compute_time_cycle_features,tc = compute_time_cycle_features(spot_df)
+microstructure,app/orchestrator/backtest_v02.py,call,236,compute_microstructure_features,"ms = compute_microstructure_features(spot_df, trades_df=trades_df)"
+options_features,app/orchestrator/backtest_v02.py,call,248,compute_options_features,"optf = compute_options_features(opt_df, spot_series=spot_df['close'])"
+regime,app/orchestrator/backtest_v02.py,call,255,label_regime,regime = label_regime(spot_df)
+reversal,app/orchestrator/backtest_v02.py,call,256,label_reversal,"reversal = label_reversal(spot_df, features_df=ms)"
+cycle,app/orchestrator/backtest_v02.py,call,257,label_cycle,cycle = label_cycle(spot_df)
+time_cycle,app/orchestrator/backtest_v02.py,feature_reference,303,tc_atr,"atr_val = float(tc['tc_atr'].reindex([tin], method='ffill').iloc[0])"
+time_cycle,scripts/prepare_labels_dataset.py,import,33,time_cycle,from app.features import time_cycle as tc_mod
+microstructure,scripts/prepare_labels_dataset.py,import,38,microstructure,from app.features import microstructure as ms_mod
+options_features,scripts/prepare_labels_dataset.py,import,43,options_features,from app.features import options_features as opt_mod
+regime,scripts/prepare_labels_dataset.py,import,311,label_regime,from app.ml.labels.regime import label_regime as _lr
+reversal,scripts/prepare_labels_dataset.py,import,320,label_reversal,from app.ml.labels.reversal import label_reversal as _lrev
+cycle,scripts/prepare_labels_dataset.py,import,329,label_cycle,from app.ml.labels.cycle import label_cycle as _lcy
+time_cycle,scripts/prepare_labels_dataset.py,call,165,compute_time_cycle_features,tc_candidate = tc_mod.compute_time_cycle_features(...)
+microstructure,scripts/prepare_labels_dataset.py,call,180,compute_microstructure_features,ms_candidate = ms_mod.compute_microstructure_features(...)
+options_features,scripts/prepare_labels_dataset.py,call,195,compute_options_features,opt_candidate = opt_mod.compute_options_features(...)
+regime,scripts/prepare_labels_dataset.py,call,343,label_regime,"regime_sig = label_regime(merged, params=regime_params)"
+reversal,scripts/prepare_labels_dataset.py,call,355,label_reversal,"reversal_sig = label_reversal(merged, params=reversal_params)"
+cycle,scripts/prepare_labels_dataset.py,call,367,label_cycle,"cycle_sig = label_cycle(merged, params=cycle_params)"
+regime,scripts/prepare_labels_dataset.py,file_write,417,labels_dataset_v02_*.csv,"train_df.to_csv(cfg.out_dir / f'{base_name}_train.csv', index=True)"
+regime,scripts/test_labels.py,import,37,label_regime,from app.ml.labels.regime import label_regime
+reversal,scripts/test_labels.py,import,38,label_reversal,from app.ml.labels.reversal import label_reversal
+cycle,scripts/test_labels.py,import,39,label_cycle,from app.ml.labels.cycle import label_cycle
+time_cycle,scripts/test_labels.py,import,125,time_cycle,tc_mod = try_import_feature_mod('app.features.time_cycle')
+microstructure,scripts/test_labels.py,import,126,microstructure,ms_mod = try_import_feature_mod('app.features.microstructure')
+options_features,scripts/test_labels.py,import,127,options_features,opt_mod = try_import_feature_mod('app.features.options_features')
+regime,scripts/test_labels.py,call,382,label_regime,"r = label_regime(df, params=regime_params)"
+reversal,scripts/test_labels.py,call,384,label_reversal,"rev = label_reversal(df, params=reversal_params)"
+cycle,scripts/test_labels.py,call,386,label_cycle,"cyc = label_cycle(df, params=cycle_params)"
+time_cycle,scripts/test_all_features.py,import,3,compute_time_cycle_features,from app.features.time_cycle import compute_time_cycle_features
+microstructure,scripts/test_all_features.py,import,4,compute_microstructure_features,from app.features.microstructure import compute_microstructure_features
+options_features,scripts/test_all_features.py,import,5,compute_options_features,from app.features.options_features import compute_options_features
+time_cycle,scripts/test_all_features.py,call,74,compute_time_cycle_features,tc = compute_time_cycle_features(spot)
+microstructure,scripts/test_all_features.py,call,75,compute_microstructure_features,"ms = compute_microstructure_features(spot, trades_df=trades, depth_df=depth)"
+options_features,scripts/test_all_features.py,call,76,compute_options_features,"optf = compute_options_features(opt, spot_series=spot.set_index('datetime')['close'])"
+reversal,scripts/tune_reversal.py,import,3,label_reversal,from app.ml.labels.reversal import label_reversal
+reversal,scripts/tune_reversal.py,call,16,label_reversal,"rev = label_reversal(df_all, params={**c,'verbose':False})"
+cycle,scripts/tune_cycle_reversal.py,import,33,label_cycle,from app.ml.labels.cycle import label_cycle
+reversal,scripts/tune_cycle_reversal.py,import,34,label_reversal,from app.ml.labels.reversal import label_reversal
+cycle,scripts/tune_cycle_reversal.py,call,103,label_cycle,"lbl = label_cycle(df, params=params)"
+reversal,scripts/tune_cycle_reversal.py,call,134,label_reversal,"rev = label_reversal(df, params=params)"
+reversal,scripts/show_accepted_reversals.py,file_read,11,labels_sample_v02.csv,LABELS_PATH = 'out/labels_v02/labels_sample_v02.csv'
+reversal,scripts/show_accepted_reversals.py,file_read,12,reversal_debug.csv,DEBUG_PATH = 'out/labels_v02/reversal_debug.csv'
+reversal,scripts/inspect_reversal_debug.py,file_read,36,reversal_debug.csv,"default = os.path.join('out', 'labels_v02', 'reversal_debug.csv')"
+reversal,scripts/inspect_reversal_debug.py,file_read,44,labels_only_v02_*.csv,"candidates = sorted(glob.glob(os.path.join('out', 'labels_v02', 'labels_only_v02_*.csv')), reverse=True)"
+regime,scripts/check_label_stats.py,file_read,38,labels_only*.csv,"files = sorted(pth.glob('*labels_only*.csv'), key=lambda p: p.stat().st_mtime, reverse=True)"
+reversal,scripts/check_label_stats.py,file_read,38,labels_only*.csv,"files = sorted(pth.glob('*labels_only*.csv'), key=lambda p: p.stat().st_mtime, reverse=True)"
+cycle,scripts/check_label_stats.py,file_read,38,labels_only*.csv,"files = sorted(pth.glob('*labels_only*.csv'), key=lambda p: p.stat().st_mtime, reverse=True)"
+regime,scripts/train_smoke.py,file_read,25,*_train.parquet,files = list(out_dir.glob('*_train.parquet')) + list(out_dir.glob('*_train.csv'))
+regime,scripts/train_smoke.py,label_reference,39,regime_sig,"labels = ['regime_sig', 'reversal_sig', 'cycle_sig']"
+regime,tests/test_labels_integration.py,import,9,label_regime,from app.ml.labels.regime import label_regime
+reversal,tests/test_labels_integration.py,import,10,label_reversal,from app.ml.labels.reversal import label_reversal
+cycle,tests/test_labels_integration.py,import,11,label_cycle,from app.ml.labels.cycle import label_cycle
+regime,tests/test_labels_integration.py,call,27,label_regime,"r = label_regime(df, params={'verbose': False, 'seed': 0})"
+reversal,tests/test_labels_integration.py,call,28,label_reversal,"rev = label_reversal(df, params={'verbose': False, 'seed': 0})"
+cycle,tests/test_labels_integration.py,call,29,label_cycle,"cyc = label_cycle(df, params={'method': 'discrete', ...})"
+time_cycle,app/ml/labels/regime.py,feature_reference,65,tc_atr,"atr_col = params.get('atr_col', 'tc_atr')"
+time_cycle,app/ml/labels/regime.py,feature_reference,66,tc_adx,"adx_col = params.get('adx_col', 'tc_adx')"
+time_cycle,app/ml/labels/regime.py,feature_reference,68,tc_trend_strength,"trend_strength_col = params.get('trend_strength_col', 'tc_trend_strength')"
+time_cycle,app/ml/labels/regime.py,feature_reference,70,tc_vol_comp_ratio,"vol_comp_col = params.get('vol_comp_col', 'tc_vol_comp_ratio')"
+time_cycle,app/ml/labels/reversal.py,feature_reference,89,tc_atr,"'tc_atr',"
+time_cycle,app/ml/labels/reversal.py,feature_reference,90,tc_rsi_14,"'tc_rsi_14',"
+microstructure,app/ml/labels/reversal.py,feature_reference,91,ms_micro_divergence,"'ms_micro_divergence',"
+microstructure,app/ml/labels/reversal.py,feature_reference,92,ms_sweep_flag,"'ms_sweep_flag',"
+microstructure,app/ml/labels/reversal.py,feature_reference,93,ms_absorption_flag,"'ms_absorption_flag',"
+microstructure,app/ml/labels/reversal.py,feature_reference,94,ms_aggression_idx,"'ms_aggression_idx',"
+microstructure,app/ml/labels/reversal.py,feature_reference,95,ms_mid,"'ms_mid',"
+microstructure,app/ml/labels/reversal.py,feature_reference,96,ms_spread,"'ms_spread',"
+microstructure,app/ml/labels/reversal.py,feature_reference,97,ms_microtrend_vector,"'ms_microtrend_vector',"

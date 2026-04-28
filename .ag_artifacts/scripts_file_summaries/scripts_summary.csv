@@ -1,0 +1,49 @@
+script_path,short_purpose,entrypoint_command,main_functions_called,features_referenced,labels_referenced,outputs_written,outputs_format,tests_covering,runtime_class,notes
+./scripts/check_label_stats.py,"scripts/check_label_stats.py
+
+Inspect label files (labels-only CSV or parquet) and print simple stat",python check_label_stats.py [args],main,"cycle_sig,regime_sig,reversal_sig",label_stats,,"csv,parquet",,heavy (>5m),
+./scripts/inspect_reversal_debug.py,"scripts/inspect_reversal_debug.py
+
+Small utility to inspect reversal debug CSVs and (optionally) mer",python inspect_reversal_debug.py [args],main,"ms_aggr,reversal_debug,reversal_sig","y_v02_,y_v02_20251128_151519",,csv,,quick (<30s),
+./scripts/label_quality_report.py,"scripts/label_quality_report.py
+
+Generate a label-quality report for train/val/test CSVs produced by",python label_quality_report.py [args],main,,"label_quality_report,label_summary",,"csv,md",,heavy (>5m),
+./scripts/prepare_labels_dataset.py,"scripts/prepare_labels_dataset.py
+
+Prepare labeled dataset for Project_PhantomScalp v0.2:
+ - loads a",python prepare_labels_dataset.py [args],main,"cycle_features,cycle_sig,regime_sig,reversal_sig,tc_adx,tc_atr,tc_trend_strength,tc_vol_comp_ratio",,,"csv,json,parquet",,heavy (>5m),
+./scripts/run_backtest.py,,python run_backtest.py,,,,,,test_backtest_v02.py,quick (<30s),Missing docstring; 
+./scripts/run_live.py,,python run_live.py,,,,,,,quick (<30s),Missing docstring; 
+./scripts/run_serve.py,,python run_serve.py,,,,,,,quick (<30s),Missing docstring; 
+./scripts/run_train.py,,python run_train.py,,,,,,,quick (<30s),Missing docstring; 
+./scripts/scan_fix_pandas_deprecations.py,"Scan & optionally fix pandas deprecation patterns:
+ - fillna(method='ffill'/'bfill')  -> .ffill()/ .",python scan_fix_pandas_deprecations.py [args],main,,,,,,quick (<30s),
+./scripts/show_accepted_reversals.py,"Show accepted reversals from the labels CSV and print corresponding debug rows.
+
+Usage:
+  PYTHONPATH",python show_accepted_reversals.py,main,"ms_aggr,reversal_debug,reversal_sig",,,csv,,quick (<30s),
+./scripts/test_all_features.py,,python test_all_features.py,,"ms_absorption_flag,ms_book_pressure_delta,ms_heat_slope,ms_imb_level_1,ms_imb_level_5,ms_liq_decay,ms_microtrend_vector,ms_mid,ms_orderflow_vel,ms_pull_stack_ratio",,,,,quick (<30s),Missing docstring; 
+./scripts/test_labelers.py,"Smoke test for labelers.
+Run from project root:
+    python scripts/test_labelers.py
+
+Expected: Print",python test_labelers.py,main,"ms_aggression_idx_v2,ms_l3_momentum_burst","label_cycle,label_regime,label_reversal",,,"test_labels_integration.py,test_labelers.py",quick (<30s),
+./scripts/test_labels.py,"scripts/test_labels.py
+
+Defensive smoke test for labelers with robust feature-module handling.
+
+Chan",python test_labels.py,compute_features;main,"cycle_features,cycle_sig,ms_absorption_flag,ms_aggression_idx,ms_microtrend_vector,ms_mid,ms_mod,ms_spoof_rate,ms_spread,ms_sweep_flag","label_cycle,label_regime,label_reversal,y_v02_",,"csv,json","test_labels_integration.py,test_labels.py",quick (<30s),
+./scripts/test_preprocess.py,"Unit tests for app/ml/preprocess.py placed in the scripts/ folder to match your repo layout.
+
+- Test",python test_preprocess.py,,opt_iv,,,,test_preprocess.py,heavy (>5m),
+./scripts/train_smoke.py,"scripts/train_smoke.py
+
+Tiny ""one-epoch"" trainer to validate dataset shapes, dtypes and training pip",python train_smoke.py [args],main,"cycle_sig,regime_sig,reversal_sig",,,"csv,parquet",,heavy (>5m),
+./scripts/tune_cycle_reversal.py,"scripts/tune_cycle_reversal.py
+
+Grid search tuner for cycle (discrete) and reversal labeler params.
+",python tune_cycle_reversal.py,main,"cycle_reversal,cycle_tuning_results,reversal_tuning_results",y_score,to_csv;to_csv,csv,,heavy (>5m),
+./scripts/tune_reversal.py,,python tune_reversal.py,,,,,,,heavy (>5m),Missing docstring; 
+./scripts/validate_labels_dataset.py,"scripts/validate_labels_dataset.py
+
+Validator for label datasets (train/val/test) with AUTO-DETECTIO",python validate_labels_dataset.py [args],main,,,,"csv,md",,heavy (>5m),
