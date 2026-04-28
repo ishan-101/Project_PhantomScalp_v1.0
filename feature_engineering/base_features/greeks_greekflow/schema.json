@@ -1,0 +1,156 @@
+{
+  "family": "greeks_greekflow",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "greek__delta_net",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Estimated net delta exposure across the entire option chain, OI-weighted with calls positive and puts negative."
+    },
+    {
+      "name": "greek__gamma_net",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Estimated net gamma exposure aggregated and OI-weighted across the chain."
+    },
+    {
+      "name": "greek__vega_net",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Estimated net vega exposure to implied volatility changes."
+    },
+    {
+      "name": "greek__theta_net",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Estimated net theta exposure representing aggregate time decay pressure."
+    },
+    {
+      "name": "greek__delta_flow",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Change in greek__delta_net versus the previous snapshot."
+    },
+    {
+      "name": "greek__gamma_flow",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Change in greek__gamma_net versus the previous snapshot."
+    },
+    {
+      "name": "greek__implied_vol_surface_flag",
+      "family": "greeks_greekflow",
+      "dtype": "int32",
+      "expected_range": [-1, 1],
+      "null_policy": "no_nulls",
+      "default_fill": 0,
+      "tier": 2,
+      "description": "Ternary indicator of IV surface movement: +1 rising, 0 stable, -1 falling."
+    },
+    {
+      "name": "greek__vanna_net",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Proxy estimate of net vanna exposure (delta sensitivity to IV) aggregated across the chain."
+    },
+    {
+      "name": "greek__charm_net",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Proxy estimate of net charm exposure capturing delta decay with time."
+    },
+    {
+      "name": "greek__skew_slope",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Local slope of implied volatility skew around at-the-money strikes."
+    },
+    {
+      "name": "greek__vol_of_vol_proxy",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Proxy metric for volatility-of-volatility derived from implied volatility dispersion."
+    },
+    {
+      "name": "greek__gamma_shock_indicator",
+      "family": "greeks_greekflow",
+      "dtype": "bool",
+      "expected_range": [false, true],
+      "null_policy": "no_nulls",
+      "default_fill": false,
+      "tier": 3,
+      "description": "Boolean flag for abnormally large gamma_flow relative to recent baseline."
+    },
+    {
+      "name": "greek__sticky_delta_indicator",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Continuous proxy (0–1) for sticky-delta behavior in implied volatility."
+    },
+    {
+      "name": "greek__delta_hedge_pressure",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Estimated delta hedging notional required for a 1% underlying move."
+    },
+    {
+      "name": "greek__gamma_per_notional",
+      "family": "greeks_greekflow",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "no_nulls",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Gamma exposure normalized by total option notional outstanding."
+    }
+  ]
+}

@@ -1,0 +1,1999 @@
+=====================================================================
+Family: Price / OHLCV
+=====================================================================
+
+1. Feature Name: price__last
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: forward_fill_then_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Last executed trade price.
+---------------------------------------------------------------------
+2. Feature Name: price__mid
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_from_bid_ask_else_forward_fill
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Mid-price from best bid/ask.
+---------------------------------------------------------------------
+3. Feature Name: price__bid
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: forward_fill_then_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Best bid price.
+---------------------------------------------------------------------
+4. Feature Name: price__ask
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: forward_fill_then_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Best ask price.
+---------------------------------------------------------------------
+5. Feature Name: ohlcv__open
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_from_trades_else_forward_fill
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Open price for the base record.
+---------------------------------------------------------------------
+6. Feature Name: ohlcv__high
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_from_trades_else_forward_fill
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+High price for the base record.
+---------------------------------------------------------------------
+7. Feature Name: ohlcv__low
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_from_trades_else_forward_fill
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Low price for the base record.
+---------------------------------------------------------------------
+8. Feature Name: ohlcv__close
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: forward_fill_then_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Close price for the base record.
+---------------------------------------------------------------------
+9. Feature Name: volume__tick
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Sum of trade sizes in the record.
+---------------------------------------------------------------------
+10. Feature Name: volume__buy_sell_imbalance
+Dtype: float32
+Expected Range: [-inf, +inf]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Buyer-initiated minus seller-initiated volume.
+---------------------------------------------------------------------
+11. Feature Name: vwap__in_record
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_else_price_last
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volume-weighted average price in record.
+---------------------------------------------------------------------
+12. Feature Name: trade_count
+Dtype: int32
+Expected Range: [0, +inf)
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Number of trades in record.
+---------------------------------------------------------------------
+13. Feature Name: tick_return
+Dtype: float32
+Expected Range: (-1, +inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Return vs previous record close.
+---------------------------------------------------------------------
+14. Feature Name: spread__l1
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_from_bid_ask_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+L1 spread (ask - bid).
+---------------------------------------------------------------------
+15. Feature Name: price__tick_direction
+Dtype: int32
+Expected Range: [-1,0,1]
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Sign of last trade move.
+---------------------------------------------------------------------
+16. Feature Name: return__bid_change
+Dtype: float32
+Expected Range: (-1, +inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Relative change in best bid.
+---------------------------------------------------------------------
+17. Feature Name: return__ask_change
+Dtype: float32
+Expected Range: (-1, +inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Relative change in best ask.
+---------------------------------------------------------------------
+18. Feature Name: return__mid_change
+Dtype: float32
+Expected Range: (-1, +inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Relative change in mid price.
+---------------------------------------------------------------------
+19. Feature Name: price__micro_volatility
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Micro realized volatility inside record.
+---------------------------------------------------------------------
+20. Feature Name: price__jump_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Flag for sudden mid jumps.
+---------------------------------------------------------------------
+21. Feature Name: exec__slippage_estimate
+Dtype: float32
+Expected Range: (-1, +inf)
+Null Policy: estimate_from_spread_and_depth_else_fixed
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Estimated execution slippage for small market orders.
+---------------------------------------------------------------------
+22. Feature Name: price__micro_fair
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_from_depth_weighted_mid_else_mid
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Depth-weighted fair price proxy.
+---------------------------------------------------------------------
+23. Feature Name: price__near_term_return_volatility
+Dtype: float32
+Expected Range: [0, +inf)
+Null Policy: compute_from_returns_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Short-window realized return volatility.
+---------------------------------------------------------------------
+24. Feature Name: price__imbalance_adjusted_return
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_normally_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Return normalized by L1 imbalance.
+---------------------------------------------------------------------
+25. Feature Name: price__tick_sweep_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Flag for sweeps across multiple ticks.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Microstructure (L2/L3)
+=====================================================================
+
+1. Feature Name: ob__total_depth_bid
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Sum of top-N bid sizes.
+---------------------------------------------------------------------
+2. Feature Name: ob__total_depth_ask
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Sum of top-N ask sizes.
+---------------------------------------------------------------------
+3. Feature Name: ob__imbalance
+Dtype: float32
+Expected Range: [-1,1]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Normalized book imbalance.
+---------------------------------------------------------------------
+4. Feature Name: ob__top_level_size_bid
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Size at best bid.
+---------------------------------------------------------------------
+5. Feature Name: ob__top_level_size_ask
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Size at best ask.
+---------------------------------------------------------------------
+6. Feature Name: ob__level_decay_rate
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Delta of top-level sizes / dt.
+---------------------------------------------------------------------
+7. Feature Name: ob__orderbook_gap
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Gap between top and next level.
+---------------------------------------------------------------------
+8. Feature Name: ob__signed_book_pressure
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Weighted price*size imbalance.
+---------------------------------------------------------------------
+9. Feature Name: ob__hidden_liquidity_indicator
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Proxy for hidden/iceberg liquidity.
+---------------------------------------------------------------------
+10. Feature Name: ob__cancellation_rate
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Cancellations per order events.
+---------------------------------------------------------------------
+11. Feature Name: ob__new_order_rate
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+New order arrival rate at top-N.
+---------------------------------------------------------------------
+12. Feature Name: ob__book_entropy
+Dtype: float32
+Expected Range: [0,log(N)]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Entropy of sizes across levels.
+---------------------------------------------------------------------
+13. Feature Name: ob__bid_slope
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Slope of cumulative bid depth vs distance.
+---------------------------------------------------------------------
+14. Feature Name: ob__ask_slope
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Slope of cumulative ask depth vs distance.
+---------------------------------------------------------------------
+15. Feature Name: ob__imbalance_spread_adj
+Dtype: float32
+Expected Range: [-1,1]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Imbalance adjusted by spread.
+---------------------------------------------------------------------
+16. Feature Name: ob__queue_position_change_bid
+Dtype: int32
+Expected Range: [-inf,+inf]
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Estimated change in queue position at bid.
+---------------------------------------------------------------------
+17. Feature Name: ob__queue_position_change_ask
+Dtype: int32
+Expected Range: [-inf,+inf]
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Estimated change in queue position at ask.
+---------------------------------------------------------------------
+18. Feature Name: ob__curvature
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Second derivative of depth shape.
+---------------------------------------------------------------------
+19. Feature Name: ob__depth_skew
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Near-ask vs near-bid depth asymmetry.
+---------------------------------------------------------------------
+20. Feature Name: ob__microstructure_pressure_velocity
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Delta of book imbalance over dt.
+---------------------------------------------------------------------
+21. Feature Name: ob__bid_dominance_factor
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Top_bid_depth / top_ask_depth.
+---------------------------------------------------------------------
+22. Feature Name: ob__liquidity_void_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Flag when depth below threshold.
+---------------------------------------------------------------------
+23. Feature Name: ob__queue_resilience
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Probability top order survives next dt.
+---------------------------------------------------------------------
+24. Feature Name: ob__queue_imbalance_momentum
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Delta of queue_bid - queue_ask.
+---------------------------------------------------------------------
+25. Feature Name: ob__depth_elasticity
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Replenishment rate after consumption.
+---------------------------------------------------------------------
+26. Feature Name: ob__top_of_book_turnover
+Dtype: int32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Times top-of-book replaced in record.
+---------------------------------------------------------------------
+27. Feature Name: ob__hidden_to_visible_ratio
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Estimated hidden/visible liquidity ratio.
+---------------------------------------------------------------------
+28. Feature Name: ob__depth_imbalance_by_distance
+Dtype: float32
+Expected Range: [-1,1]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Depth imbalance weighted by price distance.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Orderflow / Tick
+=====================================================================
+
+1. Feature Name: of__signed_volume
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Signed trade volume.
+---------------------------------------------------------------------
+2. Feature Name: of__imbalance_ratio
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Buy_volume / total_volume.
+---------------------------------------------------------------------
+3. Feature Name: of__large_trade_count
+Dtype: int32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Count of trades above large threshold.
+---------------------------------------------------------------------
+4. Feature Name: of__avg_trade_size
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Average trade size.
+---------------------------------------------------------------------
+5. Feature Name: of__time_between_trades
+Dtype: float32
+Expected Range: (0,+inf) ms
+Null Policy: estimate_else_large_value
+Default Fill: 1000000
+Tier: Tier-1
+Description:
+Mean inter-trade time ms.
+---------------------------------------------------------------------
+6. Feature Name: of__aggressor_flag_ratio
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Fraction of aggressor trades.
+---------------------------------------------------------------------
+7. Feature Name: of__trade_price_vs_vwap
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Avg trade price minus VWAP.
+---------------------------------------------------------------------
+8. Feature Name: of__run_length_up
+Dtype: int32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Consecutive buyer-initiated trades.
+---------------------------------------------------------------------
+9. Feature Name: of__run_length_down
+Dtype: int32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Consecutive seller-initiated trades.
+---------------------------------------------------------------------
+10. Feature Name: of__aggressive_buy_size
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volume executed at ask.
+---------------------------------------------------------------------
+11. Feature Name: of__aggressive_sell_size
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volume executed at bid.
+---------------------------------------------------------------------
+12. Feature Name: of__sequence_entropy
+Dtype: float32
+Expected Range: [0,log(2)]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Entropy of buy/sell sequence.
+---------------------------------------------------------------------
+13. Feature Name: of__small_trade_vol
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volume from small trades.
+---------------------------------------------------------------------
+14. Feature Name: of__medium_trade_vol
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volume from medium trades.
+---------------------------------------------------------------------
+15. Feature Name: of__large_trade_vol
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volume from large trades.
+---------------------------------------------------------------------
+16. Feature Name: of__vwap_pressure
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Pressure relative to VWAP.
+---------------------------------------------------------------------
+17. Feature Name: of__aggressor_volume_ratio
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Aggressive vol / total vol.
+---------------------------------------------------------------------
+18. Feature Name: of__execution_flow_polarity
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Ask-taker vol minus bid-taker vol.
+---------------------------------------------------------------------
+19. Feature Name: of__market_pressure_tilt
+Dtype: float32
+Expected Range: [-1,1]
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+(aggr_buy - aggr_sell)/total_volume.
+---------------------------------------------------------------------
+20. Feature Name: of__impact_adjusted_flow
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Signed_volume / spread.
+---------------------------------------------------------------------
+21. Feature Name: of__aggression_persistence
+Dtype: int32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Consecutive snapshots with same aggressor.
+---------------------------------------------------------------------
+22. Feature Name: of__trade_burst_intensity
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Trades in last 100ms normalized.
+---------------------------------------------------------------------
+23. Feature Name: of__toxicity_proxy
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+|signed_volume|/(depth_bid+depth_ask).
+---------------------------------------------------------------------
+24. Feature Name: of__realized_sign_rate
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Fraction of sign-consistent trades.
+---------------------------------------------------------------------
+25. Feature Name: of__price_impact_per_unit_volume
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_large_value
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Price move / executed volume.
+---------------------------------------------------------------------
+26. Feature Name: of__initiator_persistence
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Prob initiator repeats in next N trades.
+---------------------------------------------------------------------
+27. Feature Name: of__time_decay_of_flow
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Decay rate of signed_volume influence.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Options Chain
+=====================================================================
+
+1. Feature Name: opt__spot
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: forward_fill_then_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Underlying spot price.
+---------------------------------------------------------------------
+2. Feature Name: opt__nearest_oi_call
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Nearest call open interest proxy.
+---------------------------------------------------------------------
+3. Feature Name: opt__nearest_oi_put
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Nearest put open interest proxy.
+---------------------------------------------------------------------
+4. Feature Name: opt__total_oi_calls
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Total call OI.
+---------------------------------------------------------------------
+5. Feature Name: opt__total_oi_puts
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Total put OI.
+---------------------------------------------------------------------
+6. Feature Name: opt__call_put_oi_ratio
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_0.5
+Default Fill: 0.5
+Tier: Tier-2
+Description:
+Calls/(calls+puts) OI ratio.
+---------------------------------------------------------------------
+7. Feature Name: opt__best_bid_iv
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_from_nearest_else_prev
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Best bid implied vol.
+---------------------------------------------------------------------
+8. Feature Name: opt__best_ask_iv
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_from_nearest_else_prev
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Best ask implied vol.
+---------------------------------------------------------------------
+9. Feature Name: opt__oi_change
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Change in OI vs prior snapshot.
+---------------------------------------------------------------------
+10. Feature Name: opt__volume_calls
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Call trade volume.
+---------------------------------------------------------------------
+11. Feature Name: opt__volume_puts
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Put trade volume.
+---------------------------------------------------------------------
+12. Feature Name: opt__iv_crush_detector
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-2
+Description:
+Flag for rapid IV fall.
+---------------------------------------------------------------------
+13. Feature Name: opt__trade_size_by_moneyness_proxy
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Trade size distribution by moneyness proxy.
+---------------------------------------------------------------------
+14. Feature Name: opt__implied_vol_slope
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Local IV slope across strikes.
+---------------------------------------------------------------------
+15. Feature Name: opt__option_flow_imbalance
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: zero_if_missing
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Signed option notional flow (calls positive).
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Greeks & Greek-Flow
+=====================================================================
+
+1. Feature Name: greek__delta_net
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Estimated net delta exposure.
+---------------------------------------------------------------------
+2. Feature Name: greek__gamma_net
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Estimated net gamma exposure.
+---------------------------------------------------------------------
+3. Feature Name: greek__vega_net
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Estimated net vega exposure.
+---------------------------------------------------------------------
+4. Feature Name: greek__theta_net
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Estimated net theta exposure.
+---------------------------------------------------------------------
+5. Feature Name: greek__delta_flow
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Change in net delta vs prior snapshot.
+---------------------------------------------------------------------
+6. Feature Name: greek__gamma_flow
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Change in net gamma vs prior snapshot.
+---------------------------------------------------------------------
+7. Feature Name: greek__implied_vol_surface_flag
+Dtype: int32
+Expected Range: [-1,0,1]
+Null Policy: 0_if_missing
+Default Fill: 0
+Tier: Tier-2
+Description:
+Ternary flag for IV surface move direction.
+---------------------------------------------------------------------
+8. Feature Name: greek__vanna_net
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Proxy estimate of net vanna exposure.
+---------------------------------------------------------------------
+9. Feature Name: greek__charm_net
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Proxy estimate of net charm exposure.
+---------------------------------------------------------------------
+10. Feature Name: greek__skew_slope
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Skew slope around ATM.
+---------------------------------------------------------------------
+11. Feature Name: greek__vol_of_vol_proxy
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Proxy for vol-of-vol.
+---------------------------------------------------------------------
+12. Feature Name: greek__gamma_shock_indicator
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Flag for spike in gamma_flow.
+---------------------------------------------------------------------
+13. Feature Name: greek__sticky_delta_indicator
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Proxy for sticky-delta behavior.
+---------------------------------------------------------------------
+14. Feature Name: greek__delta_hedge_pressure
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: estimate_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Estimated delta hedging notional per 1% move.
+---------------------------------------------------------------------
+15. Feature Name: greek__gamma_per_notional
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Gamma normalized by notional outstanding.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Regime / Vol / Liquidity
+=====================================================================
+
+1. Feature Name: regime__realized_vol
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_prev
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Realized volatility over short window.
+---------------------------------------------------------------------
+2. Feature Name: regime__iv_atm
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_from_options_else_prev
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+ATM implied volatility.
+---------------------------------------------------------------------
+3. Feature Name: regime__liquidity_score
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_default
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Composite liquidity score.
+---------------------------------------------------------------------
+4. Feature Name: regime__volatility_spike_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Flag for volatility spike.
+---------------------------------------------------------------------
+5. Feature Name: regime__spread_stability
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_default
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Measure of spread stability.
+---------------------------------------------------------------------
+6. Feature Name: regime__orderflow_extremeness
+Dtype: float32
+Expected Range: (-inf,+inf) (z-score)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Z-scored signed volume.
+---------------------------------------------------------------------
+7. Feature Name: regime__market_state_flag
+Dtype: string
+Expected Range: ["trend","range","mean_revert"]
+Null Policy: assign_range_if_unknown
+Default Fill: range
+Tier: Tier-2
+Description:
+Categorical market state flag.
+---------------------------------------------------------------------
+8. Feature Name: regime__spread_zscore
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Z-score of spread.
+---------------------------------------------------------------------
+9. Feature Name: regime__liquidity_fractal_index
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_default
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Fractal index of liquidity.
+---------------------------------------------------------------------
+10. Feature Name: regime__depth_stress_ratio
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Top-level depth stress ratio.
+---------------------------------------------------------------------
+11. Feature Name: regime__volatility_compression_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-2
+Description:
+Flag for volatility compression.
+---------------------------------------------------------------------
+12. Feature Name: regime__momentum_ignition_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Composite momentum ignition flag.
+---------------------------------------------------------------------
+13. Feature Name: regime__spread_regime_crossover
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Flag for entering/exiting high-spread regime.
+---------------------------------------------------------------------
+14. Feature Name: regime__short_term_vol_forecast_error
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Realized minus predicted short-term vol.
+---------------------------------------------------------------------
+15. Feature Name: regime__micro_liquidity_index
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_default
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Composite micro-liquidity index.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Higher-Order Engineered
+=====================================================================
+
+1. Feature Name: ho__z_price
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_using_baseline_stats
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Z-score of price vs baseline mean/std.
+---------------------------------------------------------------------
+2. Feature Name: ho__log_return
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Log return of close vs prev close.
+---------------------------------------------------------------------
+3. Feature Name: ho__price_accel
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Second derivative proxy of price returns.
+---------------------------------------------------------------------
+4. Feature Name: ho__volume_z
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_using_baseline_stats_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Z-score of record volume.
+---------------------------------------------------------------------
+5. Feature Name: ho__ob_imbalance_z
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Z-score of book imbalance.
+---------------------------------------------------------------------
+6. Feature Name: ho__pca1_book
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+First PCA component of top-N book sizes.
+---------------------------------------------------------------------
+7. Feature Name: ho__interaction_of_volume_spread
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Interaction: volume * spread.
+---------------------------------------------------------------------
+8. Feature Name: ho__return_signed_volume_interaction
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Product of return and signed volume.
+---------------------------------------------------------------------
+9. Feature Name: ho__return_over_spread
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_large_value
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Return normalized by spread.
+---------------------------------------------------------------------
+10. Feature Name: ho__imbalance_times_return
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Book imbalance * return.
+---------------------------------------------------------------------
+11. Feature Name: ho__filtered_mid_price
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_mid
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Ehlers-filtered mid-price.
+---------------------------------------------------------------------
+12. Feature Name: ho__book_flow_interaction
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Book imbalance * signed_volume.
+---------------------------------------------------------------------
+13. Feature Name: ho__normalized_impact
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Impact per unit volume normalized by regime.
+---------------------------------------------------------------------
+14. Feature Name: ho__signed_volume_ema
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+EMA of signed volume.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Cycle / Ehlers / FFT
+=====================================================================
+
+1. Feature Name: cycle__hilbert_phase
+Dtype: float32
+Expected Range: [-3.1416,3.1416]
+Null Policy: compute_from_window_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Hilbert phase estimate.
+---------------------------------------------------------------------
+2. Feature Name: cycle__dominant_period
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Dominant period from FFT peak.
+---------------------------------------------------------------------
+3. Feature Name: cycle__ehlers_filt_output
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_mid
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Ehlers filter output.
+---------------------------------------------------------------------
+4. Feature Name: cycle__instantaneous_frequency
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Instantaneous frequency estimate.
+---------------------------------------------------------------------
+5. Feature Name: cycle__trend_component
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Trend component from low-pass filter.
+---------------------------------------------------------------------
+6. Feature Name: cycle__cycle_component
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Cycle component isolated from price.
+---------------------------------------------------------------------
+7. Feature Name: cycle__phase_acceleration
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Derivative of hilbert phase.
+---------------------------------------------------------------------
+8. Feature Name: cycle__phase_consistency
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Stability metric for hilbert phase.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Cross-Asset / Funding
+=====================================================================
+
+1. Feature Name: cross__btc_eth_spread
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_if_both_present_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Price spread between BTC and ETH.
+---------------------------------------------------------------------
+2. Feature Name: cross__perp_spot_basis
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Perp minus spot basis.
+---------------------------------------------------------------------
+3. Feature Name: cross__funding_rate
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: forward_fill_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Perp funding rate.
+---------------------------------------------------------------------
+4. Feature Name: cross__btc_dxy_corr_proxy
+Dtype: float32
+Expected Range: [-1,1]
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-3
+Description:
+Correlation proxy BTC vs USD index.
+---------------------------------------------------------------------
+5. Feature Name: cross__funding_8h_rolling_avg
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+8-hour avg funding rate.
+---------------------------------------------------------------------
+6. Feature Name: cross__basis_change
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Derivative of perp_basis.
+---------------------------------------------------------------------
+7. Feature Name: cross__risk_on_off_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-2
+Description:
+Risk-on/off regime flag.
+---------------------------------------------------------------------
+8. Feature Name: cross__perp_basis_velocity
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Velocity of perp basis change.
+---------------------------------------------------------------------
+9. Feature Name: cross__correlation_instability
+Dtype: float32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-2
+Description:
+Instability in cross-correlations.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Meta / QC / Provenance
+=====================================================================
+
+1. Feature Name: meta__timestamp
+Dtype: string
+Expected Range: ISO8601
+Null Policy: required
+Default Fill: 1970-01-01T00:00:00Z
+Tier: Tier-1
+Description:
+Canonical UTC timestamp.
+---------------------------------------------------------------------
+2. Feature Name: meta__sequence_id
+Dtype: int32
+Expected Range: [0,+inf)
+Null Policy: required_generate_if_missing
+Default Fill: 0
+Tier: Tier-1
+Description:
+Deterministic ingestion sequence id.
+---------------------------------------------------------------------
+3. Feature Name: meta__source_feed
+Dtype: string
+Expected Range: enumeration (L1,L2,L3,OPTIONS,OTHER)
+Null Policy: assign_UNKNOWN
+Default Fill: UNKNOWN
+Tier: Tier-1
+Description:
+Feed source identifier.
+---------------------------------------------------------------------
+4. Feature Name: meta__data_latency_ms
+Dtype: float32
+Expected Range: [0,+inf) ms
+Null Policy: compute_else_large
+Default Fill: 1000000
+Tier: Tier-1
+Description:
+Latency between feed timestamp and ingestion.
+---------------------------------------------------------------------
+5. Feature Name: meta__feature_confidence
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_0
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Per-record confidence score.
+---------------------------------------------------------------------
+6. Feature Name: meta__staleness_flag
+Dtype: bool
+Expected Range: [false,true]
+Null Policy: false_if_missing
+Default Fill: false
+Tier: Tier-1
+Description:
+Flag for stale records.
+---------------------------------------------------------------------
+7. Feature Name: meta__ingest_quality_score
+Dtype: float32
+Expected Range: [0,1]
+Null Policy: compute_else_0
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Aggregate ingest quality score.
+---------------------------------------------------------------------
+8. Feature Name: meta__feature_mask_count
+Dtype: int32
+Expected Range: [0,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0
+Tier: Tier-1
+Description:
+Count of features imputed or masked.
+---------------------------------------------------------------------
+
+
+=====================================================================
+Family: Technical Indicators
+=====================================================================
+
+1. Feature Name: technical__ema_fast
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Fast EMA capturing short-term trend direction with low lag.
+---------------------------------------------------------------------
+
+2. Feature Name: technical__ema_medium
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Medium EMA providing smoother trend estimation for context.
+---------------------------------------------------------------------
+
+3. Feature Name: technical__ema_slow
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Slow EMA reflecting broader regime and long-trend direction.
+---------------------------------------------------------------------
+
+4. Feature Name: technical__ema_ratio_fast_slow
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Ratio of fast to slow EMA expressing relative trend strength.
+---------------------------------------------------------------------
+
+5. Feature Name: technical__ema_slope_fast
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Slope of fast EMA indicating early directional momentum shifts.
+---------------------------------------------------------------------
+
+6. Feature Name: technical__atr_short
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Short-period ATR measuring immediate volatility and range expansion.
+---------------------------------------------------------------------
+
+7. Feature Name: technical__atr_long
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Longer-window ATR describing broader volatility regime.
+---------------------------------------------------------------------
+
+8. Feature Name: technical__bollinger_upper_dev
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Upper Bollinger deviation reflecting volatility expansion above mean.
+---------------------------------------------------------------------
+
+9. Feature Name: technical__bollinger_lower_dev
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Lower Bollinger deviation identifying downside stretch conditions.
+---------------------------------------------------------------------
+
+10. Feature Name: technical__bb_width
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Width of Bollinger bands quantifying volatility compression or expansion.
+---------------------------------------------------------------------
+
+11. Feature Name: technical__rsi
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+RSI indicating momentum balance between gains and losses.
+---------------------------------------------------------------------
+
+12. Feature Name: technical__stoch_k
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Stochastic %K showing relative position of price within recent range.
+---------------------------------------------------------------------
+
+13. Feature Name: technical__stoch_d
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Smoothed stochastic %D helping identify momentum reversals.
+---------------------------------------------------------------------
+
+14. Feature Name: technical__roc
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Rate of change capturing speed of price movement.
+---------------------------------------------------------------------
+
+15. Feature Name: technical__tsi
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+True Strength Index providing smoothed momentum evaluation.
+---------------------------------------------------------------------
+
+16. Feature Name: technical__macd_line
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+MACD line measuring difference of medium and fast EMAs.
+---------------------------------------------------------------------
+
+17. Feature Name: technical__macd_signal
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Signal line smoothing MACD to indicate momentum turns.
+---------------------------------------------------------------------
+
+18. Feature Name: technical__macd_histogram
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+MACD histogram showing momentum divergence strength.
+---------------------------------------------------------------------
+
+19. Feature Name: technical__dmi_plus
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Positive directional movement indicator highlighting upward strength.
+---------------------------------------------------------------------
+
+20. Feature Name: technical__dmi_minus
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Negative directional movement indicator showing downward strength.
+---------------------------------------------------------------------
+
+21. Feature Name: technical__adx
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+ADX quantifying overall trend strength independent of direction.
+---------------------------------------------------------------------
+
+22. Feature Name: technical__vwap_deviation_pct
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Percent deviation from VWAP indicating stretch from fair value.
+---------------------------------------------------------------------
+
+23. Feature Name: technical__ema_fast_deviation_pct
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Deviation of price from fast EMA showing micro mean reversion.
+---------------------------------------------------------------------
+
+24. Feature Name: technical__ema_slow_deviation_pct
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Deviation from slow EMA showing larger structural mispricing.
+---------------------------------------------------------------------
+
+25. Feature Name: technical__true_range
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+True range capturing full intrabar volatility.
+---------------------------------------------------------------------
+
+26. Feature Name: technical__normalized_volatility
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volatility normalized by ATR to contextualize volatility regimes.
+---------------------------------------------------------------------
+
+27. Feature Name: technical__rolling_skew
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Rolling skew measuring asymmetry in price distribution.
+---------------------------------------------------------------------
+
+28. Feature Name: technical__rolling_kurtosis
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Rolling kurtosis identifying fat-tailed volatility conditions.
+---------------------------------------------------------------------
+
+29. Feature Name: technical__hma
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Hull moving average offering low-lag trend smoothing.
+---------------------------------------------------------------------
+
+30. Feature Name: technical__kama
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Kaufman adaptive MA adjusting smoothing based on volatility.
+---------------------------------------------------------------------
+
+31. Feature Name: technical__jma
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Jurik moving average providing ultra-low lag smoothing.
+---------------------------------------------------------------------
+
+32. Feature Name: technical__lsma
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Least-squares moving average derived from regression fit.
+---------------------------------------------------------------------
+
+33. Feature Name: technical__donchian_width
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Donchian channel width indicating breakout potential.
+---------------------------------------------------------------------
+
+34. Feature Name: technical__choppiness_index
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Choppiness index distinguishing trend vs rangebound conditions.
+---------------------------------------------------------------------
+
+35. Feature Name: technical__garman_klass_volatility
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Garman–Klass OHLC-based volatility estimate.
+---------------------------------------------------------------------
+
+36. Feature Name: technical__williams_r
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Williams %R showing momentum exhaustion levels.
+---------------------------------------------------------------------
+
+37. Feature Name: technical__cci
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+CCI measuring deviation from statistical mean over recent range.
+---------------------------------------------------------------------
+
+38. Feature Name: technical__zscore_returns
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Z-score of rolling returns identifying abnormal price moves.
+---------------------------------------------------------------------
+
+39. Feature Name: technical__direction_entropy
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Entropy of up/down movement indicating randomness or structure.
+---------------------------------------------------------------------
+
+40. Feature Name: technical__autocorrelation_returns
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Autocorrelation of returns showing trend persistence.
+---------------------------------------------------------------------
+
+41. Feature Name: technical__range_normalized_position
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Relative price position within recent high–low range.
+---------------------------------------------------------------------
+
+42. Feature Name: technical__vfi
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Volume Flow Index indicating volume-weighted accumulation/distribution.
+---------------------------------------------------------------------
+
+43. Feature Name: technical__chaikin_oscillator
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Chaikin oscillator measuring momentum in accumulation/distribution.
+---------------------------------------------------------------------
+
+44. Feature Name: technical__poly_regression_slope
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Slope of polynomial regression capturing trend curvature.
+---------------------------------------------------------------------
+
+45. Feature Name: technical__poly_regression_residual
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Residuals from polynomial regression indicating deviation.
+---------------------------------------------------------------------
+
+46. Feature Name: technical__range_delta_velocity
+Dtype: float32
+Expected Range: (-inf,+inf)
+Null Policy: compute_else_zero
+Default Fill: 0.0
+Tier: Tier-1
+Description:
+Velocity of range expansion forecasting volatility bursts.
+---------------------------------------------------------------------

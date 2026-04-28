@@ -1,0 +1,286 @@
+{
+  "family": "microstructure_l2_l3",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "ob__total_depth_bid",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Sum of visible bid size across tracked depth levels for the current snapshot."
+    },
+    {
+      "name": "ob__total_depth_ask",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Sum of visible ask size across tracked depth levels for the current snapshot."
+    },
+    {
+      "name": "ob__top_level_size_bid",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Displayed bid size at the best bid price level."
+    },
+    {
+      "name": "ob__top_level_size_ask",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Displayed ask size at the best ask price level."
+    },
+    {
+      "name": "ob__imbalance",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [-1, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Normalized depth imbalance (bid minus ask) divided by total depth."
+    },
+    {
+      "name": "ob__signed_book_pressure",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Signed pressure proxy combining imbalance and spread to reflect directional liquidity."
+    },
+    {
+      "name": "ob__imbalance_spread_adj",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Imbalance adjusted by relative bid-ask spread to penalize wide markets."
+    },
+    {
+      "name": "ob__depth_imbalance_by_distance",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [-1, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Distance-weighted depth imbalance favoring near-touch liquidity."
+    },
+    {
+      "name": "ob__level_decay_rate",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Rate at which size decays across successive depth levels."
+    },
+    {
+      "name": "ob__orderbook_gap",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Absolute price gap between best ask and best bid (spread)."
+    },
+    {
+      "name": "ob__bid_slope",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Gradient of bid depth with respect to price levels, indicating bid book steepness."
+    },
+    {
+      "name": "ob__ask_slope",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Gradient of ask depth with respect to price levels, indicating ask book steepness."
+    },
+    {
+      "name": "ob__curvature",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Second-order shape measure capturing concavity of the aggregated book."
+    },
+    {
+      "name": "ob__depth_skew",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [-1, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Relative skewness of depth distribution between bid and ask sides."
+    },
+    {
+      "name": "ob__book_entropy",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Shannon entropy of normalized depth across tracked levels (0 if no depth)."
+    },
+    {
+      "name": "ob__cancellation_rate",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Rate of cancellations relative to visible queue size at top levels."
+    },
+    {
+      "name": "ob__new_order_rate",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Rate of new limit orders entering the book relative to existing depth."
+    },
+    {
+      "name": "ob__top_of_book_turnover",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Proportion of top-of-book size replaced since previous snapshot."
+    },
+    {
+      "name": "ob__queue_position_change_bid",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Change in effective queue position on the bid side relative to previous snapshot."
+    },
+    {
+      "name": "ob__queue_position_change_ask",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Change in effective queue position on the ask side relative to previous snapshot."
+    },
+    {
+      "name": "ob__queue_resilience",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Speed at which top-of-book depth replenishes after depletion."
+    },
+    {
+      "name": "ob__queue_imbalance_momentum",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Directional change in queue imbalance between current and previous snapshot."
+    },
+    {
+      "name": "ob__hidden_liquidity_indicator",
+      "family": "microstructure_l2_l3",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "false_if_missing",
+      "default_fill": false,
+      "tier": 3,
+      "description": "Flag indicating inferred presence of hidden liquidity based on anomalous fills."
+    },
+    {
+      "name": "ob__hidden_to_visible_ratio",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Ratio of inferred hidden size to displayed size at the touch."
+    },
+    {
+      "name": "ob__liquidity_void_flag",
+      "family": "microstructure_l2_l3",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "false_if_missing",
+      "default_fill": false,
+      "tier": 3,
+      "description": "Flag set when adjacent depth levels exhibit an abnormally large price gap."
+    },
+    {
+      "name": "ob__bid_dominance_factor",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": [-1, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Relative dominance of bid-side liquidity versus ask-side across tracked levels."
+    },
+    {
+      "name": "ob__microstructure_pressure_velocity",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "First-difference of signed book pressure capturing its instantaneous change."
+    },
+    {
+      "name": "ob__depth_elasticity",
+      "family": "microstructure_l2_l3",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Sensitivity of mid-price to marginal depth changes around the touch."
+    }
+  ]
+}

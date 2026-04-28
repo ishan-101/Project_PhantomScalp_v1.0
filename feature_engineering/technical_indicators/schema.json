@@ -1,0 +1,466 @@
+{
+  "family": "technical_indicators",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "technical__ema_fast",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Exponentially weighted moving average of close price using a fixed fast span."
+    },
+    {
+      "name": "technical__ema_medium",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Exponentially weighted moving average of close price using a fixed medium span."
+    },
+    {
+      "name": "technical__ema_slow",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Exponentially weighted moving average of close price using a fixed slow span."
+    },
+    {
+      "name": "technical__ema_ratio_fast_slow",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "ratio_uses_fast_and_slow",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Ratio of fast to slow exponential moving averages capturing trend steepness."
+    },
+    {
+      "name": "technical__ema_slope_fast",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "first_difference_zero_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "First difference of the fast EMA to capture instantaneous slope."
+    },
+    {
+      "name": "technical__hma",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Hull moving average computed with fixed weighted windows to emphasize recent action."
+    },
+    {
+      "name": "technical__kama",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_recursive_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Kaufman adaptive moving average with fixed efficiency ratio, fast, and slow constants."
+    },
+    {
+      "name": "technical__jma",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_double_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Jurik-style smoothed average using fixed length and phase parameters."
+    },
+    {
+      "name": "technical__lsma",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Least-squares moving average value from trailing linear regression."
+    },
+    {
+      "name": "technical__atr_short",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, "inf"],
+      "null_policy": "wilder_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Average true range using a fixed short Wilder smoothing period."
+    },
+    {
+      "name": "technical__atr_long",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, "inf"],
+      "null_policy": "wilder_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Average true range using a fixed long Wilder smoothing period."
+    },
+    {
+      "name": "technical__true_range",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, "inf"],
+      "null_policy": "explicit_zero_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Per-bar true range using high, low, and previous close with no forward look."
+    },
+    {
+      "name": "technical__normalized_volatility",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Rolling standard deviation of log returns over a fixed trailing window."
+    },
+    {
+      "name": "technical__garman_klass_volatility",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Garman-Klass close-to-close volatility estimator averaged over a fixed window."
+    },
+    {
+      "name": "technical__bb_width",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Bollinger Band width expressed as a ratio of band spread to rolling mean."
+    },
+    {
+      "name": "technical__bollinger_upper_dev",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-10.0, 10.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Distance from the upper Bollinger band in standard deviation units."
+    },
+    {
+      "name": "technical__bollinger_lower_dev",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-10.0, 10.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Distance from the lower Bollinger band in standard deviation units."
+    },
+    {
+      "name": "technical__donchian_width",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Width of the Donchian channel normalized by the trailing low price."
+    },
+    {
+      "name": "technical__range_delta_velocity",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "first_difference_zero_seed",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Rate of change of daily range normalized by prior range."
+    },
+    {
+      "name": "technical__rsi",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 100.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Relative Strength Index using fixed Wilder smoothing and lookback length."
+    },
+    {
+      "name": "technical__stoch_k",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 100.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "%K stochastic oscillator computed from rolling high-low bounds."
+    },
+    {
+      "name": "technical__stoch_d",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 100.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Smoothed %D line of the stochastic oscillator using a fixed averaging window."
+    },
+    {
+      "name": "technical__roc",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-1000.0, 1000.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Rate-of-change percentage over a fixed trailing lookback."
+    },
+    {
+      "name": "technical__tsi",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-100.0, 100.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "True Strength Index with fixed double-smoothing spans on momentum and magnitude."
+    },
+    {
+      "name": "technical__macd_line",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "MACD line computed as fast EMA minus slow EMA with fixed spans."
+    },
+    {
+      "name": "technical__macd_signal",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Signal line as an EMA of the MACD line using a fixed span."
+    },
+    {
+      "name": "technical__macd_histogram",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "explicit_difference",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "MACD histogram capturing the gap between MACD line and signal line."
+    },
+    {
+      "name": "technical__williams_r",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-100.0, 0.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Williams %R oscillator scaled from -100 to 0 over a fixed lookback."
+    },
+    {
+      "name": "technical__cci",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-500.0, 500.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Commodity Channel Index using fixed typical-price window and constant scaling."
+    },
+    {
+      "name": "technical__adx",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 100.0],
+      "null_policy": "wilder_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Average Directional Index derived from smoothed directional movement and ATR."
+    },
+    {
+      "name": "technical__dmi_plus",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 100.0],
+      "null_policy": "wilder_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Positive Directional Movement Index computed with fixed smoothing."
+    },
+    {
+      "name": "technical__dmi_minus",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 100.0],
+      "null_policy": "wilder_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Negative Directional Movement Index computed with fixed smoothing."
+    },
+    {
+      "name": "technical__vwap_deviation_pct",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-100.0, 100.0],
+      "null_policy": "explicit_zero_seed",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Percentage deviation of close from cumulative VWAP using volume weighting."
+    },
+    {
+      "name": "technical__ema_fast_deviation_pct",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-100.0, 100.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Percentage deviation of close from the fast EMA."
+    },
+    {
+      "name": "technical__ema_slow_deviation_pct",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-100.0, 100.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Percentage deviation of close from the slow EMA."
+    },
+    {
+      "name": "technical__range_normalized_position",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 1.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Position of close within trailing high-low range normalized to [0,1]."
+    },
+    {
+      "name": "technical__rolling_skew",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-10.0, 10.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Rolling skewness of log returns over a fixed window."
+    },
+    {
+      "name": "technical__rolling_kurtosis",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-10.0, 30.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Rolling excess kurtosis of log returns over a fixed window."
+    },
+    {
+      "name": "technical__zscore_returns",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-10.0, 10.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Z-score of log returns based on fixed trailing mean and standard deviation."
+    },
+    {
+      "name": "technical__direction_entropy",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 1.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Shannon entropy of return directions normalized to [0,1] over a fixed window."
+    },
+    {
+      "name": "technical__autocorrelation_returns",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-1.0, 1.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Lag-1 autocorrelation of log returns over a trailing window."
+    },
+    {
+      "name": "technical__vfi",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [-200.0, 200.0],
+      "null_policy": "causal_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Volume Flow Index using fixed volatility factor, cutoff, and smoothing window."
+    },
+    {
+      "name": "technical__chaikin_oscillator",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "causal_ewm_seed",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Chaikin oscillator as the difference of short and long EMAs of the ADL."
+    },
+    {
+      "name": "technical__poly_regression_slope",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Slope from linear regression over a fixed trailing price window."
+    },
+    {
+      "name": "technical__poly_regression_residual",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Latest residual from the trailing-window linear regression fit."
+    },
+    {
+      "name": "technical__choppiness_index",
+      "family": "technical_indicators",
+      "dtype": "float32",
+      "expected_range": [0.0, 100.0],
+      "null_policy": "explicit_zero_fill_after_window",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Choppiness index measuring trendiness vs. range-bound behavior over a fixed window."
+    }
+  ]
+}
