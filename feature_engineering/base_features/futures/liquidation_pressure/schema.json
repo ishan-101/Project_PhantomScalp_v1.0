@@ -1,0 +1,92 @@
+{
+  "fut__liquidation_long__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "zero_if_missing",
+    "default_fill": 0.0,
+    "description": "Total notional of long positions liquidated (forced sells).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__liquidation_short__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "zero_if_missing",
+    "default_fill": 0.0,
+    "description": "Total notional of short positions liquidated (forced buys).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__liquidation_total__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Total liquidation volume (long + short).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__liquidation_imbalance__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[-1, 1]",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Normalized imbalance between long and short liquidations.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__liquidation_zscore__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_using_baseline_stats_else_zero",
+    "default_fill": 0.0,
+    "description": "Z-score of total liquidations relative to rolling baseline.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__liquidation_pressure_index__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Composite liquidation pressure combining imbalance and z-score.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__liquidation_oi_interaction__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction between liquidation intensity and open interest z-score.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__liquidation_volume_interaction__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction between liquidation activity and traded volume.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__liquidation_regime_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "int32",
+    "expected_range": "[-1, 0, 1]",
+    "null_policy": "0_if_missing",
+    "default_fill": 0,
+    "description": "Ternary classification of liquidation regime (long squeeze, neutral, short squeeze).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "fut__volume__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "zero_if_missing",
+    "default_fill": 0.0,
+    "description": "Total traded volume in the futures market for the given interval.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__buy_volume__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "zero_if_missing",
+    "default_fill": 0.0,
+    "description": "Aggressive buy-side volume executed at the ask price.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__sell_volume__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "zero_if_missing",
+    "default_fill": 0.0,
+    "description": "Aggressive sell-side volume executed at the bid price.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__volume_delta__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Difference between buy volume and sell volume indicating net orderflow.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__volume_delta_ratio__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[-1, 1]",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Normalized ratio of volume delta to total volume.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__volume_imbalance__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[-1, 1]",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Imbalance between buy and sell volume indicating directional pressure.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__volume_zscore__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_using_baseline_stats_else_zero",
+    "default_fill": 0.0,
+    "description": "Z-score of total volume relative to rolling baseline.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__volume_trend_strength__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Strength of volume trend measured via rolling slope or normalized change.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__volume_regime_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "int32",
+    "expected_range": "[-1, 0, 1]",
+    "null_policy": "0_if_missing",
+    "default_fill": 0,
+    "description": "Ternary classification of volume regime (low, neutral, high activity).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  }
+}

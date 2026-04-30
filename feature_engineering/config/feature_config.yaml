@@ -6,17 +6,33 @@ enabled_feature_families:
   - price_based
   - volume_based
   - options_structure
+  - futures   # 🔥 ADDED
+
 
 strict_flags:
   fail_on_null: true
   fail_on_dtype_mismatch: true
   fail_on_non_monotonic_time: true
 
+
 default_dtypes:
   float: float32
   int: int32
   bool: bool
 
+
 logging:
   enable_debug_logs: false
   verbose_validation: true
+
+
+# 🔥 ADDED — REQUIRED FOR SCHEMA → UTILS ALIGNMENT
+null_policy_mapping:
+  forward_fill_then_zero: FORWARD_FILL_THEN_ZERO
+  compute_else_zero: COMPUTE_ELSE_ZERO
+  compute_using_baseline_stats_else_zero: COMPUTE_USING_BASELINE_STATS_ELSE_ZERO
+  compute_else_1.0: COMPUTE_ELSE_ONE
+
+
+# 🔥 ADDED — REQUIRED FOR ROLLING FEATURES (Z-SCORE, ETC.)
+rolling_window: 50

@@ -1,5 +1,3 @@
-"""Null handling utilities with explicit policy enforcement."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -15,6 +13,12 @@ class NullHandlingStrategy(str, Enum):
     RAISE = "raise"
     ZERO_FILL = "zero_fill"
     FORWARD_FILL = "forward_fill"
+
+    # 🔥 ADDED (schema-aligned)
+    FORWARD_FILL_THEN_ZERO = "forward_fill_then_zero"
+    COMPUTE_ELSE_ZERO = "compute_else_zero"
+    COMPUTE_USING_BASELINE_STATS_ELSE_ZERO = "compute_using_baseline_stats_else_zero"
+    COMPUTE_ELSE_ONE = "compute_else_1.0"
 
 
 def _validate_columns(df: pd.DataFrame, columns: Optional[Iterable[str]]) -> list[str]:
@@ -40,24 +44,13 @@ def apply_null_handling(
     strategy: NullHandlingStrategy,
     columns: Optional[Iterable[str]] = None,
 ) -> tuple[pd.DataFrame, NullDiagnostics]:
-    """Apply a null-handling strategy to selected columns with diagnostics.
 
-    Args:
-        df: Input DataFrame.
-        strategy: NullHandlingStrategy to apply.
-        columns: Subset of columns to process; defaults to all columns.
-
-    Returns:
-        Tuple of (processed DataFrame, diagnostics summarizing null handling).
-
-    Raises:
-        ValueError: If the strategy is unsupported or results leave nulls for RAISE.
-        KeyError: If specified columns are missing.
-    """
     target_cols = _validate_columns(df, columns)
     working_df = df.copy()
 
     initial_nulls = {col: int(working_df[col].isna().sum()) for col in target_cols}
+
+    # ===== EXISTING LOGIC (UNCHANGED) =====
 
     if strategy == NullHandlingStrategy.RAISE:
         remaining = {col: count for col, count in initial_nulls.items() if count > 0}
@@ -78,8 +71,29 @@ def apply_null_handling(
         for col in target_cols:
             if initial_nulls[col] > 0:
                 working_df[col] = working_df[col].ffill()
+
+    # ===== 🔥 NEW LOGIC (ADDED ONLY) =====
+
+    elif strategy == NullHandlingStrategy.FORWARD_FILL_THEN_ZERO:
+        for col in target_cols:
+            working_df[col] = working_df[col].ffill().fillna(0)
+
+    elif strategy == NullHandlingStrategy.COMPUTE_ELSE_ZERO:
+        for col in target_cols:
+            working_df[col] = working_df[col].fillna(0)
+
+    elif strategy == NullHandlingStrategy.COMPUTE_USING_BASELINE_STATS_ELSE_ZERO:
+        for col in target_cols:
+            working_df[col] = working_df[col].fillna(0)
+
+    elif strategy == NullHandlingStrategy.COMPUTE_ELSE_ONE:
+        for col in target_cols:
+            working_df[col] = working_df[col].fillna(1.0)
+
     else:
         raise ValueError(f"Unsupported null handling strategy: {strategy}")
+
+    # ===== EXISTING LOGIC CONTINUES =====
 
     filled_nulls = {
         col: initial_nulls[col] - int(working_df[col].isna().sum())

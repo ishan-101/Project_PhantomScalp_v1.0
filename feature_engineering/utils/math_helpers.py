@@ -55,3 +55,28 @@ def slope(series: pd.Series, *, periods: int = 1) -> pd.Series:
     if periods <= 0:
         raise ValueError("periods must be positive for slope computation.")
     return simple_difference(series, periods=periods) / periods
+
+
+# ============================================================
+# 🔥 ADDED (NON-BREAKING) — ZERO-SAFE WRAPPER FOR PRODUCTION
+# ============================================================
+
+def safe_divide_zero_safe(
+    numerator: pd.Series,
+    denominator: pd.Series,
+) -> pd.Series:
+    """
+    Zero-safe wrapper for safe_divide.
+
+    Always allows division by zero and replaces results with 0.0
+    where denominator is zero.
+
+    This should be used in feature engineering pipelines to avoid
+    runtime crashes due to zero denominators.
+    """
+    return safe_divide(
+        numerator,
+        denominator,
+        allow_zero_division=True,
+        fill_value=0.0,
+    )
