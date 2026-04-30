@@ -1,0 +1,276 @@
+{
+  "family": "orderflow_tick",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "of__signed_volume",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Net signed traded volume computed as sum of trade_size multiplied by aggressor_side."
+    },
+    {
+      "name": "of__imbalance_ratio",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [-1, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Normalized aggressor imbalance as (buy_volume - sell_volume) divided by total volume."
+    },
+    {
+      "name": "of__large_trade_count",
+      "family": "orderflow_tick",
+      "dtype": "int32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0,
+      "tier": 1,
+      "description": "Count of trades in the record exceeding the configured large trade size threshold."
+    },
+    {
+      "name": "of__avg_trade_size",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Mean trade size across trades within the record."
+    },
+    {
+      "name": "of__time_between_trades",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Average time gap between consecutive trades inside the record in seconds."
+    },
+    {
+      "name": "of__aggressor_flag_ratio",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Fraction of trades that are buyer initiated within the record."
+    },
+    {
+      "name": "of__trade_price_vs_vwap",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Difference between average trade price and VWAP normalized by VWAP."
+    },
+    {
+      "name": "of__run_length_up",
+      "family": "orderflow_tick",
+      "dtype": "int32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0,
+      "tier": 1,
+      "description": "Length of the current consecutive up-tick trade sequence ending in the record."
+    },
+    {
+      "name": "of__run_length_down",
+      "family": "orderflow_tick",
+      "dtype": "int32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0,
+      "tier": 1,
+      "description": "Length of the current consecutive down-tick trade sequence ending in the record."
+    },
+    {
+      "name": "of__aggressive_buy_size",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Total size of buyer-initiated trades in the record."
+    },
+    {
+      "name": "of__aggressive_sell_size",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Total size of seller-initiated trades in the record."
+    },
+    {
+      "name": "of__sequence_entropy",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Entropy of the buyer versus seller trade direction sequence within the record."
+    },
+    {
+      "name": "of__small_trade_vol",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Volume contributed by trades below the configured small trade threshold."
+    },
+    {
+      "name": "of__medium_trade_vol",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Volume contributed by trades between the small and large thresholds."
+    },
+    {
+      "name": "of__large_trade_vol",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Volume contributed by trades exceeding the large trade threshold."
+    },
+    {
+      "name": "of__vwap_pressure",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Signed difference between VWAP and mid price for the record."
+    },
+    {
+      "name": "of__aggressor_volume_ratio",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Ratio of buyer-initiated volume to seller-initiated volume with safe epsilon handling."
+    },
+    {
+      "name": "of__execution_flow_polarity",
+      "family": "orderflow_tick",
+      "dtype": "int32",
+      "expected_range": [-1, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0,
+      "tier": 2,
+      "description": "Direction of dominant aggressor flow encoded as +1 for buys, -1 for sells, 0 neutral."
+    },
+    {
+      "name": "of__market_pressure_tilt",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Signed traded volume adjusted by spread and visible depth to capture market pressure."
+    },
+    {
+      "name": "of__impact_adjusted_flow",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Signed volume scaled by contemporaneous price impact relative to mid price and spread."
+    },
+    {
+      "name": "of__aggression_persistence",
+      "family": "orderflow_tick",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "false_if_missing",
+      "default_fill": false,
+      "tier": 2,
+      "description": "Indicator that the same aggressor side dominates both current and previous records."
+    },
+    {
+      "name": "of__trade_burst_intensity",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Trade count normalized by elapsed time within the record to capture burstiness."
+    },
+    {
+      "name": "of__toxicity_proxy",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Proxy for informed trading combining signed volume with adverse price movement."
+    },
+    {
+      "name": "of__realized_sign_rate",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Fraction of trades whose direction aligns with price movement direction."
+    },
+    {
+      "name": "of__price_impact_per_unit_volume",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Absolute price change relative to previous record divided by traded volume."
+    },
+    {
+      "name": "of__initiator_persistence",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": [0, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Probability-like measure that the same initiator side persists across records."
+    },
+    {
+      "name": "of__time_decay_of_flow",
+      "family": "orderflow_tick",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Exponentially decayed signed volume contribution from the previous record."
+    }
+  ]
+}

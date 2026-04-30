@@ -1,0 +1,256 @@
+{
+  "family": "price_ohlcv",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "price__last",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "forward_fill_then_zero",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Last executed trade price for the current record."
+    },
+    {
+      "name": "price__bid",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "forward_fill_then_zero",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Best bid price (level 1) for the current record."
+    },
+    {
+      "name": "price__ask",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "forward_fill_then_zero",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Best ask price (level 1) for the current record."
+    },
+    {
+      "name": "price__mid",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_bid_ask_else_forward_fill",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Mid price computed as the average of best bid and best ask."
+    },
+    {
+      "name": "ohlcv__open",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_trades_else_forward_fill",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "First traded price observed within the current record."
+    },
+    {
+      "name": "ohlcv__high",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_trades_else_forward_fill",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Highest traded price observed within the current record."
+    },
+    {
+      "name": "ohlcv__low",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_trades_else_forward_fill",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Lowest traded price observed within the current record."
+    },
+    {
+      "name": "ohlcv__close",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "forward_fill_then_zero",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Last traded price observed within the current record."
+    },
+    {
+      "name": "volume__tick",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Total traded volume within the current record."
+    },
+    {
+      "name": "trade_count",
+      "family": "price_ohlcv",
+      "dtype": "int32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0,
+      "tier": 1,
+      "description": "Number of executed trades within the current record."
+    },
+    {
+      "name": "volume__buy_sell_imbalance",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Buyer-initiated volume minus seller-initiated volume for the record."
+    },
+    {
+      "name": "vwap__in_record",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_else_price_last",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Volume-weighted average price across trades within the current record."
+    },
+    {
+      "name": "spread__l1",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_bid_ask_else_zero",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Level 1 bid-ask spread computed as best ask minus best bid."
+    },
+    {
+      "name": "tick_return",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [-1, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Return of the last trade price relative to the previous record's last price."
+    },
+    {
+      "name": "price__tick_direction",
+      "family": "price_ohlcv",
+      "dtype": "int32",
+      "expected_range": [-1, 1],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0,
+      "tier": 2,
+      "description": "Direction of last trade move encoded as -1 (down), 0 (flat), or +1 (up)."
+    },
+    {
+      "name": "return__bid_change",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [-1, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Relative change of best bid price versus the previous record."
+    },
+    {
+      "name": "return__ask_change",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [-1, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Relative change of best ask price versus the previous record."
+    },
+    {
+      "name": "return__mid_change",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [-1, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Relative change of mid price versus the previous record."
+    },
+    {
+      "name": "price__micro_volatility",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "zero_if_missing",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Absolute tick return within the record as a micro-volatility proxy."
+    },
+    {
+      "name": "price__jump_flag",
+      "family": "price_ohlcv",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "false_if_missing",
+      "default_fill": false,
+      "tier": 3,
+      "description": "Binary flag indicating a sudden jump in mid-price within the record."
+    },
+    {
+      "name": "exec__slippage_estimate",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [-1, "inf"],
+      "null_policy": "estimate_from_spread_and_depth_else_fixed",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Estimated execution slippage proxy derived from spread and depth."
+    },
+    {
+      "name": "price__micro_fair",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_depth_weighted_mid_else_mid",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Depth-weighted fair price proxy using bid/ask prices and sizes."
+    },
+    {
+      "name": "price__near_term_return_volatility",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": [0, "inf"],
+      "null_policy": "compute_from_returns_else_zero",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Absolute mid-price change within the record as a near-term volatility proxy."
+    },
+    {
+      "name": "price__imbalance_adjusted_return",
+      "family": "price_ohlcv",
+      "dtype": "float32",
+      "expected_range": ["-inf", "inf"],
+      "null_policy": "compute_normally_else_zero",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Tick return scaled by buy/sell imbalance to account for order flow."
+    },
+    {
+      "name": "price__tick_sweep_flag",
+      "family": "price_ohlcv",
+      "dtype": "bool",
+      "expected_range": [0, 1],
+      "null_policy": "false_if_missing",
+      "default_fill": false,
+      "tier": 3,
+      "description": "Binary flag indicating an aggressive liquidity sweep event."
+    }
+  ]
+}

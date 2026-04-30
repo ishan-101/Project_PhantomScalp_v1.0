@@ -1,0 +1,96 @@
+{
+  "family": "cross_asset_funding",
+  "version": "1.0",
+  "features": [
+    {
+      "name": "cross__btc_eth_spread",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [-1000000, 1000000],
+      "null_policy": "error_on_null",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "BTC spot price minus ETH spot price capturing relative value pressure."
+    },
+    {
+      "name": "cross__perp_spot_basis",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [-1000000, 1000000],
+      "null_policy": "error_on_null",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "BTC perpetual price minus BTC spot price; leverage premium or discount."
+    },
+    {
+      "name": "cross__funding_rate",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [-0.5, 0.5],
+      "null_policy": "forward_fill_only",
+      "default_fill": 0.0,
+      "tier": 1,
+      "description": "Current perpetual funding rate with forward-fill only and no smoothing."
+    },
+    {
+      "name": "cross__btc_dxy_corr_proxy",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [-1.0, 1.0],
+      "null_policy": "full_window_required",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Rolling past-only correlation proxy between BTC returns and USD index returns."
+    },
+    {
+      "name": "cross__funding_8h_rolling_avg",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [-0.5, 0.5],
+      "null_policy": "full_window_required",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "Backward-looking 8-hour rolling mean of the funding rate."
+    },
+    {
+      "name": "cross__basis_change",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [-1000000, 1000000],
+      "null_policy": "compute_else_error",
+      "default_fill": 0.0,
+      "tier": 2,
+      "description": "First difference of the perpetual-spot basis measuring leverage pressure acceleration."
+    },
+    {
+      "name": "cross__risk_on_off_flag",
+      "family": "cross_asset_funding",
+      "dtype": "bool",
+      "expected_range": [false, true],
+      "null_policy": "strict_boolean",
+      "default_fill": false,
+      "tier": 2,
+      "description": "Boolean proxy based on funding sign, basis sign, and correlation direction using fixed rules."
+    },
+    {
+      "name": "cross__perp_basis_velocity",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [-10000, 10000],
+      "null_policy": "compute_else_error",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Time-normalized rate of change of the perpetual-spot basis using backward deltas only."
+    },
+    {
+      "name": "cross__correlation_instability",
+      "family": "cross_asset_funding",
+      "dtype": "float32",
+      "expected_range": [0.0, 2.0],
+      "null_policy": "compute_else_error",
+      "default_fill": 0.0,
+      "tier": 3,
+      "description": "Absolute change in rolling BTC-USD index correlation indicating macro coupling shifts."
+    }
+  ]
+}
