@@ -1,0 +1,92 @@
+{
+  "fut__derivatives_regime_score__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Composite regime score combining leverage pressure, funding extremes, basis z-score, and liquidation pressure.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__derivatives_risk_index__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Aggregate risk index derived from normalized leverage, funding, and liquidation metrics.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__derivatives_trend_alignment__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[-1, 1]",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Alignment score between price trend and derivatives positioning signals.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__derivatives_dislocation_index__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Measures dislocation between basis, funding, and spot/perp pricing.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__derivatives_volatility_pressure__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction of derivatives positioning with market volatility.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__derivatives_liquidation_risk__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Risk of cascading liquidations based on leverage and liquidation pressure.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__derivatives_funding_stress__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Stress metric derived from extreme funding and open interest interaction.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__derivatives_regime_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "int32",
+    "expected_range": "[-1, 0, 1]",
+    "null_policy": "0_if_missing",
+    "default_fill": 0,
+    "description": "Ternary classification of derivatives regime (risk-off, neutral, risk-on).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__derivatives_extreme_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "bool",
+    "expected_range": "[false, true]",
+    "null_policy": "false_if_missing",
+    "default_fill": false,
+    "description": "Boolean flag indicating extreme derivatives conditions based on thresholds.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  }
+}

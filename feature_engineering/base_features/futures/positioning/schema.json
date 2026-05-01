@@ -1,0 +1,92 @@
+{
+  "fut__long_short_ratio__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "forward_fill_then_one",
+    "default_fill": 1.0,
+    "description": "Ratio of long positions to short positions in perpetual futures indicating market bias.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__long_short_ratio_change__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Change in long-short ratio versus prior snapshot capturing shifts in positioning.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__long_short_ratio_velocity__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Rate of change of long-short ratio over time indicating speed of sentiment shifts.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__long_short_ratio_zscore__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_using_baseline_stats_else_zero",
+    "default_fill": 0.0,
+    "description": "Z-score of long-short ratio relative to rolling baseline.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__positioning_skew__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[-1, 1]",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Normalized skew derived from long-short ratio capturing directional imbalance.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__positioning_extreme_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "bool",
+    "expected_range": "[false, true]",
+    "null_policy": "false_if_missing",
+    "default_fill": false,
+    "description": "Flag indicating extreme positioning based on z-score threshold.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__positioning_oi_interaction__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction between positioning skew and open interest z-score indicating leveraged bias.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__positioning_trend_strength__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Strength of positioning trend measured via rolling slope or normalized change.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__positioning_regime_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "int32",
+    "expected_range": "[-1, 0, 1]",
+    "null_policy": "0_if_missing",
+    "default_fill": 0,
+    "description": "Ternary regime classification of positioning (net long, neutral, net short).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  }
+}
