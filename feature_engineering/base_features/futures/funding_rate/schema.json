@@ -1,0 +1,92 @@
+{
+  "fut__funding_rate__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "forward_fill_then_zero",
+    "default_fill": 0.0,
+    "description": "Current perpetual futures funding rate representing directional market imbalance.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__funding_rate_change__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Absolute change in funding rate versus prior snapshot.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__funding_rate_velocity__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Rate of change of funding rate over time capturing positioning shifts.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__funding_rate_acceleration__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Second derivative of funding rate capturing acceleration of sentiment shifts.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__funding_rate_zscore__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_using_baseline_stats_else_zero",
+    "default_fill": 0.0,
+    "description": "Z-score of funding rate relative to rolling baseline.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__funding_pressure_index__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Composite index combining funding rate, velocity, and time-to-settlement pressure.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__funding_extreme_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "bool",
+    "expected_range": "[false, true]",
+    "null_policy": "false_if_missing",
+    "default_fill": false,
+    "description": "Flag indicating extreme funding conditions based on z-score threshold.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__funding_oi_stress__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction between funding rate z-score and open interest z-score.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__funding_rate_regime_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "int32",
+    "expected_range": "[-1, 0, 1]",
+    "null_policy": "0_if_missing",
+    "default_fill": 0,
+    "description": "Ternary regime classification of funding conditions.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  }
+}

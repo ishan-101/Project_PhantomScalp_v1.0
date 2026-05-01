@@ -1,0 +1,92 @@
+{
+  "fut__leverage_estimate__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Estimated market leverage derived from open interest relative to market size.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__leverage_change__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Change in estimated leverage over time.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__leverage_velocity__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Rate of change of leverage indicating speed of leverage buildup.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__leverage_zscore__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_using_baseline_stats_else_zero",
+    "default_fill": 0.0,
+    "description": "Z-score of leverage relative to rolling baseline.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__leverage_pressure_index__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Composite index combining leverage z-score, funding pressure, and volume imbalance.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__leverage_funding_interaction__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction between leverage and funding rate z-score indicating stress.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__leverage_liquidation_interaction__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction between leverage and liquidation pressure.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__leverage_volatility_interaction__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Interaction between leverage and market volatility.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__leverage_regime_flag__mtf-none__strike-none__maturity-none": {
+    "dtype": "int32",
+    "expected_range": "[-1, 0, 1]",
+    "null_policy": "0_if_missing",
+    "default_fill": 0,
+    "description": "Ternary classification of leverage regime (low, neutral, high).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  }
+}
