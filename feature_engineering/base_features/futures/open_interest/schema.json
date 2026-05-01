@@ -1,0 +1,92 @@
+{
+  "fut__open_interest__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "forward_fill_then_zero",
+    "default_fill": 0.0,
+    "description": "Total open interest in perpetual futures contracts representing outstanding positions not yet settled.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__oi_change__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Absolute change in open interest versus the prior snapshot, indicating position opening or closing.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__oi_velocity__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Rate of change of open interest over time capturing speed of leverage build-up or unwinding.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__oi_acceleration__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Second derivative of open interest indicating acceleration or deceleration of position building.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__oi_zscore__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_using_baseline_stats_else_zero",
+    "default_fill": 0.0,
+    "description": "Z-score of open interest relative to a rolling baseline, normalizing leverage across regimes.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__oi_price_divergence__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "(-inf, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Directional divergence between open interest change and price movement computed as sign(oi_change) minus sign(price_return).",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-1"
+  },
+  "fut__oi_price_divergence_strength__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Magnitude of divergence between open interest and price movement normalized by their rolling volatility.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__oi_turnover__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_zero",
+    "default_fill": 0.0,
+    "description": "Ratio of traded volume to open interest indicating how actively positions are rotating.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  },
+  "fut__oi_open_close_ratio__mtf-none__strike-none__maturity-none": {
+    "dtype": "float32",
+    "expected_range": "[0, +inf)",
+    "null_policy": "compute_else_one",
+    "default_fill": 1.0,
+    "description": "Ratio of newly opened contracts to closed contracts indicating net leverage expansion or contraction.",
+    "family": "futures",
+    "version": "1.0",
+    "tier": "Tier-2"
+  }
+}
